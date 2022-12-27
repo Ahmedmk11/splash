@@ -1,0 +1,32 @@
+{
+  "name": "splash",
+  "version": "1.0.0",
+  "description": "Website for Splash",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "start": "webpack serve --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahmedmk11/splash.git"
+  },
+  "keywords": [],
+  "author": "Ahmed Mahmoud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahmedmk11/splash/issues"
+  },
+  "homepage": "https://github.com/Ahmedmk11/splash#readme",
+  "dependencies": {
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
