@@ -1,12 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
+  watch: true,
   mode: 'development',
   entry: {
     index: './src/scripts/index.js',
-    app: './src/scripts/app.js',
-    localStorage: './src/scripts/local-storage.js',
     ui: './src/scripts/ui.js',
   },
   devtool: 'inline-source-map',
@@ -17,7 +17,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Custom template',
       template: './src/index.html'
-    })
+    }),
+    new FaviconsWebpackPlugin('./src/assets/images/icons/icn.png')
   ],
   output: {
     filename: '[name].bundle.js',
