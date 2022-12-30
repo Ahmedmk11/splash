@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Ahmedmk11/splash#readme",
   "dependencies": {
+    "babel": "^6.23.0",
     "css-loader": "^6.7.3",
     "ejs": "^3.1.8",
     "favicons": "^7.0.2",
@@ -36,6 +37,7 @@
     "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
+    "babel-plugin-wildcard": "^7.0.0",
     "rtlcss": "^4.0.0",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",

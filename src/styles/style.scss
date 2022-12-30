@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    min-height: fit-content;
     width: 100%;
     padding: 0%;
     margin: 0%;
@@ -12,7 +13,7 @@ body {
 }
 
 #main-container {
-    height: 100%;
+    min-height: fit-content;
 }
 
 #header {
@@ -26,7 +27,6 @@ body {
     box-shadow: 0px 3px 10px black;
     position: sticky;
     top: 0;
-    
 }
 
 #header-upper {
@@ -34,6 +34,7 @@ body {
     min-height: fit-content;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -52,7 +53,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 10%;
+    height: 50px;
     p {
         margin: 0.4em;
         color: white;
@@ -107,11 +108,10 @@ input[type=search]::after {
     height: 100%;
     width: 20%;
     flex-wrap: wrap;
-    margin-left: auto;
     
     select {
         border: none;
-        background-color: #e2e8f0;
+        background-color: #0d4d79;
         border-radius: 2vmin;
         -webkit-border-radius: 2vmin;
         -moz-border-radius: 2vmin;
@@ -120,8 +120,14 @@ input[type=search]::after {
         height: max-content;
         min-width: fit-content;
         max-width: max-content;
-        padding: 10px 22px 15px 15px;
+        padding: 10px 10px 10px 10px;
         margin-bottom: 6px;
+        border: 2px solid #FFF;
+        appearance: none;
+    }
+
+    select:hover {
+        cursor: pointer;
     }
 
     input[type=email], input[type=password] {
@@ -140,6 +146,10 @@ input[type=search]::after {
     select::after, input[type=email]::after, input[type=password]::after {
         background-color: #FFF;
         border: 0px;
+    }
+
+    #slct-page {
+        display: none;
     }
 
     img {
@@ -207,12 +217,12 @@ input[type=search]::after {
 #middle-container {
     padding: 35px 0px 35px 0px;
     width: 100%;
-    min-height: 100%;
+    min-height: 100vh;
     background-color: white; // for resizing
     #grid {
         margin: auto;
         width: 90%;
-        height: 100%;
+        min-height: fit-content;
         display: grid;
         gap: 30px;
         grid-template-columns: repeat(auto-fill, 400px); 
@@ -220,10 +230,14 @@ input[type=search]::after {
         justify-content: center;
         
         div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
             background-color: white;
-            overflow: scroll;
             min-height: 400px;
             min-width: 300px;
+            width: fit-content;
             box-shadow: 0px 0px 6px black;
             border-radius: 2vmin;
             -webkit-border-radius: 2vmin;
@@ -237,5 +251,25 @@ input[type=search]::after {
 @media only screen and (max-width: 600px) {
 	#header {
         justify-content: center;
+        input[type=search] {
+            min-width: 350px;
+        }
+        #header-upper {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #actions-container {
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+        }
+        #nav-bar {
+            display: none;
+        }
+        #slct-page {
+        display: block;
+        }
     }
 }
