@@ -16,17 +16,31 @@ body {
 }
 
 #header {
-  background-color: #0d4d79;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  height: 20%;
+  height: max-content;
+  justify-content: center;
+  background-color: #0d4d79;
+  box-shadow: 0px 3px 10px black;
+  position: sticky;
+  top: 0;
+}
+
+#header-upper {
+  width: 100%;
+  min-height: fit-content;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 #logo-img {
-  width: 300px;
+  width: 25%;
+  min-width: 340px;
+  justify-self: flex-start;
 }
 
 footer {
@@ -39,7 +53,7 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 25%;
+  height: 10%;
 }
 footer p {
   margin: 0.4em;
@@ -52,35 +66,29 @@ footer p a:hover {
   color: white;
 }
 
-#search-container {
-  height: max-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  min-width: 60%;
-}
-#search-container img {
-  width: 32px;
-  margin-right: 2%;
-}
-
 input[type=search] {
   border: none;
   background-color: #e2e8f0;
+  background-image: url("../assets/images/icons/srch.png");
+  background-position: 2%;
+  background-size: 25px;
+  background-repeat: no-repeat;
   border-radius: 2vmin;
   -webkit-border-radius: 2vmin;
   -moz-border-radius: 2vmin;
   -ms-border-radius: 2vmin;
   -o-border-radius: 2vmin;
   height: 5.5vh;
-  min-width: 100%;
+  min-width: 500px;
   padding: 18px;
+  padding-inline-start: 40px;
+  margin: 10px;
+  justify-self: flex-start;
 }
 
 input[type=search]::after {
-  background-color: #FFF;
-  border: 0px;
+  background-color: #e2e8f0;
+  border: none;
 }
 
 #lgn {
@@ -98,7 +106,54 @@ input[type=search]::after {
   justify-content: space-evenly;
   align-items: center;
   height: 100%;
-  width: 60%;
+  width: 20%;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+#actions-container select {
+  border: none;
+  background-color: #e2e8f0;
+  border-radius: 2vmin;
+  -webkit-border-radius: 2vmin;
+  -moz-border-radius: 2vmin;
+  -ms-border-radius: 2vmin;
+  -o-border-radius: 2vmin;
+  height: max-content;
+  min-width: fit-content;
+  max-width: max-content;
+  padding: 10px 22px 15px 15px;
+  margin-bottom: 6px;
+}
+#actions-container input[type=email], #actions-container input[type=password] {
+  border: none;
+  background-color: #e2e8f0;
+  border-radius: 2vmin;
+  -webkit-border-radius: 2vmin;
+  -moz-border-radius: 2vmin;
+  -ms-border-radius: 2vmin;
+  -o-border-radius: 2vmin;
+  height: max-content;
+  width: 100%;
+  padding: 10px 15px 10px 15px;
+}
+#actions-container select::after, #actions-container input[type=email]::after, #actions-container input[type=password]::after {
+  background-color: #FFF;
+  border: 0px;
+}
+#actions-container img {
+  cursor: pointer;
+  transition: transform ease-in-out 400ms;
+  -webkit-transition: transform ease-in-out 400ms;
+  -moz-transition: transform ease-in-out 400ms;
+  -ms-transition: transform ease-in-out 400ms;
+  -o-transition: transform ease-in-out 400ms;
+}
+#actions-container img:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
 }
 
 .loggedout {
@@ -107,6 +162,52 @@ input[type=search]::after {
 
 .loggedin {
   display: flex;
+}
+
+#nav-bar {
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+}
+#nav-bar div {
+  font-size: 1.35rem;
+  font-weight: 900;
+  display: inline-block;
+  position: relative;
+  color: black;
+  margin-left: 15px;
+}
+#nav-bar div::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transform-origin: bottom right;
+  transition: transform 500ms ease-out;
+  -webkit-transition: transform 500ms ease-out;
+  -moz-transition: transform 500ms ease-out;
+  -ms-transition: transform 500ms ease-out;
+  -o-transition: transform 500ms ease-out;
+}
+#nav-bar div:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+#nav-bar div:hover {
+  cursor: pointer;
+}
+
+#main-container {
+  background-color: aqua;
+}
+
+@media only screen and (max-width: 600px) {
+  #header {
+    justify-content: center;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html class="ar" lang="en"> 
 
     <head>
         <meta charset="UTF-8" />
@@ -11,22 +11,29 @@
 
         <div id="main-container">
             <div id="header">
-                <div id="search-container" class="search-container align">
-                    <input type="search" placeholder="placeholder">
-                </div>
-                <div id="actions-container">
-                    <div id="lang">
+                <div id="header-upper">
+                    <input type="search" placeholder="Search our database..">
+                    <div id="actions-container">
                         <select name="language" id="slct-lang">
                             <option value="arabic">Arabic</option>
                             <option value="english" selected>English</option>
                         </select>
+                        <!-- <form class="loggedout" id="lgn" action="scripts/script.php" method="post">
+                            <input type="email" id="email" placeholder="Email">
+                            <input type="password" id="pwd" placeholder="Password">
+                            <input type="submit" value="Login">
+                        </form> -->
                     </div>
-                    <form class="loggedout" id="lgn" action="scripts/script.php" method="post">                 
-                        <input type="email" id="email" placeholder="Email">
-                        <input type="password" id="pwd" placeholder="Password">
-                        <input type="submit" value="Login">
-                    </form>
                 </div>
+                <div id="nav-bar">
+                    <div id="bedrooms" class="line">Bedrooms</div>
+                    <div id="salons" class="line">Salons</div>
+                    <div id="bookcases" class="line">Bookcases</div>
+                    <div id="diningrooms" class="line">Dining Rooms</div>
+                </div>
+            </div>
+            <div id="middle-container">
+
             </div>
         </div>
 
