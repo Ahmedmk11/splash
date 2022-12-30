@@ -24,6 +24,58 @@ const actionsContainer = document.getElementById('actions-container');
 const mainContainer = document.getElementById('main-container');
 const grid = document.getElementById('grid');
 
+const langBtn = document.getElementById('slct-lang');
+const homeBtn = document.getElementById('home');
+const bedroomsBtn = document.getElementById('bedrooms');
+const livingroomsBtn = document.getElementById('livingrooms');
+const bookcasesBtn = document.getElementById('bookcases');
+const diningroomsBtn = document.getElementById('diningrooms');
+
+let navBtns = [homeBtn, bedroomsBtn, livingroomsBtn, bookcasesBtn, diningroomsBtn];
+
+homeBtn.addEventListener('click', () => {
+    navBtns.forEach(btn => {
+        btn.classList.remove('selected-page');
+    });
+    homeBtn.classList.add('selected-page');
+});
+bedroomsBtn.addEventListener('click', () => {
+    navBtns.forEach(btn => {
+        btn.classList.remove('selected-page');
+    });
+    bedroomsBtn.classList.add('selected-page');
+});
+livingroomsBtn.addEventListener('click', () => {
+    navBtns.forEach(btn => {
+        btn.classList.remove('selected-page');
+    });
+    livingroomsBtn.classList.add('selected-page');
+});
+bookcasesBtn.addEventListener('click', () => {
+    navBtns.forEach(btn => {
+        btn.classList.remove('selected-page');
+    });
+    bookcasesBtn.classList.add('selected-page');
+});
+diningroomsBtn.addEventListener('click', () => {
+    navBtns.forEach(btn => {
+        btn.classList.remove('selected-page');
+    });
+    diningroomsBtn.classList.add('selected-page');
+});
+
+langBtn.addEventListener('change', () => {
+    if (langBtn.value == 'arabic') {
+        document.body.classList.add('ar');
+        document.body.classList.remove('en');
+    } else {
+        document.body.classList.add('en');
+        document.body.classList.remove('ar');
+    }
+});
+
+
+
 logoImg.src = logo;
 profileImg.src = profileLogo;
 starImg.src = starLogo;

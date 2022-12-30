@@ -118,8 +118,7 @@ input[type=search]::after {
         -ms-border-radius: 2vmin;
         -o-border-radius: 2vmin;
         height: max-content;
-        min-width: fit-content;
-        max-width: max-content;
+        width: auto;
         padding: 10px 10px 10px 10px;
         margin-bottom: 6px;
         border: 2px solid #FFF;
@@ -217,7 +216,7 @@ input[type=search]::after {
 #middle-container {
     padding: 35px 0px 35px 0px;
     width: 100%;
-    min-height: 100vh;
+    min-height: 90vh;
     background-color: white; // for resizing
     #grid {
         margin: auto;
@@ -246,6 +245,13 @@ input[type=search]::after {
             -o-border-radius: 2vmin;
         }
     }
+}
+
+.selected-page {
+    color: black !important;
+}
+.selected-page::after {
+    background-color: black !important;
 }
 
 @media only screen and (max-width: 600px) {
