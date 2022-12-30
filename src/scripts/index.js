@@ -17,11 +17,21 @@ export function populateGrid(imageArr) {
     for (let i = 1; i <= Object.keys(imageArr).length; i++) {
         let tmp = document.createElement("div");
         let info = document.createElement("div");
+        let tmpL = document.createElement("div");
+        let nameP = document.createElement("p");
+        let priceP = document.createElement("p");
+        let hr = document.createElement('hr');
         let img = new Image();
         tmp.classList.add('item');
-        img.src = imageArr[`${i}.jpg`]
+        img.src = imageArr[`${i}.jpg`];
+        nameP.textContent = 'Placeholder Name';
+        priceP.textContent = 'EGP 1600';
+        info.append(nameP);
+        info.append(priceP);
         tmp.append(img);
-        tmp.append(info);
+        tmpL.append(hr);
+        tmpL.append(info);
+        tmp.append(tmpL);
         grid.append(tmp);
     }
     middleContainer.append(grid);

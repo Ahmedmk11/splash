@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Recoleta;
+  src: url("../assets/fonts/Recoleta-Black.ttf");
+}
 html, body {
   height: 100%;
   min-height: fit-content;
@@ -7,6 +11,7 @@ html, body {
 }
 
 body {
+  font-family: Recoleta;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -121,7 +126,7 @@ input[type=search]::after {
   width: auto;
   padding: 10px 10px 10px 10px;
   margin-bottom: 6px;
-  border: 2px solid #FFF;
+  border: 2px solid black;
   appearance: none;
 }
 #actions-container select:hover {
@@ -219,7 +224,7 @@ input[type=search]::after {
   display: grid;
   gap: 40px;
   grid-template-columns: repeat(auto-fill, 500px);
-  grid-template-rows: repeat(auto-fill, 400px);
+  grid-template-rows: repeat(auto-fill, 500px);
   justify-content: center;
 }
 #middle-container #grid .item {
@@ -230,15 +235,19 @@ input[type=search]::after {
   background-color: white;
   box-shadow: 0px 0px 6px black;
   width: 500px;
-  height: 400px;
+  height: 500px;
   border-radius: 3vmin;
   -webkit-border-radius: 3vmin;
   -moz-border-radius: 3vmin;
   -ms-border-radius: 3vmin;
   -o-border-radius: 3vmin;
+  cursor: pointer;
 }
-#middle-container #grid .item div {
-  size: 100px;
+#middle-container #grid .item hr {
+  border: 0px;
+  height: 1px;
+  width: 80%;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 #middle-container #grid .item img {
   margin-top: 10px;
@@ -247,6 +256,11 @@ input[type=search]::after {
   max-height: 300px;
   width: auto;
   height: auto;
+}
+#middle-container #grid .item div {
+  height: 150px;
+  width: 80%;
+  font-size: 1.2rem;
 }
 
 .selected-page {
@@ -280,6 +294,17 @@ input[type=search]::after {
   }
   #header #slct-page {
     display: block;
+  }
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 80vw);
+  }
+  #grid .item {
+    width: 80vw !important;
+    margin: auto;
+  }
+  #grid .item img {
+    max-width: 60vw !important;
   }
 }
 

@@ -28,7 +28,7 @@ const bedroomsArr = importAll(require.context('../assets/images/testing/bedrooms
 const livingroomsArr = importAll(require.context('../assets/images/testing/livingrooms', false, /\.(png|jpe?g|svg)$/));
 const bookcasesArr = importAll(require.context('../assets/images/testing/bookcases', false, /\.(png|jpe?g|svg)$/));
 const diningroomsArr = importAll(require.context('../assets/images/testing/diningrooms', false, /\.(png|jpe?g|svg)$/));
-console.log(typeof bedroomsArr)
+
 let navBtns = [homeBtn, bedroomsBtn, livingroomsBtn, bookcasesBtn, diningroomsBtn];
 
 homeBtn.addEventListener('click', () => {
@@ -84,14 +84,19 @@ langBtn.addEventListener('change', () => {
 pageBtn.addEventListener('change', () => {
     switch (pageBtn.value) {
         case 'homeSlct':
+            goHome();
             break;
         case 'bedroomsSlct':
+            populateGrid(bedroomsArr);
             break;
         case 'livingroomsSlct':
+            populateGrid(livingroomsArr);
             break;
         case 'bookcasesSlct':
+            populateGrid(bookcasesArr);
             break;
         case 'diningroomsSlct':
+            populateGrid(diningroomsArr);
             break;
         default:
             break;
@@ -102,9 +107,7 @@ logoImg.src = logo;
 profileImg.src = profileLogo;
 starImg.src = starLogo;
 cartImg.src = cartLogo;
-
 logoImg.id = 'logo-img';
-
 
 headerUp.prepend(logoImg);
 actionsContainer.append(starImg);

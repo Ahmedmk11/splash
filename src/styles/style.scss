@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Recoleta;
+    src: url('../assets/fonts/Recoleta-Black.ttf');
+}
+
 html, body {
     height: 100%;
     min-height: fit-content;
@@ -7,6 +12,7 @@ html, body {
 }
 
 body {
+    font-family: Recoleta;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -121,7 +127,7 @@ input[type=search]::after {
         width: auto;
         padding: 10px 10px 10px 10px;
         margin-bottom: 6px;
-        border: 2px solid #FFF;
+        border: 2px solid black;
         appearance: none;
     }
 
@@ -217,7 +223,7 @@ input[type=search]::after {
     padding: 35px 0px 35px 0px;
     width: 100%;
     min-height: 90vh;
-    background-color: white; // for resizing
+    background-color: white;
     #grid {
         margin: auto;
         width: 90%;
@@ -225,7 +231,7 @@ input[type=search]::after {
         display: grid;
         gap: 40px;
         grid-template-columns: repeat(auto-fill, 500px); 
-        grid-template-rows: repeat(auto-fill, 400px); 
+        grid-template-rows: repeat(auto-fill, 500px); 
         justify-content: center;
         .item {
             display: flex;
@@ -235,14 +241,18 @@ input[type=search]::after {
             background-color: white;
             box-shadow: 0px 0px 6px black;
             width: 500px;
-            height: 400px;
+            height: 500px;
             border-radius: 3vmin;
             -webkit-border-radius: 3vmin;
             -moz-border-radius: 3vmin;
             -ms-border-radius: 3vmin;
             -o-border-radius: 3vmin;
-            div {
-                size: 100px;
+            cursor: pointer;
+            hr {
+                border: 0px;
+                height: 1px;
+                width: 80%;
+                background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
             }
             img {
                 margin-top: 10px;
@@ -251,6 +261,11 @@ input[type=search]::after {
                 max-height: 300px;
                 width: auto;
                 height: auto;
+            }
+            div {
+                height: 150px; // can be changed based on max image height
+                width: 80%;
+                font-size: 1.2rem;
             }
         }
     }
@@ -284,7 +299,18 @@ input[type=search]::after {
             display: none;
         }
         #slct-page {
-        display: block;
+            display: block;
+        }
+    }
+    #grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 80vw); 
+        .item {
+            width: 80vw !important;
+            margin: auto;
+            img {
+                max-width: 60vw !important;
+            }
         }
     }
 }
