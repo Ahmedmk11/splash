@@ -217,26 +217,36 @@ input[type=search]::after {
   width: 90%;
   min-height: fit-content;
   display: grid;
-  gap: 30px;
-  grid-template-columns: repeat(auto-fill, 400px);
-  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 40px;
+  grid-template-columns: repeat(auto-fill, 500px);
+  grid-template-rows: repeat(auto-fill, 400px);
   justify-content: center;
 }
-#middle-container #grid div {
+#middle-container #grid .item {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   background-color: white;
-  min-height: 400px;
-  min-width: 300px;
-  width: fit-content;
   box-shadow: 0px 0px 6px black;
-  border-radius: 2vmin;
-  -webkit-border-radius: 2vmin;
-  -moz-border-radius: 2vmin;
-  -ms-border-radius: 2vmin;
-  -o-border-radius: 2vmin;
+  width: 500px;
+  height: 400px;
+  border-radius: 3vmin;
+  -webkit-border-radius: 3vmin;
+  -moz-border-radius: 3vmin;
+  -ms-border-radius: 3vmin;
+  -o-border-radius: 3vmin;
+}
+#middle-container #grid .item div {
+  size: 100px;
+}
+#middle-container #grid .item img {
+  margin-top: 10px;
+  display: block;
+  max-width: 400px;
+  max-height: 300px;
+  width: auto;
+  height: auto;
 }
 
 .selected-page {

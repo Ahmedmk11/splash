@@ -3,14 +3,7 @@ import logo from '../assets/images/pictures/logo.jpg';
 import profileLogo from '../assets/images/icons/profile.png';
 import starLogo from '../assets/images/icons/star.png';
 import cartLogo from '../assets/images/icons/cart.png';
-
-function importAll(r) {
-    let images = {};
-    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-    return images;
-  }
-
-const images = importAll(require.context('../assets/images/testing/', false, /\.(png|jpe?g|svg)$/));
+import {goHome, importAll, populateGrid} from './index.js';
 
 const logoImg = new Image();
 const profileImg = new Image();
@@ -21,16 +14,21 @@ const main = document.getElementById('main-container');
 const headerUp = document.getElementById('header-upper');
 const searchContainer = document.getElementById('search-container');
 const actionsContainer = document.getElementById('actions-container');
-const mainContainer = document.getElementById('main-container');
-const grid = document.getElementById('grid');
+const middleContainer = document.getElementById('middle-container');
 
 const langBtn = document.getElementById('slct-lang');
+const pageBtn = document.getElementById('slct-page');
 const homeBtn = document.getElementById('home');
 const bedroomsBtn = document.getElementById('bedrooms');
 const livingroomsBtn = document.getElementById('livingrooms');
 const bookcasesBtn = document.getElementById('bookcases');
 const diningroomsBtn = document.getElementById('diningrooms');
 
+const bedroomsArr = importAll(require.context('../assets/images/testing/bedrooms', false, /\.(png|jpe?g|svg)$/));
+const livingroomsArr = importAll(require.context('../assets/images/testing/livingrooms', false, /\.(png|jpe?g|svg)$/));
+const bookcasesArr = importAll(require.context('../assets/images/testing/bookcases', false, /\.(png|jpe?g|svg)$/));
+const diningroomsArr = importAll(require.context('../assets/images/testing/diningrooms', false, /\.(png|jpe?g|svg)$/));
+console.log(typeof bedroomsArr)
 let navBtns = [homeBtn, bedroomsBtn, livingroomsBtn, bookcasesBtn, diningroomsBtn];
 
 homeBtn.addEventListener('click', () => {
@@ -38,30 +36,39 @@ homeBtn.addEventListener('click', () => {
         btn.classList.remove('selected-page');
     });
     homeBtn.classList.add('selected-page');
+    goHome();
 });
+
 bedroomsBtn.addEventListener('click', () => {
     navBtns.forEach(btn => {
         btn.classList.remove('selected-page');
     });
     bedroomsBtn.classList.add('selected-page');
+    populateGrid(bedroomsArr);
 });
+
 livingroomsBtn.addEventListener('click', () => {
     navBtns.forEach(btn => {
         btn.classList.remove('selected-page');
     });
     livingroomsBtn.classList.add('selected-page');
+    populateGrid(livingroomsArr);
 });
+
 bookcasesBtn.addEventListener('click', () => {
     navBtns.forEach(btn => {
         btn.classList.remove('selected-page');
     });
     bookcasesBtn.classList.add('selected-page');
+    populateGrid(bookcasesArr);
 });
+
 diningroomsBtn.addEventListener('click', () => {
     navBtns.forEach(btn => {
         btn.classList.remove('selected-page');
     });
     diningroomsBtn.classList.add('selected-page');
+    populateGrid(diningroomsArr);
 });
 
 langBtn.addEventListener('change', () => {
@@ -74,7 +81,22 @@ langBtn.addEventListener('change', () => {
     }
 });
 
-
+pageBtn.addEventListener('change', () => {
+    switch (pageBtn.value) {
+        case 'homeSlct':
+            break;
+        case 'bedroomsSlct':
+            break;
+        case 'livingroomsSlct':
+            break;
+        case 'bookcasesSlct':
+            break;
+        case 'diningroomsSlct':
+            break;
+        default:
+            break;
+    }
+});
 
 logoImg.src = logo;
 profileImg.src = profileLogo;
@@ -88,14 +110,3 @@ headerUp.prepend(logoImg);
 actionsContainer.append(starImg);
 actionsContainer.append(cartImg);
 actionsContainer.append(profileImg);
-
-//comment check min height for middle
-
-for (let i = 1; i <= 18; i++) {
-	let tmp = document.createElement("div");
-	let img = new Image();
-    img.src = images[`${i}.jpg`]
-    img.style.height='200px';
-    tmp.append(img);
-    grid.append(tmp);
-}
