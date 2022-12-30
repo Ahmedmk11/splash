@@ -13,6 +13,8 @@ const main = document.getElementById('main-container');
 const headerUp = document.getElementById('header-upper');
 const searchContainer = document.getElementById('search-container');
 const actionsContainer = document.getElementById('actions-container');
+const mainContainer = document.getElementById('main-container');
+const grid = document.getElementById('grid');
 
 logoImg.src = logo;
 profileImg.src = profileLogo;
@@ -26,3 +28,9 @@ headerUp.prepend(logoImg);
 actionsContainer.append(starImg);
 actionsContainer.append(cartImg);
 actionsContainer.append(profileImg);
+
+
+for (let i = 0; i <= 11; i++) {
+	let tmp = document.createElement("div");
+    grid.append(tmp)
+}
