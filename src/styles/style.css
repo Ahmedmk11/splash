@@ -2,6 +2,16 @@
   font-family: Recoleta;
   src: url("../assets/fonts/Recoleta-Black.ttf");
 }
+body.ar {
+  --flex-row-direction: row-reverse;
+  --pos-icon: 2%;
+}
+
+body.en {
+  --flex-row-direction: row;
+  --pos-icon: 98%;
+}
+
 html, body {
   height: 100%;
   min-height: fit-content;
@@ -38,7 +48,7 @@ body {
   width: 100%;
   min-height: fit-content;
   display: flex;
-  flex-direction: row;
+  flex-direction: var(--flex-row-direction);
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
@@ -48,6 +58,7 @@ body {
   width: 25%;
   min-width: 340px;
   justify-self: flex-start;
+  cursor: pointer;
 }
 
 footer {
@@ -75,7 +86,7 @@ input[type=search] {
   border: none;
   background-color: #e2e8f0;
   background-image: url("../assets/images/icons/srch.png");
-  background-position: 2%;
+  background-position: var(--pos-icon);
   background-size: 25px;
   background-repeat: no-repeat;
   border-radius: 2vmin;
@@ -86,7 +97,6 @@ input[type=search] {
   height: 5.5vh;
   min-width: 500px;
   padding: 18px;
-  padding-inline-start: 40px;
   margin: 10px;
   justify-self: flex-start;
 }
@@ -107,7 +117,7 @@ input[type=search]::after {
 
 #actions-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: var(--flex-row-direction);
   justify-content: space-evenly;
   align-items: center;
   height: 100%;
@@ -128,6 +138,7 @@ input[type=search]::after {
   margin-bottom: 6px;
   border: 2px solid black;
   appearance: none;
+  color: black;
 }
 #actions-container select:hover {
   cursor: pointer;
@@ -176,8 +187,10 @@ input[type=search]::after {
 }
 
 #nav-bar {
-  width: 100%;
+  width: 95%;
   padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: var(--flex-row-direction);
 }
 #nav-bar div {
   font-size: 1.35rem;
@@ -264,7 +277,7 @@ input[type=search]::after {
 }
 #middle-container #grid .item div .info {
   display: flex;
-  flex-direction: row;
+  flex-direction: var(--flex-row-direction);
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -274,9 +287,10 @@ input[type=search]::after {
   flex-direction: column;
   justify-content: center;
   margin-bottom: 5px;
+  width: fit-content;
 }
 #middle-container #grid .item div .info .info-left p {
-  width: 80%;
+  width: fit-content;
   margin: 5px 0px 5px 0px;
 }
 #middle-container #grid .item div .info img {
