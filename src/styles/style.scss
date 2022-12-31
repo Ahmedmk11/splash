@@ -247,13 +247,6 @@ input[type=search]::after {
             -moz-border-radius: 3vmin;
             -ms-border-radius: 3vmin;
             -o-border-radius: 3vmin;
-            cursor: pointer;
-            hr {
-                border: 0px;
-                height: 1px;
-                width: 80%;
-                background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-            }
             img {
                 margin-top: 10px;
                 display: block;
@@ -261,11 +254,50 @@ input[type=search]::after {
                 max-height: 300px;
                 width: auto;
                 height: auto;
+                cursor: pointer;
+            }
+            hr {
+                border: 0px;
+                height: 1px;
+                width: 80%;
+                background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
             }
             div {
                 height: 150px; // can be changed based on max image height
                 width: 80%;
                 font-size: 1.2rem;
+                .info {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    .info-left {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        margin-bottom: 5px;
+                        p {
+                            width: 80%;
+                            margin: 5px 0px 5px 0px;
+                        }
+                    }
+                    img {
+                        margin: 0%;
+                        transition: transform ease-in-out 400ms;
+                        -webkit-transition: transform ease-in-out 400ms;
+                        -moz-transition: transform ease-in-out 400ms;
+                        -ms-transition: transform ease-in-out 400ms;
+                        -o-transition: transform ease-in-out 400ms;
+                    }
+                    img:hover {
+                        transform: scale(1.2);
+                        -webkit-transform: scale(1.2);
+                        -moz-transform: scale(1.2);
+                        -ms-transform: scale(1.2);
+                        -o-transform: scale(1.2);
+                    }
+                }
             }
         }
     }
@@ -276,6 +308,10 @@ input[type=search]::after {
 }
 .selected-page::after {
     background-color: black !important;
+}
+
+.fav {
+    background-color: gold;
 }
 
 @media only screen and (max-width: 600px) {
