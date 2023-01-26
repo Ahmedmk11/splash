@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const webpack = require("webpack");
 
 
 module.exports = {
@@ -15,6 +16,10 @@ module.exports = {
     static: './dist',
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: require.resolve('jquery'),
+      jQuery: require.resolve('jquery')
+    }),
     new HtmlWebpackPlugin({
       title: 'Custom template',
       template: './src/index.html'

@@ -1,7 +1,7 @@
 import '../styles/style.css';
-import {goHome, populateGrid, newSelect, populateLang, switchLang} from './index.js';
-import {homeBtn, bedroomsBtn, receptionsBtn, bookcasesBtn, diningroomsBtn,langBtn, pageBtn,
-        bedroomsArr, receptionsArr, bookcasesArr, diningroomsArr, srch, logoImg, profileImg,
+import {goHome, populateGrid, newSelect, populateLang, switchLang, livingroomsBtn, livingroomsArr} from './index.js';
+import {homeBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn,langBtn,
+        abedroomsArr, kbedroomsArr, receptionsArr, tvunitsArr, diningroomsArr, srch, logoImg, profileImg,
         starImg, cartImg, headerUp, actionsContainer} from './index.js';
 
 homeBtn.addEventListener('click', () => {
@@ -9,9 +9,19 @@ homeBtn.addEventListener('click', () => {
     goHome();
 });
 
-bedroomsBtn.addEventListener('click', () => {
-    newSelect(bedroomsBtn);
-    populateGrid(bedroomsArr);
+livingroomsBtn.addEventListener('click', () => {
+    newSelect(livingroomsBtn);
+    populateGrid(livingroomsArr);
+});
+
+abedroomsBtn.addEventListener('click', () => {
+    newSelect(abedroomsBtn);
+    populateGrid(abedroomsArr);
+});
+
+kbedroomsBtn.addEventListener('click', () => {
+    newSelect(kbedroomsBtn);
+    populateGrid(kbedroomsArr);
 });
 
 receptionsBtn.addEventListener('click', () => {
@@ -19,9 +29,9 @@ receptionsBtn.addEventListener('click', () => {
     populateGrid(receptionsArr);
 });
 
-bookcasesBtn.addEventListener('click', () => {
-    newSelect(bookcasesBtn);
-    populateGrid(bookcasesArr);
+tvunitsBtn.addEventListener('click', () => {
+    newSelect(tvunitsBtn);
+    populateGrid(tvunitsArr);
 });
 
 diningroomsBtn.addEventListener('click', () => {
@@ -42,33 +52,6 @@ langBtn.addEventListener('change', () => {
         srch.setAttribute('dir', "ltr");
         switchLang('en');
         populateLang();
-    }
-});
-
-pageBtn.addEventListener('change', () => {
-    switch (pageBtn.value) {
-        case 'homeSlct':
-            newSelect(homeBtn);
-            goHome();
-            break;
-        case 'bedroomsSlct':
-            newSelect(bedroomsBtn);
-            populateGrid(bedroomsArr);
-            break;
-        case 'receptionsSlct':
-            newSelect(receptionsBtn);
-            populateGrid(receptionsArr);
-            break;
-        case 'bookcasesSlct':
-            newSelect(bookcasesBtn);
-            populateGrid(bookcasesArr);
-            break;
-        case 'diningroomsSlct':
-            newSelect(diningroomsBtn);
-            populateGrid(diningroomsArr);
-            break;
-        default:
-            break;
     }
 });
 
@@ -106,3 +89,21 @@ if (hasTouch()) { // remove all the :hover stylesheets
         }
     } catch (ex) {}
 }
+
+$('.product-img--main')
+.on('mouseover', function(){
+    $(this).children('.product-img--main__image').css({'transform': 'scale('+ $(this).attr('data-scale') +')'});
+})
+.on('mouseout', function(){
+    $(this).children('.product-img--main__image').css({'transform': 'scale(1)'});
+})
+.on('mousemove', function(e){
+    $(this).children('.product-img--main__image').css({'transform-origin': ((e.pageX - $(this).offset().left) / $(this).width()) * 100 + '% ' + ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +'%'});
+})
+.each(function(){
+    $(this)
+    // add a image container
+    .append('<div class="product-img--main__image"></div>')
+    // set up a background image for each tile based on data-image attribute
+    .children('.product-img--main__image').css({'background-image': 'url('+ $(this).attr('data-image') +')'});
+});

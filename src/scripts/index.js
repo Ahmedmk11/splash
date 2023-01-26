@@ -9,11 +9,13 @@ export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
 export const actionsContainer = document.getElementById('actions-container');
 export const langBtn = document.getElementById('slct-lang');
-export const pageBtn = document.getElementById('slct-page');
+export const livingroomsBtn = document.getElementById('livingrooms');
 export const homeBtn = document.getElementById('home');
 export const bedroomsBtn = document.getElementById('bedrooms');
+export const abedroomsBtn = document.getElementById('adults-bedrooms');
+export const kbedroomsBtn = document.getElementById('kids-bedrooms');
 export const receptionsBtn = document.getElementById('receptions');
-export const bookcasesBtn = document.getElementById('bookcases');
+export const tvunitsBtn = document.getElementById('tvunits');
 export const diningroomsBtn = document.getElementById('diningrooms');
 export const srch = document.getElementById('srch-in');
 export const ftr = document.getElementById('ftr');
@@ -28,15 +30,17 @@ profileImg.src = profileLogo;
 starImg.src = starLogo;
 cartImg.src = cartLogo;
 
-export const bedroomsArr = importAll(require.context('../assets/images/testing/bedrooms', false, /\.(png|jpe?g|svg)$/));
+export const livingroomsArr = importAll(require.context('../assets/images/testing/livingrooms', false, /\.(png|jpe?g|svg)$/));
+export const abedroomsArr = importAll(require.context('../assets/images/testing/bedrooms/adults', false, /\.(png|jpe?g|svg)$/));
+export const kbedroomsArr = importAll(require.context('../assets/images/testing/bedrooms/kids', false, /\.(png|jpe?g|svg)$/));
 export const receptionsArr = importAll(require.context('../assets/images/testing/receptions', false, /\.(png|jpe?g|svg)$/));
-export const bookcasesArr = importAll(require.context('../assets/images/testing/bookcases', false, /\.(png|jpe?g|svg)$/));
+export const tvunitsArr = importAll(require.context('../assets/images/testing/tvunits', false, /\.(png|jpe?g|svg)$/));
 export const diningroomsArr = importAll(require.context('../assets/images/testing/diningrooms', false, /\.(png|jpe?g|svg)$/));
 
-const navBtns = [homeBtn, bedroomsBtn, receptionsBtn, bookcasesBtn, diningroomsBtn];
-const navAr = ['الرئيسية', 'غرف النوم', 'صالونات', 'مكتبات', 'غرف سفرة'];
-const navEn = ['Home', 'Bedrooms', 'Receptions', 'Bookcases', 'Dining Rooms'];
-pageBtn.value = 'homeSlct';
+
+const navBtns = [homeBtn, livingroomsBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn];
+const navAr = ['الرئيسية', 'غرف معيشة', 'غرف نوم كبار', 'غرف نوم اطفال', 'صالونات', 'مكتبات', 'غرف سفرة'];
+const navEn = ['Home', 'Living Rooms', 'Adults Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
 let flag = 'page';
 let currItem = [];
 goHome()
@@ -156,19 +160,26 @@ export function populateGrid(imageArr) {
 export function populateLang() {
     navBtns.forEach(btn => {
         if (flag == 'page') {
-            if (btn.classList.contains('selected-page')) {
+            if (btn.classList.contains('selected-page')
+            || btn.classList.contains('selected-page-dd')) {
                 switch (btn.id) {
                     case 'home':
                         goHome();
                         break;
-                    case 'bedrooms':
-                        populateGrid(bedroomsArr);
+                    case 'livingrooms':
+                        populateGrid(livingroomsArr);
+                        break;
+                    case 'adults-bedrooms':
+                        populateGrid(abedroomsArr);
+                        break;
+                    case 'kids-bedrooms':
+                        populateGrid(kbedroomsArr);
                         break;
                     case 'receptions':
                         populateGrid(receptionsArr);
                         break;
-                    case 'bookcases':
-                        populateGrid(bookcasesArr);
+                    case 'tvunits':
+                        populateGrid(tvunitsArr);
                         break;
                     case 'diningrooms':
                         populateGrid(diningroomsArr);
@@ -192,17 +203,19 @@ export function addToFav(item) {
 }
 
 export function newSelect(button) {
+    bedroomsBtn.classList.remove('selected-page')
     navBtns.forEach(btn => {
         btn.classList.remove('selected-page');
+        btn.classList.remove('selected-page-dd');
     });
-    button.classList.add('selected-page');
-    let i;
-    if (document.body.classList.contains('en')) {
-        i = navEn.indexOf(button.textContent);
-    } else {
-        i = navAr.indexOf(button.textContent);
+    if ([homeBtn, receptionsBtn, tvunitsBtn, diningroomsBtn].includes(button)) {
+        button.classList.add('selected-page');
+        
     }
-    pageBtn.value = `${navEn[i].toLowerCase().replace(/\s+/g, '')}Slct`;
+    else if ([abedroomsBtn, kbedroomsBtn].includes(button)) {
+        button.classList.add('selected-page-dd');
+        bedroomsBtn.classList.add('selected-page')
+    }
 }
 
 export function switchLang(target) {
@@ -213,10 +226,7 @@ export function switchLang(target) {
             const btn = navBtns[i];
             btn.textContent = navAr[i];
         }
-        for (let i = 0; i < pageBtn.length; i++) {
-            const btn = pageBtn[i];
-            btn.textContent = navAr[i];
-        }
+        bedroomsBtn.textContent = 'غرف النوم'
         profileImg.setAttribute("title", "عرض الصفحة الشخصية");
         starImg.setAttribute("title", "عرض قائمة المفضلات");
         cartImg.setAttribute("title", "عرض عربة التسوق");
@@ -227,10 +237,7 @@ export function switchLang(target) {
             const btn = navBtns[i];
             btn.textContent = navEn[i];
         }
-        for (let i = 0; i < pageBtn.length; i++) {
-            const btn = pageBtn[i];
-            btn.textContent = navEn[i];
-        }
+        bedroomsBtn.textContent = 'Bedrooms'
         profileImg.setAttribute("title", "View Profile");
         starImg.setAttribute("title", "View Favorites");
         cartImg.setAttribute("title", "View Cart");
