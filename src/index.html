@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="ar">
 
     <head>
         <meta charset="UTF-8" />
@@ -7,23 +7,22 @@
         <title>Splash</title>
     </head>
     
-    <body class="en">
-
+    <body class="ar">
         <div id="main-container">
             <div id="header">
                 <div id="header-upper">
-                    <input type="search" placeholder="Search our database..">
+                    <input type="search" id="srch-in" dir="rtl" placeholder="ابحث هنا..">
                     <div id="actions-container">
                         <select name="language" id="slct-lang">
-                            <option value="arabic">Arabic</option>
-                            <option value="english" selected>English</option>
+                            <option value="arabic" selected>العربية</option>
+                            <option value="english">English</option>
                         </select>
                         <select name="Pages" id="slct-page">
-                            <option value="homeSlct" selected>Home</option>
-                            <option value="bedroomsSlct">Bedrooms</option>
-                            <option value="livingroomsSlct">Living Rooms</option>
-                            <option value="bookcasesSlct">Bookcases</option>
-                            <option value="diningroomsSlct">Dining Rooms</option>
+                            <option value="homeSlct"></option>
+                            <option value="bedroomsSlct"></option>
+                            <option value="receptionsSlct"></option>
+                            <option value="bookcasesSlct"></option>
+                            <option value="diningroomsSlct"></option>
                         </select>
                         <!-- <form class="loggedout" id="lgn" action="scripts/script.php" method="post">
                             <input type="email" id="email" placeholder="Email">
@@ -33,21 +32,16 @@
                     </div>
                 </div>
                 <div id="nav-bar">
-                    <div id="home" class="line selected-page">Home</div>
-                    <div id="bedrooms" class="line">Bedrooms</div>
-                    <div id="livingrooms" class="line">Living Rooms</div>
-                    <div id="bookcases" class="line">Bookcases</div>
-                    <div id="diningrooms" class="line">Dining Rooms</div>
+                    <div id="home" class="line selected-page"></div>
+                    <div id="bedrooms" class="line"></div>
+                    <div id="receptions" class="line"></div>
+                    <div id="bookcases" class="line"></div>
+                    <div id="diningrooms" class="line"></div>
                 </div>
             </div>
-            <div id="middle-container">
-                <div id="grid">
-
-                </div>
-            </div>
+            <div id="middle-container"></div>
             <footer>
-                <!-- <p><strong>Made by </strong><a href="https://github.com/Ahmedmk11" target="_blank">Ahmed Mahmoud</a></p> -->
-                <p>Copyright © <span id="starting-year">2022</span><span id="current-year"></span></p>
+                <p>© <span id="starting-year">2022</span><span id="current-year"></span> <span id="ftr">.سبلاش. جميع الحقوق محفوظة</span></p>
             </footer>
         </div>
     </body>

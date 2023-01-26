@@ -1,73 +1,31 @@
 import '../styles/style.css';
-import logo from '../assets/images/pictures/logo.jpg';
-import profileLogo from '../assets/images/icons/profile.png';
-import starLogo from '../assets/images/icons/star.png';
-import cartLogo from '../assets/images/icons/cart.png';
-import {goHome, importAll, populateGrid} from './index.js';
-
-const logoImg = new Image();
-const profileImg = new Image();
-const starImg = new Image();
-const cartImg = new Image();
-
-const main = document.getElementById('main-container');
-const headerUp = document.getElementById('header-upper');
-const searchContainer = document.getElementById('search-container');
-const actionsContainer = document.getElementById('actions-container');
-const middleContainer = document.getElementById('middle-container');
-
-const langBtn = document.getElementById('slct-lang');
-const pageBtn = document.getElementById('slct-page');
-const homeBtn = document.getElementById('home');
-const bedroomsBtn = document.getElementById('bedrooms');
-const livingroomsBtn = document.getElementById('livingrooms');
-const bookcasesBtn = document.getElementById('bookcases');
-const diningroomsBtn = document.getElementById('diningrooms');
-
-const bedroomsArr = importAll(require.context('../assets/images/testing/bedrooms', false, /\.(png|jpe?g|svg)$/));
-const livingroomsArr = importAll(require.context('../assets/images/testing/livingrooms', false, /\.(png|jpe?g|svg)$/));
-const bookcasesArr = importAll(require.context('../assets/images/testing/bookcases', false, /\.(png|jpe?g|svg)$/));
-const diningroomsArr = importAll(require.context('../assets/images/testing/diningrooms', false, /\.(png|jpe?g|svg)$/));
-
-let navBtns = [homeBtn, bedroomsBtn, livingroomsBtn, bookcasesBtn, diningroomsBtn];
+import {goHome, populateGrid, newSelect, populateLang, switchLang} from './index.js';
+import {homeBtn, bedroomsBtn, receptionsBtn, bookcasesBtn, diningroomsBtn,langBtn, pageBtn,
+        bedroomsArr, receptionsArr, bookcasesArr, diningroomsArr, srch, logoImg, profileImg,
+        starImg, cartImg, headerUp, actionsContainer} from './index.js';
 
 homeBtn.addEventListener('click', () => {
-    navBtns.forEach(btn => {
-        btn.classList.remove('selected-page');
-    });
-    homeBtn.classList.add('selected-page');
+    newSelect(homeBtn);
     goHome();
 });
 
 bedroomsBtn.addEventListener('click', () => {
-    navBtns.forEach(btn => {
-        btn.classList.remove('selected-page');
-    });
-    bedroomsBtn.classList.add('selected-page');
+    newSelect(bedroomsBtn);
     populateGrid(bedroomsArr);
 });
 
-livingroomsBtn.addEventListener('click', () => {
-    navBtns.forEach(btn => {
-        btn.classList.remove('selected-page');
-    });
-    livingroomsBtn.classList.add('selected-page');
-    populateGrid(livingroomsArr);
+receptionsBtn.addEventListener('click', () => {
+    newSelect(receptionsBtn);
+    populateGrid(receptionsArr);
 });
 
 bookcasesBtn.addEventListener('click', () => {
-    navBtns.forEach(btn => {
-        btn.classList.remove('selected-page');
-    });
-    bookcasesBtn.classList.add('selected-page');
+    newSelect(bookcasesBtn);
     populateGrid(bookcasesArr);
 });
 
 diningroomsBtn.addEventListener('click', () => {
-    navBtns.forEach(btn => {
-        btn.classList.remove('selected-page');
-    });
-    diningroomsBtn.classList.add('selected-page');
+    newSelect(diningroomsBtn);
     populateGrid(diningroomsArr);
 });
 
@@ -75,27 +33,38 @@ langBtn.addEventListener('change', () => {
     if (langBtn.value == 'arabic') {
         document.body.classList.add('ar');
         document.body.classList.remove('en');
+        srch.setAttribute('dir', "rtl");
+        switchLang('ar');
+        populateLang();
     } else {
         document.body.classList.add('en');
         document.body.classList.remove('ar');
+        srch.setAttribute('dir', "ltr");
+        switchLang('en');
+        populateLang();
     }
 });
 
 pageBtn.addEventListener('change', () => {
     switch (pageBtn.value) {
         case 'homeSlct':
+            newSelect(homeBtn);
             goHome();
             break;
         case 'bedroomsSlct':
+            newSelect(bedroomsBtn);
             populateGrid(bedroomsArr);
             break;
-        case 'livingroomsSlct':
-            populateGrid(livingroomsArr);
+        case 'receptionsSlct':
+            newSelect(receptionsBtn);
+            populateGrid(receptionsArr);
             break;
         case 'bookcasesSlct':
+            newSelect(bookcasesBtn);
             populateGrid(bookcasesArr);
             break;
         case 'diningroomsSlct':
+            newSelect(diningroomsBtn);
             populateGrid(diningroomsArr);
             break;
         default:
@@ -103,13 +72,37 @@ pageBtn.addEventListener('change', () => {
     }
 });
 
-logoImg.src = logo;
-profileImg.src = profileLogo;
-starImg.src = starLogo;
-cartImg.src = cartLogo;
+logoImg.addEventListener('click', () => {
+    newSelect(homeBtn);
+    goHome();
+});
+
 logoImg.id = 'logo-img';
 
 headerUp.prepend(logoImg);
 actionsContainer.append(starImg);
 actionsContainer.append(cartImg);
 actionsContainer.append(profileImg);
+
+function hasTouch() {
+    return 'ontouchstart' in document.documentElement
+        || navigator.maxTouchPoints > 0
+        || navigator.msMaxTouchPoints > 0;
+}
+  
+if (hasTouch()) { // remove all the :hover stylesheets
+    try { // prevent exception on browsers not supporting DOM styleSheets properly
+        for (var si in document.styleSheets) {
+            var styleSheet = document.styleSheets[si];
+            if (!styleSheet.rules) continue;
+    
+            for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
+                if (!styleSheet.rules[ri].selectorText) continue;
+    
+                if (styleSheet.rules[ri].selectorText.match(':hover')) {
+                    styleSheet.deleteRule(ri);
+                }
+            }
+        }
+    } catch (ex) {}
+}

@@ -32,13 +32,13 @@ body {
 img:hover:after {
   content: attr(data);
   padding: 4px 8px;
+  border: 1px black solid;
   color: rgba(0, 0, 0, 0.5);
   position: absolute;
   left: 0;
   top: 100%;
   white-space: nowrap;
   z-index: 2;
-  border-radius: 5px;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -363,14 +363,14 @@ input[type=search]:focus, select:focus {
 
 #view-item {
   display: flex;
-  flex-direction: var(--flex-row-direction);
+  flex-direction: column;
   justify-content: space-evenly;
   margin: auto;
   width: 90%;
   min-height: fit-content;
 }
 #view-item .item {
-  width: 40vw;
+  width: 90vw;
   height: 750px;
 }
 #view-item .item img {
@@ -384,9 +384,10 @@ input[type=search]:focus, select:focus {
   cursor: pointer;
 }
 #view-item #item-details {
-  width: 40vw;
-  height: 750px;
+  width: 90vw;
+  height: 400px;
   display: flex;
+  margin-top: 30px;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
@@ -401,7 +402,6 @@ input[type=search]:focus, select:focus {
 }
 #view-item #item-details #detailsH, #view-item #item-details #detailsB {
   background-color: white;
-  border: 1px solid black;
   width: 80%;
   display: flex;
   flex-direction: column;
