@@ -5,6 +5,7 @@ import profileLogo from '../assets/images/icons/profile.png';
 import starLogo from '../assets/images/icons/star.png';
 import cartLogo from '../assets/images/icons/cart.png';
 import menuLogo from '../assets/images/icons/menu.png';
+import xClose from '../assets/images/icons/x.png';
 
 export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
@@ -24,7 +25,8 @@ export const ftr = document.getElementById('ftr');
 export const menu = document.getElementById('menu');
 export const homeP = document.getElementById('home-p');
 export const livingroomsP = document.getElementById('livingrooms-p');
-export const bedroomsP = document.getElementById('bedrooms-p');
+export const abedroomsP = document.getElementById('abedrooms-p');
+export const kbedroomsP = document.getElementById('kbedrooms-p');
 export const receptionsP = document.getElementById('receptions-p');
 export const tvunitsP = document.getElementById('tvunits-p');
 export const diningroomsP = document.getElementById('diningrooms-p');
@@ -34,14 +36,17 @@ export const profileImg = new Image();
 export const starImg = new Image();
 export const cartImg = new Image();
 export const menuImg = new Image();
+export const xImg = new Image();
 
 logoImg.src = logo;
 profileImg.src = profileLogo;
 starImg.src = starLogo;
 cartImg.src = cartLogo;
 menuImg.src = menuLogo;
+xImg.src = xClose;
 
 menuImg.classList.add('mobile');
+menu.appendChild(xImg)
 
 export const livingroomsArr = importAll(require.context('../assets/images/testing/livingrooms', false, /\.(png|jpe?g|svg)$/));
 export const abedroomsArr = importAll(require.context('../assets/images/testing/bedrooms/adults', false, /\.(png|jpe?g|svg)$/));
@@ -52,9 +57,11 @@ export const diningroomsArr = importAll(require.context('../assets/images/testin
 
 
 const navBtns = [homeBtn, livingroomsBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn];
-const navP = [homeP, livingroomsP, bedroomsP, receptionsP, tvunitsP, diningroomsP];
-const navAr = ['الرئيسية', 'غرف معيشة', 'غرف نوم كبار', 'غرف نوم اطفال', 'صالونات', 'مكتبات', 'غرف سفرة'];
+const navP = [homeP, livingroomsP, abedroomsP, kbedroomsP, receptionsP, tvunitsP, diningroomsP];
+const navAr = ['الرئيسية', 'غرف المعيشة', 'غرف نوم رئيسية', 'غرف نوم اطفال', 'صالونات', 'مكتبات', 'غرف سفرة'];
 const navEn = ['Home', 'Living Rooms', 'Master Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
+const navAr2 = ['الرئيسية', 'غرف المعيشة', 'غرف نوم رئيسية', 'غرف نوم اطفال', 'صالونات', 'مكتبات', 'غرف سفرة'];
+const navEn2 = ['Home', 'Living Rooms', 'Master Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
 let flag = 'page';
 let currItem = [];
 goHome()
@@ -74,6 +81,16 @@ export function goHome() {
     home.textContent = 'This is the home page placeholder';
     home.setAttribute("style", "font-size: 32px; margin: auto;")
     middleContainer.append(home)
+}
+
+export function hideMenu() {
+    menu.style.width = "0%";
+}
+
+export function hasTouch() {
+    return 'ontouchstart' in document.documentElement
+        || navigator.maxTouchPoints > 0
+        || navigator.msMaxTouchPoints > 0;
 }
 
 function createCard(container, arr, index, mode) {
@@ -231,6 +248,35 @@ export function newSelect(button) {
         button.classList.add('selected-page-dd');
         bedroomsBtn.classList.add('selected-page')
     }
+    navP.forEach(btn => {
+        btn.classList.remove('selected-p');
+    })
+    let a = button.id
+    switch (a) {
+        case 'home':
+            homeP.classList.add('selected-p');
+            break;
+        case 'livingrooms':
+            livingroomsP.classList.add('selected-p');
+            break;
+        case 'adults-bedrooms':
+            abedroomsP.classList.add('selected-p');
+            break;
+        case 'kids-bedrooms':
+            kbedroomsP.classList.add('selected-p');
+            break;
+        case 'receptions':
+            receptionsP.classList.add('selected-p');
+            break;
+        case 'diningrooms':
+            diningroomsP.classList.add('selected-p');
+            break;
+        case 'tvunits':
+            tvunitsP.classList.add('selected-p');
+            break;
+        default:
+            break;
+    }
 }
 
 export function switchLang(target) {
@@ -241,6 +287,11 @@ export function switchLang(target) {
             const btn = navBtns[i];
             btn.textContent = navAr[i];
         }
+        for (let i = 0; i < navP.length; i++) {
+            const btn = navP[i];
+            btn.textContent = navAr2[i];
+        }
+        menu.classList.add('ars');
         bedroomsBtn.textContent = 'غرف النوم'
         profileImg.setAttribute("title", "عرض الصفحة الشخصية");
         starImg.setAttribute("title", "عرض قائمة المفضلات");
@@ -252,6 +303,11 @@ export function switchLang(target) {
             const btn = navBtns[i];
             btn.textContent = navEn[i];
         }
+        for (let i = 0; i < navP.length; i++) {
+            const btn = navP[i];
+            btn.textContent = navEn2[i];
+        }
+        menu.classList.add('ens');
         bedroomsBtn.textContent = 'Bedrooms'
         profileImg.setAttribute("title", "View Profile");
         starImg.setAttribute("title", "View Favorites");

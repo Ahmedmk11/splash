@@ -1,5 +1,5 @@
 import '../styles/style.css';
-import {goHome, populateGrid, newSelect, populateLang, switchLang, livingroomsBtn, livingroomsArr, menuImg} from './index.js';
+import {goHome, populateGrid, newSelect, populateLang, switchLang, livingroomsBtn, livingroomsArr, menuImg, xImg, menu, homeP, livingroomsP, receptionsP, tvunitsP, diningroomsP, kbedroomsP, abedroomsP, hasTouch, hideMenu} from './index.js';
 import {homeBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn,langBtn,
         abedroomsArr, kbedroomsArr, receptionsArr, tvunitsArr, diningroomsArr, srch, logoImg, profileImg,
         starImg, cartImg, headerUp, actionsContainer} from './index.js';
@@ -39,6 +39,48 @@ diningroomsBtn.addEventListener('click', () => {
     populateGrid(diningroomsArr);
 });
 
+homeP.addEventListener('click', () => {
+    newSelect(homeBtn);
+    goHome();
+    hideMenu();
+});
+
+livingroomsP.addEventListener('click', () => {
+    newSelect(livingroomsBtn);
+    populateGrid(livingroomsArr);
+    hideMenu();
+});
+
+abedroomsP.addEventListener('click', () => {
+    newSelect(abedroomsBtn);
+    populateGrid(abedroomsArr);
+    hideMenu();
+});
+
+kbedroomsP.addEventListener('click', () => {
+    newSelect(kbedroomsBtn);
+    populateGrid(kbedroomsArr);
+    hideMenu();
+});
+
+receptionsP.addEventListener('click', () => {
+    newSelect(receptionsBtn);
+    populateGrid(receptionsArr);
+    hideMenu();
+});
+
+tvunitsP.addEventListener('click', () => {
+    newSelect(tvunitsBtn);
+    populateGrid(tvunitsArr);
+    hideMenu();
+});
+
+diningroomsP.addEventListener('click', () => {
+    newSelect(diningroomsBtn);
+    populateGrid(diningroomsArr);
+    hideMenu();
+});
+
 langBtn.addEventListener('change', () => {
     if (langBtn.value == 'arabic') {
         document.body.classList.add('ar');
@@ -60,6 +102,14 @@ logoImg.addEventListener('click', () => {
     goHome();
 });
 
+xImg.addEventListener('click', () => {
+    hideMenu();
+});
+
+menuImg.addEventListener('click', () => {
+    menu.style.width = "100%";
+})
+
 logoImg.id = 'logo-img';
 
 headerUp.prepend(logoImg);
@@ -68,15 +118,9 @@ clf.append(cartImg);
 clf.append(profileImg);
 clf.append(menuImg);
 actionsContainer.append(clf);
-
-function hasTouch() {
-    return 'ontouchstart' in document.documentElement
-        || navigator.maxTouchPoints > 0
-        || navigator.msMaxTouchPoints > 0;
-}
   
-if (hasTouch()) { // remove all the :hover stylesheets
-    try { // prevent exception on browsers not supporting DOM styleSheets properly
+if (hasTouch()) {
+    try {
         for (var si in document.styleSheets) {
             var styleSheet = document.styleSheets[si];
             if (!styleSheet.rules) continue;
