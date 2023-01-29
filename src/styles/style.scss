@@ -70,6 +70,15 @@ img:hover:after {
     flex-wrap: wrap;
 }
 
+#menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+    height: max-content;
+}
+
 #logo-img {
     width: 25%;
     min-width: 340px;
@@ -144,7 +153,13 @@ input[type=search]:focus, select:focus {
     height: 100%;
     width: 20%;
     flex-wrap: wrap;
-    
+    div {
+        min-width: 120px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     select {
         border: none;
         background-color: #0d4d79;
@@ -157,9 +172,9 @@ input[type=search]:focus, select:focus {
         width: auto;
         padding: 10px 10px 10px 10px;
         margin-bottom: 6px;
-        border: 2px solid black;
+        border: 2px solid white;
         // appearance: none;
-        color: black;
+        color: white;
     }
 
     select:hover {
@@ -191,14 +206,6 @@ input[type=search]:focus, select:focus {
         -moz-transition: transform ease-in-out 400ms;
         -ms-transition: transform ease-in-out 400ms;
         -o-transition: transform ease-in-out 400ms;
-    }
-
-    img:hover{
-        transform: scale(1.2);
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        -o-transform: scale(1.2);
     }
 }
 
@@ -252,6 +259,10 @@ input[type=search]:focus, select:focus {
             color: black !important;
         }
     }
+}
+
+.mobile {
+    display: none;
 }
 
 #bedrooms-icon:hover {
@@ -376,15 +387,6 @@ input[type=search]:focus, select:focus {
         height: auto;
         cursor: pointer;
     }
-
-    .product-img--main {
-        position: relative;
-        overflow: hidden;
-        width: 600px;
-        height: 600px;
-        float: left;
-        margin: 10px;
-    }
      
     .product-img--main__image {
         position: absolute;
@@ -435,13 +437,6 @@ input[type=search]:focus, select:focus {
                 -moz-transition: transform ease-in-out 400ms;
                 -ms-transition: transform ease-in-out 400ms;
                 -o-transition: transform ease-in-out 400ms;
-            }
-            img:hover {
-                transform: scale(1.2);
-                -webkit-transform: scale(1.2);
-                -moz-transform: scale(1.2);
-                -ms-transform: scale(1.2);
-                -o-transform: scale(1.2);
             }
         }
     }
@@ -540,6 +535,9 @@ input[type=search]:focus, select:focus {
 }
 
 @media only screen and (max-width: 600px) {
+    select {
+        font-size: 16px;
+    }
 	#header {
         justify-content: center;
         input[type=search] {
@@ -552,14 +550,19 @@ input[type=search]:focus, select:focus {
         }
         #actions-container {
             flex-direction: row;
-            justify-content: space-evenly;
+            justify-content: space-between;
             align-items: center;
-            width: 100%;
+            width: 95%;
         }
         #nav-bar {
             display: none;
         }
     }
+
+    .mobile {
+        display: block;
+    }
+
     #grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, 80vw); 

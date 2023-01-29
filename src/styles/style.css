@@ -69,6 +69,15 @@ img:hover:after {
   flex-wrap: wrap;
 }
 
+#menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 100%;
+  height: max-content;
+}
+
 #logo-img {
   width: 25%;
   min-width: 340px;
@@ -144,6 +153,13 @@ input[type=search]:focus, select:focus {
   width: 20%;
   flex-wrap: wrap;
 }
+#actions-container div {
+  min-width: 120px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 #actions-container select {
   border: none;
   background-color: #0d4d79;
@@ -156,8 +172,8 @@ input[type=search]:focus, select:focus {
   width: auto;
   padding: 10px 10px 10px 10px;
   margin-bottom: 6px;
-  border: 2px solid black;
-  color: black;
+  border: 2px solid white;
+  color: white;
 }
 #actions-container select:hover {
   cursor: pointer;
@@ -185,13 +201,6 @@ input[type=search]:focus, select:focus {
   -moz-transition: transform ease-in-out 400ms;
   -ms-transition: transform ease-in-out 400ms;
   -o-transition: transform ease-in-out 400ms;
-}
-#actions-container img:hover {
-  transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
 }
 
 .loggedout {
@@ -242,6 +251,10 @@ input[type=search]:focus, select:focus {
   background-color: #ddd;
   cursor: pointer;
   color: black !important;
+}
+
+.mobile {
+  display: none;
 }
 
 #bedrooms-icon:hover #bedrooms-drpdn {
@@ -365,14 +378,6 @@ input[type=search]:focus, select:focus {
   height: auto;
   cursor: pointer;
 }
-.item .product-img--main {
-  position: relative;
-  overflow: hidden;
-  width: 600px;
-  height: 600px;
-  float: left;
-  margin: 10px;
-}
 .item .product-img--main__image {
   position: absolute;
   top: 0;
@@ -423,13 +428,6 @@ input[type=search]:focus, select:focus {
   -moz-transition: transform ease-in-out 400ms;
   -ms-transition: transform ease-in-out 400ms;
   -o-transition: transform ease-in-out 400ms;
-}
-.item div .info img:hover {
-  transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
 }
 
 #view-item {
@@ -523,6 +521,9 @@ input[type=search]:focus, select:focus {
   }
 }
 @media only screen and (max-width: 600px) {
+  select {
+    font-size: 16px;
+  }
   #header {
     justify-content: center;
   }
@@ -536,12 +537,15 @@ input[type=search]:focus, select:focus {
   }
   #header #actions-container {
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 95%;
   }
   #header #nav-bar {
     display: none;
+  }
+  .mobile {
+    display: block;
   }
   #grid {
     display: grid;

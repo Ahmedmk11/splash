@@ -4,10 +4,12 @@ import logo from '../assets/images/pictures/logo.jpg';
 import profileLogo from '../assets/images/icons/profile.png';
 import starLogo from '../assets/images/icons/star.png';
 import cartLogo from '../assets/images/icons/cart.png';
+import menuLogo from '../assets/images/icons/menu.png';
 
 export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
 export const actionsContainer = document.getElementById('actions-container');
+export const clf = document.getElementById('clf');
 export const langBtn = document.getElementById('slct-lang');
 export const livingroomsBtn = document.getElementById('livingrooms');
 export const homeBtn = document.getElementById('home');
@@ -19,16 +21,27 @@ export const tvunitsBtn = document.getElementById('tvunits');
 export const diningroomsBtn = document.getElementById('diningrooms');
 export const srch = document.getElementById('srch-in');
 export const ftr = document.getElementById('ftr');
+export const menu = document.getElementById('menu');
+export const homeP = document.getElementById('home-p');
+export const livingroomsP = document.getElementById('livingrooms-p');
+export const bedroomsP = document.getElementById('bedrooms-p');
+export const receptionsP = document.getElementById('receptions-p');
+export const tvunitsP = document.getElementById('tvunits-p');
+export const diningroomsP = document.getElementById('diningrooms-p');
 
 export const logoImg = new Image();
 export const profileImg = new Image();
 export const starImg = new Image();
 export const cartImg = new Image();
+export const menuImg = new Image();
 
 logoImg.src = logo;
 profileImg.src = profileLogo;
 starImg.src = starLogo;
 cartImg.src = cartLogo;
+menuImg.src = menuLogo;
+
+menuImg.classList.add('mobile');
 
 export const livingroomsArr = importAll(require.context('../assets/images/testing/livingrooms', false, /\.(png|jpe?g|svg)$/));
 export const abedroomsArr = importAll(require.context('../assets/images/testing/bedrooms/adults', false, /\.(png|jpe?g|svg)$/));
@@ -39,8 +52,9 @@ export const diningroomsArr = importAll(require.context('../assets/images/testin
 
 
 const navBtns = [homeBtn, livingroomsBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn];
+const navP = [homeP, livingroomsP, bedroomsP, receptionsP, tvunitsP, diningroomsP];
 const navAr = ['الرئيسية', 'غرف معيشة', 'غرف نوم كبار', 'غرف نوم اطفال', 'صالونات', 'مكتبات', 'غرف سفرة'];
-const navEn = ['Home', 'Living Rooms', 'Adults Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
+const navEn = ['Home', 'Living Rooms', 'Master Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
 let flag = 'page';
 let currItem = [];
 goHome()
@@ -77,6 +91,8 @@ function createCard(container, arr, index, mode) {
     info.classList.add('info');
     infoL.classList.add('info-left');
     img.src = arr[`${index}.jpg`];
+    img.classList.add('product-img--main');
+    img.setAttribute('data-scale', '1.2');
     addFav.src = starLogoB;
     if (langBtn.value == 'english') {
         nameP.textContent = 'Placeholder Name';
@@ -208,9 +224,8 @@ export function newSelect(button) {
         btn.classList.remove('selected-page');
         btn.classList.remove('selected-page-dd');
     });
-    if ([homeBtn, receptionsBtn, tvunitsBtn, diningroomsBtn].includes(button)) {
+    if ([homeBtn, livingroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn].includes(button)) {
         button.classList.add('selected-page');
-        
     }
     else if ([abedroomsBtn, kbedroomsBtn].includes(button)) {
         button.classList.add('selected-page-dd');

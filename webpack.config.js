@@ -21,7 +21,7 @@ module.exports = {
       jQuery: require.resolve('jquery')
     }),
     new HtmlWebpackPlugin({
-      title: 'Custom template',
+      title: 'Home',
       template: './src/index.html'
     }),
     new FaviconsWebpackPlugin('./src/assets/images/icons/icn.png')
