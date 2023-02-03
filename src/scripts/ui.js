@@ -4,6 +4,31 @@ import {homeBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningro
         abedroomsArr, kbedroomsArr, receptionsArr, tvunitsArr, diningroomsArr, srch, logoImg, profileImg,
         starImg, cartImg, headerUp, actionsContainer} from './index.js';
 
+logoImg.id = 'logo-img';
+headerUp.prepend(logoImg);
+clf.append(starImg);
+clf.append(cartImg);
+clf.append(profileImg);
+clf.append(menuImg);
+actionsContainer.append(clf);
+
+if (hasTouch()) {
+    try {
+        for (var si in document.styleSheets) {
+            var styleSheet = document.styleSheets[si];
+            if (!styleSheet.rules) continue;
+    
+            for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
+                if (!styleSheet.rules[ri].selectorText) continue;
+    
+                if (styleSheet.rules[ri].selectorText.match(':hover')) {
+                    styleSheet.deleteRule(ri);
+                }
+            }
+        }
+    } catch (ex) {}
+}
+
 homeBtn.addEventListener('click', () => {
     newSelect(homeBtn);
     goHome();
@@ -109,29 +134,3 @@ xImg.addEventListener('click', () => {
 menuImg.addEventListener('click', () => {
     menu.style.width = "100%";
 })
-
-logoImg.id = 'logo-img';
-
-headerUp.prepend(logoImg);
-clf.append(starImg);
-clf.append(cartImg);
-clf.append(profileImg);
-clf.append(menuImg);
-actionsContainer.append(clf);
-  
-if (hasTouch()) {
-    try {
-        for (var si in document.styleSheets) {
-            var styleSheet = document.styleSheets[si];
-            if (!styleSheet.rules) continue;
-    
-            for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
-                if (!styleSheet.rules[ri].selectorText) continue;
-    
-                if (styleSheet.rules[ri].selectorText.match(':hover')) {
-                    styleSheet.deleteRule(ri);
-                }
-            }
-        }
-    } catch (ex) {}
-}

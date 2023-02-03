@@ -1,11 +1,19 @@
 import starLogoB from '../assets/images/icons/starB.png';
 import starFilled from '../assets/images/icons/starFilled.png';
 import logo from '../assets/images/pictures/logo.jpg';
+import zoomedIcn from '../assets/images/testing/zoomed/dog.jpeg';
 import profileLogo from '../assets/images/icons/profile.png';
 import starLogo from '../assets/images/icons/star.png';
 import cartLogo from '../assets/images/icons/cart.png';
 import menuLogo from '../assets/images/icons/menu.png';
+import prevImg from '../assets/images/icons/left.png';
+import nextImg from '../assets/images/icons/right.png';
+import uPrevImg from '../assets/images/icons/uleft.png';
+import uNextImg from '../assets/images/icons/uright.png';
 import xClose from '../assets/images/icons/x.png';
+import dotIcn from '../assets/images/icons/dot.png';
+import sdotIcn from '../assets/images/icons/sdot.png';
+import x2Icn from '../assets/images/icons/x2.png';
 
 export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
@@ -54,7 +62,7 @@ export const kbedroomsArr = importAll(require.context('../assets/images/testing/
 export const receptionsArr = importAll(require.context('../assets/images/testing/receptions', false, /\.(png|jpe?g|svg)$/));
 export const tvunitsArr = importAll(require.context('../assets/images/testing/tvunits', false, /\.(png|jpe?g|svg)$/));
 export const diningroomsArr = importAll(require.context('../assets/images/testing/diningrooms', false, /\.(png|jpe?g|svg)$/));
-
+export const recommendationsArr = importAll(require.context('../assets/images/testing/recommendations', false, /\.(png|jpe?g|svg)$/));
 
 const navBtns = [homeBtn, livingroomsBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn];
 const navP = [homeP, livingroomsP, abedroomsP, kbedroomsP, receptionsP, tvunitsP, diningroomsP];
@@ -73,14 +81,180 @@ export function importAll(r) {
     return images;
 }
 
+export function populateRecommendations(r) {
+    let num;
+    let b = []
+    if (2000 < window.innerWidth && window.innerWidth <= 2500) {
+        num = 6
+    }
+    if (1600 < window.innerWidth && window.innerWidth <= 2000) {
+        num = 5
+    }
+    if (1300 < window.innerWidth && window.innerWidth <= 1600) {
+        num = 4
+    } 
+    if (1024 < window.innerWidth && window.innerWidth <= 1300) {
+        num = 3
+    }
+    if (600 < window.innerWidth && window.innerWidth <= 1024) {
+        num = 2 
+    }
+    if (0 < window.innerWidth && window.innerWidth <= 600) {
+        num = 1
+    }
+    
+    r.innerHTML = ''
+
+    for (let ii = 0; ii < Math.ceil(10/num); ii+=1) {
+        let ar = []
+        for (let i = ii * num; i < (ii * num) + num; i++) {
+            if (Object.keys(recommendationsArr).includes(`${i}.jpg`)) {
+                const c = document.createElement('div')
+                let img = createCard(c, recommendationsArr, i)
+                img.addEventListener('click', () => {
+                    populateItem(recommendationsArr, i)
+                });
+                ar.push(c)
+            }
+        }
+        b.push(ar)
+    }
+    let p = 0
+    if (num == 1 || num == 2) {p = 1}
+    return [b, Math.floor(10/num) - p,num]
+}
+
 export function goHome() {
     middleContainer.innerHTML = '';
-    flag = 'page'
+    const container = document.createElement('div')
+    const container2 = document.createElement('div')
+    const dots = document.createElement('div')
+    const prev = new Image()
+    const recommendations = document.createElement('div')
+    const next = new Image()
+    
+    prev.src = uPrevImg
+    next.src = nextImg
+    prev.classList.add('u')
+    container2.id = 'container2'
 
-    const home = document.createElement('div');
-    home.textContent = 'This is the home page placeholder';
-    home.setAttribute("style", "font-size: 32px; margin: auto;")
-    middleContainer.append(home)
+    let a = populateRecommendations(recommendations)
+    let b = a[0]
+    let curr = 0;
+    let last = a[1];
+    let num = a[2]
+    for (let i = 0; i < b[curr].length; i++) {
+        recommendations.appendChild(b[curr][i])
+    }
+    dots.innerHTML = ''
+    for (let i = 0; i < Math.ceil(10/num); i++) {
+        let dot = new Image()
+        if (i == curr) {
+            dot.src = sdotIcn
+        } else {
+            dot.src = dotIcn
+        }
+        dots.appendChild(dot)
+    }
+    window.addEventListener('resize', () => {
+        a = populateRecommendations(recommendations)
+        curr = 0
+        b = a[0]
+        last = a[1];
+        num = a[2]
+        for (let i = 0; i < b[curr].length; i++) {
+            recommendations.appendChild(b[curr][i])
+        }
+        if (curr <= 0) {
+            prev.classList.add('u')
+            prev.src = uPrevImg
+        } else {
+            prev.classList.remove('u')
+            prev.src = prevImg
+        }
+        if (curr >= last) {
+            next.src = uNextImg
+            next.classList.add('u')
+        } else {
+            next.src = nextImg
+            next.classList.remove('u')
+        }
+        dots.innerHTML = ''
+        for (let i = 0; i < Math.ceil(10/num); i++) {
+            let dot = new Image()
+            if (i == curr) {
+                dot.src = sdotIcn
+            } else {
+                dot.src = dotIcn
+            }
+            dots.appendChild(dot)
+        }
+    });
+
+    prev.addEventListener('click', () => {
+        if (curr > 0) {
+            b = populateRecommendations(recommendations)[0]
+            curr--;
+            for (let i = 0; i < b[curr].length; i++) {
+                recommendations.appendChild(b[curr][i])
+            }
+            dots.innerHTML = ''
+            for (let i = 0; i < Math.ceil(10/num); i++) {
+                let dot = new Image()
+                if (i == curr) {
+                    dot.src = sdotIcn
+                } else {
+                    dot.src = dotIcn
+                }
+                dots.appendChild(dot)
+            }
+            next.classList.remove('u')
+            next.src = nextImg
+            if (curr <= 0) {
+                prev.classList.add('u')
+                prev.src = uPrevImg
+            }
+        }
+    })
+
+    next.addEventListener('click', () => {
+        if (curr < last) {
+            b = populateRecommendations(recommendations)[0]
+            curr++;
+            for (let i = 0; i < b[curr].length; i++) {
+                recommendations.appendChild(b[curr][i])
+            }
+            dots.innerHTML = ''
+            for (let i = 0; i < Math.ceil(10/num); i++) {
+                let dot = new Image()
+                if (i == curr) {
+                    dot.src = sdotIcn
+                } else {
+                    dot.src = dotIcn
+                }
+                dots.appendChild(dot)
+            }
+            prev.classList.remove('u')
+            prev.src = prevImg
+            if (curr >= last) {
+                next.src = uNextImg
+                next.classList.add('u')
+            }
+        }
+    })
+
+    container.id = 'recommendations-container'
+    prev.id = 'prev-img'
+    next.id = 'next-img'
+    recommendations.id = 'recommendations'
+
+    container.appendChild(prev)
+    container.appendChild(recommendations)
+    container.appendChild(next)
+    container2.appendChild(container)
+    container2.appendChild(dots)
+    middleContainer.appendChild(container2)
+    flag = 'page'
 }
 
 export function hideMenu() {
@@ -93,7 +267,7 @@ export function hasTouch() {
         || navigator.msMaxTouchPoints > 0;
 }
 
-function createCard(container, arr, index, mode) {
+function createCard(container, arr, index) {
     const tmp = document.createElement("div");
     const info = document.createElement("div");
     const infoL = document.createElement("div");
@@ -108,7 +282,6 @@ function createCard(container, arr, index, mode) {
     info.classList.add('info');
     infoL.classList.add('info-left');
     img.src = arr[`${index}.jpg`];
-    img.classList.add('product-img--main');
     img.setAttribute('data-scale', '1.2');
     addFav.src = starLogoB;
     if (langBtn.value == 'english') {
@@ -126,9 +299,9 @@ function createCard(container, arr, index, mode) {
     infoL.append(priceP);
     info.append(infoL);
     info.append(addFav);
-    tmp.append(img);
     tmpL.append(hr);
     tmpL.append(info);
+    tmp.append(img);
     tmp.append(tmpL);
     tmp.append(cart)
     container.append(tmp);
@@ -138,6 +311,7 @@ function createCard(container, arr, index, mode) {
 function populateItem(imageArr, i) {
     middleContainer.innerHTML = '';
     flag = 'item';
+    let fl = false
     const item = document.createElement('div');
     const details = document.createElement('div');
     const viewItem = document.createElement('div');
@@ -146,7 +320,33 @@ function populateItem(imageArr, i) {
     const desc1 = document.createElement('div');
     const desc2 = document.createElement('div');
     const desc3 = document.createElement('div');
-    createCard(item, imageArr, i);
+    let img = createCard(item, imageArr, i);
+
+    img.addEventListener('click', () => {
+        if (!fl) {
+            const blurred = document.body.children
+            for (let k = 0; k < blurred.length; k++){
+                blurred[k].classList.add('popup')
+            }
+            fl = true
+            let zoomedIn = new Image()
+            let x2 = new Image()
+            zoomedIn.src = zoomedIcn
+            x2.src = x2Icn
+            zoomedIn.classList.add('zoomed-in')
+            x2.classList.add('x2')
+            document.body.appendChild(zoomedIn)
+            document.body.appendChild(x2)
+            x2.addEventListener('click', () => {
+                fl = false
+                const elements = document.getElementsByClassName('zoomed-in');
+                const el = document.getElementsByClassName('x2')
+                elements[0].parentNode.removeChild(elements[0]);
+                el[0].parentNode.removeChild(el[0]);            
+            })
+        }
+    })
+
     viewItem.id = 'view-item';
     details.id = 'item-details';
     detailsHead.id = 'detailsH';
@@ -282,7 +482,7 @@ export function newSelect(button) {
 export function switchLang(target) {
     if (target == 'ar') {
         srch.setAttribute('placeholder', "ابحث هنا..");
-        ftr.textContent = '.سبلاش. جميع الحقوق محفوظة';
+        ftr.textContent = 'جميع الحقوق محفوظة';
         for (let i = 0; i < navBtns.length; i++) {
             const btn = navBtns[i];
             btn.textContent = navAr[i];
@@ -298,7 +498,7 @@ export function switchLang(target) {
         cartImg.setAttribute("title", "عرض عربة التسوق");
     } else {
         srch.setAttribute('placeholder', "Search here..");
-        ftr.textContent = 'Splash. All Rights Reserved.';
+        ftr.textContent = 'All Rights Reserved.';
         for (let i = 0; i < navBtns.length; i++) {
             const btn = navBtns[i];
             btn.textContent = navEn[i];
