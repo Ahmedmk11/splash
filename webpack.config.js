@@ -3,13 +3,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const webpack = require("webpack");
 
-
 module.exports = {
   watch: true,
   mode: 'development',
   entry: {
     index: './src/scripts/index.js',
     ui: './src/scripts/ui.js',
+    splashDB: './src/scripts/splashDB.js',
   },
   devtool: 'inline-source-map',
   devServer: {

@@ -324,6 +324,7 @@ function populateItem(imageArr, i) {
 
     img.addEventListener('click', () => {
         if (!fl) {
+            const zoomedCont = document.createElement('div')
             const blurred = document.body.children
             for (let k = 0; k < blurred.length; k++){
                 blurred[k].classList.add('popup')
@@ -335,14 +336,20 @@ function populateItem(imageArr, i) {
             x2.src = x2Icn
             zoomedIn.classList.add('zoomed-in')
             x2.classList.add('x2')
-            document.body.appendChild(zoomedIn)
-            document.body.appendChild(x2)
+            zoomedCont.classList.add('zoomed-container')
+            zoomedCont.appendChild(zoomedIn)
+            zoomedCont.appendChild(x2)
+            document.body.appendChild(zoomedCont)
             x2.addEventListener('click', () => {
                 fl = false
                 const elements = document.getElementsByClassName('zoomed-in');
                 const el = document.getElementsByClassName('x2')
                 elements[0].parentNode.removeChild(elements[0]);
-                el[0].parentNode.removeChild(el[0]);            
+                el[0].parentNode.removeChild(el[0]);
+                const blurred = document.body.children
+                for (let k = 0; k < blurred.length; k++){
+                    blurred[k].classList.remove('popup')
+                }           
             })
         }
     })

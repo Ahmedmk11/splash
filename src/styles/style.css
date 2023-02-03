@@ -56,8 +56,8 @@ img:hover:after {
   -webkit-filter: blur(10px);
 }
 
-.zoomed-in {
-  position: absolute;
+.zoomed-container {
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -68,14 +68,24 @@ img:hover:after {
   width: 1024px;
 }
 
+.zoomed-in {
+  position: relative;
+  width: 1024px;
+}
+
 .x2 {
   position: absolute;
-  top: 15%;
-  left: 17%;
+  top: 8%;
+  left: 8%;
 }
 
 .x2:hover {
   cursor: pointer;
+}
+
+.popup {
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
 }
 
 @keyframes fade {
@@ -721,46 +731,44 @@ input[type=search]:focus, select:focus {
   }
   #grid .item {
     width: 80vw !important;
+    min-height: fit-content;
     margin: auto;
   }
   #grid .item img {
     max-width: 60vw !important;
   }
   #view-item {
-    min-height: 1200px;
+    min-height: fit-content;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
   }
   .item, #item-details {
     width: 80vw !important;
-    margin: auto;
+    margin: 15px;
     height: 450px !important;
   }
   .item img, #item-details img {
     max-width: 60vw !important;
     max-height: 300px !important;
   }
+  #view-item #item-details #detailsB div {
+    font-size: 16px !important;
+  }
+  #container2 #recommendations-container #recommendations {
+    background-color: #fff;
+  }
   #container2 #recommendations-container #recommendations .item {
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #0d4d79;
     max-width: 200px;
     height: 250px !important;
-    border: 2px solid black;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
   }
   #container2 #recommendations-container #recommendations .item img {
     max-width: 180px !important;
     max-height: 120px !important;
+  }
+  .zoomed-in, .zoomed-container {
+    max-width: 100vw !important;
   }
 }
 
