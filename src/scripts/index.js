@@ -15,6 +15,15 @@ import dotIcn from '../assets/images/icons/dot.png';
 import sdotIcn from '../assets/images/icons/sdot.png';
 import x2Icn from '../assets/images/icons/x2.png';
 
+const mysql = require('mysql');
+
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "SAam$*lA<3",
+    database: "Splash"
+});
+
 export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
 export const actionsContainer = document.getElementById('actions-container');
@@ -56,13 +65,20 @@ xImg.src = xClose;
 menuImg.classList.add('mobile');
 menu.appendChild(xImg)
 
-export const livingroomsArr = importAll(require.context('../assets/images/testing/livingrooms', false, /\.(png|jpe?g|svg)$/));
-export const abedroomsArr = importAll(require.context('../assets/images/testing/bedrooms/adults', false, /\.(png|jpe?g|svg)$/));
-export const kbedroomsArr = importAll(require.context('../assets/images/testing/bedrooms/kids', false, /\.(png|jpe?g|svg)$/));
-export const receptionsArr = importAll(require.context('../assets/images/testing/receptions', false, /\.(png|jpe?g|svg)$/));
-export const tvunitsArr = importAll(require.context('../assets/images/testing/tvunits', false, /\.(png|jpe?g|svg)$/));
-export const diningroomsArr = importAll(require.context('../assets/images/testing/diningrooms', false, /\.(png|jpe?g|svg)$/));
-export const recommendationsArr = importAll(require.context('../assets/images/testing/recommendations', false, /\.(png|jpe?g|svg)$/));
+export const livingroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/livingrooms', false, /\.(png|jpe?g|svg)$/));
+export const abedroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/bedrooms/adults', false, /\.(png|jpe?g|svg)$/));
+export const kbedroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/bedrooms/kids', false, /\.(png|jpe?g|svg)$/));
+export const receptionsArr = importAll(require.context('../assets/images/pictures/products/displayed/receptions', false, /\.(png|jpe?g|svg)$/));
+export const tvunitsArr = importAll(require.context('../assets/images/pictures/products/displayed/tvunits', false, /\.(png|jpe?g|svg)$/));
+export const diningroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/diningrooms', false, /\.(png|jpe?g|svg)$/));
+export const recommendationsArr = importAll(require.context('../assets/images/pictures/products/recommendations', false, /\.(png|jpe?g|svg)$/));
+
+export const livingroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/livingrooms', false, /\.(png|jpe?g|svg)$/));
+export const abedroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/bedrooms/adults', false, /\.(png|jpe?g|svg)$/));
+export const kbedroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/bedrooms/kids', false, /\.(png|jpe?g|svg)$/));
+export const receptionsArrOG = importAll(require.context('../assets/images/pictures/products/original/receptions', false, /\.(png|jpe?g|svg)$/));
+export const tvunitsArrOG = importAll(require.context('../assets/images/pictures/products/original/tvunits', false, /\.(png|jpe?g|svg)$/));
+export const diningroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/diningrooms', false, /\.(png|jpe?g|svg)$/));
 
 const navBtns = [homeBtn, livingroomsBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn];
 const navP = [homeP, livingroomsP, abedroomsP, kbedroomsP, receptionsP, tvunitsP, diningroomsP];
@@ -79,6 +95,14 @@ export function importAll(r) {
     let images = {};
     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
     return images;
+}
+
+const getTable = (t) => {
+    return new Promise((resolve, reject) => {
+        con.query(`SELECT * FROM ${t}`, (err, resp) => {
+            (!err) ? resolve(resp) : reject(err)
+        });
+    })
 }
 
 export function populateRecommendations(r) {
@@ -110,7 +134,7 @@ export function populateRecommendations(r) {
         for (let i = ii * num; i < (ii * num) + num; i++) {
             if (Object.keys(recommendationsArr).includes(`${i}.jpg`)) {
                 const c = document.createElement('div')
-                let img = createCard(c, recommendationsArr, i)
+                let img = createCard(c, 7, i)
                 img.addEventListener('click', () => {
                     populateItem(recommendationsArr, i)
                 });
@@ -267,7 +291,50 @@ export function hasTouch() {
         || navigator.msMaxTouchPoints > 0;
 }
 
-function createCard(container, arr, index) {
+export function chooseMode(n) {
+    switch (n) {
+        case 1:
+            return livingroomsArr
+        case 2:
+            return abedroomsArr
+        case 3:
+            return kbedroomsArr
+        case 4:
+            return receptionsArr
+        case 5:
+            return diningroomsArr
+        case 6:
+            return tvunitsArr
+        case 7:
+            return recommendationsArr
+        default:
+            break;
+    }
+}
+
+export function chooseTable(n) {
+    switch (n) {
+        case 1:
+            return 'livingroom'
+        case 2:
+            return 'masterbedroom'
+        case 3:
+            return 'kidsbedroom'
+        case 4:
+            return 'receptions'
+        case 5:
+            return 'diningrooms'
+        case 6:
+            return 'tvunits'
+        case 7:
+            return 'recommended'
+        default:
+            break;
+    }
+}
+
+function createCard(container, n, index) {
+    let arr = chooseMode(n)
     const tmp = document.createElement("div");
     const info = document.createElement("div");
     const infoL = document.createElement("div");
@@ -308,7 +375,7 @@ function createCard(container, arr, index) {
     return img
 }
 
-function populateItem(imageArr, i) {
+function populateItem(n, i) {
     middleContainer.innerHTML = '';
     flag = 'item';
     let fl = false
@@ -320,7 +387,7 @@ function populateItem(imageArr, i) {
     const desc1 = document.createElement('div');
     const desc2 = document.createElement('div');
     const desc3 = document.createElement('div');
-    let img = createCard(item, imageArr, i);
+    let img = createCard(item, n, i);
 
     img.addEventListener('click', () => {
         if (!fl) {
@@ -378,18 +445,22 @@ function populateItem(imageArr, i) {
     viewItem.appendChild(item)
     viewItem.appendChild(details)
     middleContainer.append(viewItem)
-    currItem.push(imageArr)
+    currItem.push(n)
     currItem.push(i)
 }
 
-export function populateGrid(imageArr) {
+export function populateGrid(n) {
+    let imageArr = chooseMode(n)
     middleContainer.innerHTML = '';
     flag = 'page'
     let grid = document.createElement("div");
     grid.id = 'grid';
 
+    let t = chooseTable(n)
+
+
     for (let i = 0; i < Object.keys(imageArr).length; i++) {
-        let img = createCard(grid, imageArr, i);
+        let img = createCard(grid, n, i);
         img.addEventListener('click', () => {
             populateItem(imageArr, i)
         });
@@ -407,22 +478,22 @@ export function populateLang() {
                         goHome();
                         break;
                     case 'livingrooms':
-                        populateGrid(livingroomsArr);
+                        populateGrid(1);
                         break;
                     case 'adults-bedrooms':
-                        populateGrid(abedroomsArr);
+                        populateGrid(2);
                         break;
                     case 'kids-bedrooms':
-                        populateGrid(kbedroomsArr);
+                        populateGrid(3);
                         break;
                     case 'receptions':
-                        populateGrid(receptionsArr);
-                        break;
-                    case 'tvunits':
-                        populateGrid(tvunitsArr);
+                        populateGrid(4);
                         break;
                     case 'diningrooms':
-                        populateGrid(diningroomsArr);
+                        populateGrid(5);
+                        break;
+                    case 'tvunits':
+                        populateGrid(6);
                         break;
                     default:
                         break;
