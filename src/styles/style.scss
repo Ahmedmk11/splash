@@ -1,8 +1,3 @@
-@font-face {
-    font-family: Recoleta;
-    src: url('../assets/fonts/Recoleta-Black.ttf');
-}
-
 body.ar {
     --flex-row-direction: row-reverse;
     --flex-s-e: flex-end;
@@ -28,10 +23,13 @@ html, body {
 }
 
 body {
-    font-family: Recoleta;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: white;
     display: flex;
     flex-direction: column;
+    img {
+        user-select: none;
+    }
 }
 
 img:hover:after {
@@ -280,7 +278,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    height: 60px;
     p {
         margin: 0.4em;
         color: white;
@@ -290,6 +288,27 @@ footer {
         a:hover {
             color: white;
         }
+    }
+}
+
+.icon-bar {
+    position: fixed;
+    top: 50%;
+    right: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(140%);
+    -webkit-transform: translateY(140%);
+    -moz-transform: translateY(140%);
+    -ms-transform: translateY(140%);
+    -o-transform: translateY(140%);
+    a, img{
+        width: 35px;
+    }
+    a:hover {
+        cursor: pointer;
     }
 }
 

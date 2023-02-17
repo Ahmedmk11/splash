@@ -3,7 +3,7 @@ import {goHome, populateGrid, newSelect, populateLang, switchLang, livingroomsBt
 xImg, menu, homeP, livingroomsP, receptionsP, tvunitsP, diningroomsP, kbedroomsP,
 abedroomsP, hasTouch, hideMenu, homeBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn,
 tvunitsBtn, diningroomsBtn,langBtn, srch, logoImg, profileImg,
-starImg, cartImg, headerUp, actionsContainer} from './index.js';
+starImg, cartImg, headerUp, actionsContainer, searchResults, middleContainer} from './index.js';
 
 logoImg.id = 'logo-img';
 headerUp.prepend(logoImg);
@@ -134,4 +134,12 @@ xImg.addEventListener('click', () => {
 
 menuImg.addEventListener('click', () => {
     menu.style.width = "100%";
+})
+
+srch.addEventListener('keydown', function(event) {
+    if(event.key === 'Enter') {
+        searchResults(srch.value)
+        srch.value = ''
+        middleContainer.focus()
+    }
 })

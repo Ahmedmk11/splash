@@ -14,8 +14,11 @@ import xClose from '../assets/images/icons/x.png';
 import dotIcn from '../assets/images/icons/dot.png';
 import sdotIcn from '../assets/images/icons/sdot.png';
 import x2Icn from '../assets/images/icons/x2.png';
-import db from './db.json';
 
+import fb from '../assets/images/icons/fb.svg';
+import ig from '../assets/images/icons/ig.svg';
+import wa from '../assets/images/icons/wa.svg';
+import db from './db.json';
 
 export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
@@ -47,6 +50,9 @@ export const starImg = new Image();
 export const cartImg = new Image();
 export const menuImg = new Image();
 export const xImg = new Image();
+export const fbImg = new Image();
+export const igImg = new Image();
+export const waImg = new Image();
 
 logoImg.src = logo;
 profileImg.src = profileLogo;
@@ -54,6 +60,20 @@ starImg.src = starLogo;
 cartImg.src = cartLogo;
 menuImg.src = menuLogo;
 xImg.src = xClose;
+fbImg.src = fb;
+igImg.src = ig;
+waImg.src = wa;
+
+const sm = document.getElementById('sm');
+const fbl = document.getElementById('fbl');
+const igl = document.getElementById('igl');
+const pn = document.getElementById('pn');
+fbl.appendChild(fbImg)
+igl.appendChild(igImg)
+pn.appendChild(waImg)
+sm.appendChild(fbl)
+sm.appendChild(igl)
+sm.appendChild(pn)
 
 menuImg.classList.add('mobile');
 menu.appendChild(xImg)
@@ -90,6 +110,10 @@ export function importAll(r) {
     let images = {};
     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
     return images;
+}
+
+export function searchResults() {
+    
 }
 
 export function populateRecommendations(r) {
@@ -299,12 +323,14 @@ export function chooseMode(n) {
     }
 }
 
+
 function createCard(container, n, index) {
     let arr = chooseMode(n)
-
+    console.log(index)
     let p_title_en = document.createElement('p').textContent = products[index].product_title_en
     let p_title_ar = document.createElement('p').textContent = products[index].product_title_ar
-    let p_price = document.createElement('p').textContent = products[index].product_price
+    let p_price_en = document.createElement('p').textContent = products[index].product_price_en
+    let p_price_ar = document.createElement('p').textContent = products[index].product_price_ar
     
     const tmp = document.createElement("div");
     const info = document.createElement("div");
@@ -319,19 +345,20 @@ function createCard(container, n, index) {
     tmp.classList.add('item');
     info.classList.add('info');
     infoL.classList.add('info-left');
-    img.src = arr[`${index}.jpeg`];           // HERE
+    img.src = arr[`${index}.jpg`];
     img.setAttribute('data-scale', '1.2');
     addFav.src = starLogoB;
     if (langBtn.value == 'english') {
         nameP.textContent = p_title_en
         addFav.setAttribute("title", "Add to favorites");
         cart.textContent = 'Add to Cart';
+        priceP.textContent = p_price_en
     } else {
         nameP.textContent = p_title_ar
         addFav.setAttribute("title", "اضافه الى قائمة المفضلات");
         cart.textContent = "اضافة الي عربة التسوق";
+        priceP.textContent = p_price_ar
     }
-    priceP.textContent = p_price
 
     infoL.append(nameP);
     infoL.append(priceP);
@@ -348,6 +375,14 @@ function createCard(container, n, index) {
 
 function populateItem(n, i) {
     middleContainer.innerHTML = '';
+
+    let p_code_en = document.createElement('p').textContent = products[i].product_code_en
+    let p_code_ar = document.createElement('p').textContent = products[i].product_code_ar
+    let p_dimensions_en = document.createElement('p').textContent = products[i].product_dimensions_en
+    let p_dimensions_ar = document.createElement('p').textContent = products[i].product_dimensions_ar
+    let p_desc_en = document.createElement('p').textContent = products[i].product_description_en
+    let p_desc_ar = document.createElement('p').textContent = products[i].product_description_ar
+
     flag = 'item';
     let fl = false
     const item = document.createElement('div');
@@ -397,17 +432,18 @@ function populateItem(n, i) {
     detailsHead.id = 'detailsH';
     detailsBody.id = 'detailsB';
 
-    desc1.textContent = 'ID: 165748329';
     if (document.body.classList.contains('en')) {
         detailsHead.textContent = 'Product Details';
-        desc2.textContent = 'Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed condimentum elit eget enim malesuada accumsan. Curabitur ac sapien quis lectus blandit interdum. Praesent id nunc dictum arcu vestibulum placerat eu eget enim.';
-        desc3.textContent = 'Dimensions: 120x80x30';
+        desc2.textContent = p_desc_en
+        desc3.textContent = p_dimensions_en
+        desc1.textContent = p_code_en;
     } else {
         detailsHead.textContent = 'تفاصيل المنتج'
-        desc2.textContent = 'لوريم إيبسوم هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف.';
-        desc3.textContent = 'الأبعاد: 120x80x30';
+        desc2.textContent = p_desc_ar
+        desc3.textContent = p_dimensions_ar
+        desc1.textContent = p_code_ar;
     }
-
+    
     detailsBody.append(desc1)
     detailsBody.append(desc2)
     detailsBody.append(desc3)
