@@ -4,7 +4,6 @@
   "description": "Website for Splash",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js",
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "build": "webpack"

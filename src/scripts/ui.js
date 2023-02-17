@@ -139,7 +139,5 @@ menuImg.addEventListener('click', () => {
 srch.addEventListener('keydown', function(event) {
     if(event.key === 'Enter') {
         searchResults(srch.value)
-        srch.value = ''
-        middleContainer.focus()
     }
 })

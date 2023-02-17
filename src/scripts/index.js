@@ -103,7 +103,9 @@ let flag = 'page';
 let currItem = [];
 let products = db.Products
 
-goHome()
+if (window.location.href == 'http://localhost:8080/') {
+    goHome()
+}
 switchLang('ar');
 
 export function importAll(r) {
@@ -112,8 +114,84 @@ export function importAll(r) {
     return images;
 }
 
-export function searchResults() {
-    
+export function editDistance(s1, s2) {
+    s1 = s1.toLowerCase();
+    s2 = s2.toLowerCase();
+  
+    var costs = new Array();
+    for (var i = 0; i <= s1.length; i++) {
+      var lastValue = i;
+      for (var j = 0; j <= s2.length; j++) {
+        if (i == 0)
+          costs[j] = j;
+        else {
+          if (j > 0) {
+            var newValue = costs[j - 1];
+            if (s1.charAt(i - 1) != s2.charAt(j - 1))
+              newValue = Math.min(Math.min(newValue, lastValue),
+                costs[j]) + 1;
+            costs[j - 1] = lastValue;
+            lastValue = newValue;
+          }
+        }
+      }
+      if (i > 0)
+        costs[s2.length] = lastValue;
+    }
+    return costs[s2.length];
+}
+
+export function similarity(s1, s2) {
+    var longer = s1;
+    var shorter = s2;
+    if (s1.length < s2.length) {
+      longer = s2;
+      shorter = s1;
+    }
+    var longerLength = longer.length;
+    if (longerLength == 0) {
+      return 1.0;
+    }
+    return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
+}
+
+export function searchResults(target) {
+    window.location.href = "search-results.html"
+    middleContainer.focus()
+    target = target.toUpperCase()
+    let results = []
+    let breakk = false
+    const re = new RegExp(/M\d\d(\d)?(\d)?/);
+    if (re.test(target)) {
+        for (let i = 0; i < products.length; i++) {
+            const product = products[i];
+            if (product.p_id == target) {
+                results.push(i)
+                breakk = true
+            }
+        }
+    }
+    if (!breakk){
+        for (let i = 0; i < products.length; i++) {
+            let pool = []
+            const product = products[i];
+            pool.push(product.product_description_ar, product.product_description_en,
+            product.product_title_ar, product.product_title_en, product.product_type)
+            pool.forEach(el => {
+                let splt = el.split(" ")
+                splt.forEach(wrd => {
+                    if (wrd.length > 3){
+                        wrd = wrd.toUpperCase()
+                        if (similarity(wrd, target) > 0.65 || target.length > 3 && (wrd.includes(target) || target.includes(wrd))){
+                            results.push(i)
+                        }
+                    }
+                });
+            });
+        }
+    }
+    srch.value = ''
+    // fn
 }
 
 export function populateRecommendations(r) {
@@ -307,8 +385,10 @@ export function chooseMode(n) {
         case 1:
             return livingroomsArr
         case 2:
+            window.location.href = "master-bedrooms.html"
             return abedroomsArr
         case 3:
+            window.location.href = "kids-bedrooms.html"
             return kbedroomsArr
         case 4:
             return receptionsArr
@@ -326,7 +406,6 @@ export function chooseMode(n) {
 
 function createCard(container, n, index) {
     let arr = chooseMode(n)
-    console.log(index)
     let p_title_en = document.createElement('p').textContent = products[index].product_title_en
     let p_title_ar = document.createElement('p').textContent = products[index].product_title_ar
     let p_price_en = document.createElement('p').textContent = products[index].product_price_en

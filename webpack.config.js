@@ -23,6 +23,18 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html',
     }),
+    new HtmlWebpackPlugin({
+      filename: 'search-results.html',
+      template: './src/search-results.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'master-bedrooms.html',
+      template: './src/products/master-bedrooms.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'kids-bedrooms.html',
+      template: './src/products/kids-bedrooms.html',
+    }),
     new FaviconsWebpackPlugin('./src/assets/images/icons/icn.png'),
   ],
   output: {
