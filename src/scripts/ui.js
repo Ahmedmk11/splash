@@ -1,8 +1,9 @@
 import '../styles/style.css';
-import {goHome, populateGrid, newSelect, populateLang, switchLang, livingroomsBtn, livingroomsArr, menuImg, xImg, menu, homeP, livingroomsP, receptionsP, tvunitsP, diningroomsP, kbedroomsP, abedroomsP, hasTouch, hideMenu} from './index.js';
-import {homeBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn,langBtn,
-        abedroomsArr, kbedroomsArr, receptionsArr, tvunitsArr, diningroomsArr, srch, logoImg, profileImg,
-        starImg, cartImg, headerUp, actionsContainer} from './index.js';
+import {goHome, populateGrid, newSelect, populateLang, switchLang, livingroomsBtn, menuImg,
+xImg, menu, homeP, livingroomsP, receptionsP, tvunitsP, diningroomsP, kbedroomsP,
+abedroomsP, hasTouch, hideMenu, homeBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn,
+tvunitsBtn, diningroomsBtn,langBtn, srch, logoImg, profileImg,
+starImg, cartImg, headerUp, actionsContainer} from './index.js';
 
 logoImg.id = 'logo-img';
 headerUp.prepend(logoImg);
@@ -36,32 +37,32 @@ homeBtn.addEventListener('click', () => {
 
 livingroomsBtn.addEventListener('click', () => {
     newSelect(livingroomsBtn);
-    populateGrid(livingroomsArr);
+    populateGrid(1);
 });
 
 abedroomsBtn.addEventListener('click', () => {
     newSelect(abedroomsBtn);
-    populateGrid(abedroomsArr);
+    populateGrid(2);
 });
 
 kbedroomsBtn.addEventListener('click', () => {
     newSelect(kbedroomsBtn);
-    populateGrid(kbedroomsArr);
+    populateGrid(3);
 });
 
 receptionsBtn.addEventListener('click', () => {
     newSelect(receptionsBtn);
-    populateGrid(receptionsArr);
-});
-
-tvunitsBtn.addEventListener('click', () => {
-    newSelect(tvunitsBtn);
-    populateGrid(tvunitsArr);
+    populateGrid(4);
 });
 
 diningroomsBtn.addEventListener('click', () => {
     newSelect(diningroomsBtn);
-    populateGrid(diningroomsArr);
+    populateGrid(5);
+});
+
+tvunitsBtn.addEventListener('click', () => {
+    newSelect(tvunitsBtn);
+    populateGrid(6);
 });
 
 homeP.addEventListener('click', () => {
@@ -72,37 +73,37 @@ homeP.addEventListener('click', () => {
 
 livingroomsP.addEventListener('click', () => {
     newSelect(livingroomsBtn);
-    populateGrid(livingroomsArr);
+    populateGrid(1);
     hideMenu();
 });
 
 abedroomsP.addEventListener('click', () => {
     newSelect(abedroomsBtn);
-    populateGrid(abedroomsArr);
+    populateGrid(2);
     hideMenu();
 });
 
 kbedroomsP.addEventListener('click', () => {
     newSelect(kbedroomsBtn);
-    populateGrid(kbedroomsArr);
+    populateGrid(3);
     hideMenu();
 });
 
 receptionsP.addEventListener('click', () => {
     newSelect(receptionsBtn);
-    populateGrid(receptionsArr);
-    hideMenu();
-});
-
-tvunitsP.addEventListener('click', () => {
-    newSelect(tvunitsBtn);
-    populateGrid(tvunitsArr);
+    populateGrid(4);
     hideMenu();
 });
 
 diningroomsP.addEventListener('click', () => {
     newSelect(diningroomsBtn);
-    populateGrid(diningroomsArr);
+    populateGrid(5);
+    hideMenu();
+});
+
+tvunitsP.addEventListener('click', () => {
+    newSelect(tvunitsBtn);
+    populateGrid(6);
     hideMenu();
 });
 

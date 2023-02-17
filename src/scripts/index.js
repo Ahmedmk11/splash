@@ -14,15 +14,8 @@ import xClose from '../assets/images/icons/x.png';
 import dotIcn from '../assets/images/icons/dot.png';
 import sdotIcn from '../assets/images/icons/sdot.png';
 import x2Icn from '../assets/images/icons/x2.png';
+import db from './db.json';
 
-const mysql = require('mysql');
-
-const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "SAam$*lA<3",
-    database: "Splash"
-});
 
 export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
@@ -88,6 +81,8 @@ const navAr2 = ['الرئيسية', 'غرف المعيشة', 'غرف نوم رئ
 const navEn2 = ['Home', 'Living Rooms', 'Master Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
 let flag = 'page';
 let currItem = [];
+let products = db.Products
+
 goHome()
 switchLang('ar');
 
@@ -95,14 +90,6 @@ export function importAll(r) {
     let images = {};
     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
     return images;
-}
-
-const getTable = (t) => {
-    return new Promise((resolve, reject) => {
-        con.query(`SELECT * FROM ${t}`, (err, resp) => {
-            (!err) ? resolve(resp) : reject(err)
-        });
-    })
 }
 
 export function populateRecommendations(r) {
@@ -136,7 +123,7 @@ export function populateRecommendations(r) {
                 const c = document.createElement('div')
                 let img = createCard(c, 7, i)
                 img.addEventListener('click', () => {
-                    populateItem(recommendationsArr, i)
+                    populateItem(7, i)
                 });
                 ar.push(c)
             }
@@ -312,29 +299,13 @@ export function chooseMode(n) {
     }
 }
 
-export function chooseTable(n) {
-    switch (n) {
-        case 1:
-            return 'livingroom'
-        case 2:
-            return 'masterbedroom'
-        case 3:
-            return 'kidsbedroom'
-        case 4:
-            return 'receptions'
-        case 5:
-            return 'diningrooms'
-        case 6:
-            return 'tvunits'
-        case 7:
-            return 'recommended'
-        default:
-            break;
-    }
-}
-
 function createCard(container, n, index) {
     let arr = chooseMode(n)
+
+    let p_title_en = document.createElement('p').textContent = products[index].product_title_en
+    let p_title_ar = document.createElement('p').textContent = products[index].product_title_ar
+    let p_price = document.createElement('p').textContent = products[index].product_price
+    
     const tmp = document.createElement("div");
     const info = document.createElement("div");
     const infoL = document.createElement("div");
@@ -348,20 +319,20 @@ function createCard(container, n, index) {
     tmp.classList.add('item');
     info.classList.add('info');
     infoL.classList.add('info-left');
-    img.src = arr[`${index}.jpg`];
+    img.src = arr[`${index}.jpeg`];           // HERE
     img.setAttribute('data-scale', '1.2');
     addFav.src = starLogoB;
     if (langBtn.value == 'english') {
-        nameP.textContent = 'Placeholder Name';
-        priceP.textContent = 'EGP 1600';
+        nameP.textContent = p_title_en
         addFav.setAttribute("title", "Add to favorites");
         cart.textContent = 'Add to Cart';
     } else {
-        nameP.textContent = 'اسم المنتج';
-        priceP.textContent = '١٦٠٠ ج.م';
+        nameP.textContent = p_title_ar
         addFav.setAttribute("title", "اضافه الى قائمة المفضلات");
         cart.textContent = "اضافة الي عربة التسوق";
     }
+    priceP.textContent = p_price
+
     infoL.append(nameP);
     infoL.append(priceP);
     info.append(infoL);
@@ -456,13 +427,10 @@ export function populateGrid(n) {
     let grid = document.createElement("div");
     grid.id = 'grid';
 
-    let t = chooseTable(n)
-
-
     for (let i = 0; i < Object.keys(imageArr).length; i++) {
         let img = createCard(grid, n, i);
         img.addEventListener('click', () => {
-            populateItem(imageArr, i)
+            populateItem(n, i)
         });
     }
     middleContainer.append(grid);
@@ -570,7 +538,7 @@ export function switchLang(target) {
             btn.textContent = navAr2[i];
         }
         menu.classList.add('ars');
-        bedroomsBtn.textContent = 'غرف النوم'
+        bedroomsBtn.textContent = 'غرف النوم';
         profileImg.setAttribute("title", "عرض الصفحة الشخصية");
         starImg.setAttribute("title", "عرض قائمة المفضلات");
         cartImg.setAttribute("title", "عرض عربة التسوق");

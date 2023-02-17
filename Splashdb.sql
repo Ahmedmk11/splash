@@ -126,12 +126,12 @@ BEGIN
 END $$
 DELIMITER ;
 
-CREATE VIEW viewMasterBedrooms
+CREATE VIEW viewmasterbedrooms
 AS
 	SELECT * FROM Products p
 	WHERE p.product_type = 'masterbedroom';
 
-CREATE VIEW viewKidsBedrooms
+CREATE VIEW viewkidsbedrooms
 AS
 	SELECT * FROM Products p
 	WHERE p.product_type = 'kidsbedroom';
@@ -147,6 +147,7 @@ VALUES
 INSERT INTO Products (product_code, product_title, product_price, product_dimensions, product_description, product_type) 
 VALUES 
 ('M01', 'Spiderman Bedroom', 200000.00, '10x8x3', 'Good Bedroom', 'kidsbedroom'),
+('M01', 'Mr.Herbert Basement', 5000.00, '3x3x3', 'Bad Bedroom', 'kidsbedroom'),
 ('M02', 'Batman Bedroom', 300000.00, '10x8x3', 'Good Bedroom', 'masterbedroom'),
 ('M03', 'Modern Livingroom', 500000.00, '14x10x5', 'Good Livingroom', 'livingroom');
 
