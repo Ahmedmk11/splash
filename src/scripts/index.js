@@ -536,8 +536,8 @@ function populateItem(n, i) {
 }
 
 export function populateGrid(n) {
-    let imageArr = chooseMode(n)
     middleContainer.innerHTML = '';
+    let imageArr = chooseMode(n)
     flag = 'page'
     let grid = document.createElement("div");
     grid.id = 'grid';
