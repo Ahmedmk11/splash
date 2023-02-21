@@ -1,9 +1,36 @@
 import json
+import random
+import string
 from tkinter import *
-from tkinter import messagebox  
+from tkinter import messagebox 
+import shutil 
+import os
+from natsort import natsorted
 
 window = Tk()
 window.title("Delete Product")
+new_names_d = []
+new_names_o = []
+
+def rename_all(d):
+    dirr = os.listdir(d)
+    sortedDir = natsorted(dirr)
+    
+    ind = 0
+    for file in sortedDir:
+        if file.endswith('.jpg') or file.endswith('.jpeg'):
+            ext = '.' + file.split('.')[-1]
+            new_name =  os.path.abspath(d + '/' + str(ind)+ext)
+            os.rename(os.path.abspath(d + '/' + file), new_name)
+            ind += 1
+            new_name_rel = "src/" + new_name.split('/src/')[-1]
+            if "displayed" in d:
+                new_names_d.append(new_name_rel)
+            elif "original" in d:
+                new_names_o.append(new_name_rel)
+
+def random_string_generator(str_size, allowed_chars):
+    return ''.join(random.choice(allowed_chars) for x in range(str_size))
 
 def deleted():
     with open('src/scripts/db.json', 'r+') as f:
@@ -23,11 +50,42 @@ def deleted():
             else:
                 flag = False
             c += 1
-        
+
         if flag and not empty:
-            messagebox.showinfo("Done", "Product Deleted!")
-            e1.delete(0, END)
+            displayed = products[c]["product_img_path_displayed"]
+            original = products[c]["product_img_path_original"]
+            displayedDir = displayed.split('/')
+            displayedDir.pop()
+            displayedDir = '/'.join(displayedDir)
+            originalDir = original.split('/')
+            originalDir.pop()
+            originalDir = '/'.join(originalDir)
+
+            disEXT = displayed.split('.')[1]
+            ogEXT = original.split('.')[1]
+
+            chars = string.ascii_letters + string.punctuation
+
+            filename = random_string_generator(16, chars)
+
+            target1 = f"src/assets/images/pictures/products/deleted/displayed/{filename}.{disEXT}"
+            target2 = f"src/assets/images/pictures/products/deleted/original/{filename}.{ogEXT}"
+
             del products[c]
+            shutil.move(displayed, target1)
+            shutil.move(original, target2)
+
+            rename_all(displayedDir)
+            rename_all(originalDir)
+
+            e1.delete(0, END)
+
+            for ind in range(len(products)):
+                p = products[ind]
+                p["product_img_path_displayed"] = new_names_d[ind]
+                p["product_img_path_original"] = new_names_o[ind]
+
+            messagebox.showinfo("Done", "Product Deleted!")
         elif empty:
             messagebox.showinfo("Err", "No Value Entered")
         elif not flag:

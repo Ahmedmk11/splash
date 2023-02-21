@@ -1,4 +1,5 @@
 import json
+import os
 from tkinter import *
 from tkinter import messagebox  
 from tkinter import filedialog
@@ -8,15 +9,10 @@ from PIL import Image, ImageTk
 window = Tk()
 window.title("Add Product")
 images = []
-indx = 0
 e11 = 0
 e12 = 0
 p11 = 0
 p12 = 0
-
-with open("src/scripts/db.json", "r") as file:
-    d = json.load(file)
-    indx = len(d['Products'])
   
 def callback(*args):
     if variable.get() != 'Product Type':
@@ -24,9 +20,9 @@ def callback(*args):
     else:
         e9['state'] = DISABLED
 
-
 def save_img():
     first = True
+    paths = []
     for img in images:
         path = ''
         path2 = ''
@@ -48,7 +44,12 @@ def save_img():
         elif variable.get() == "TV Units":
             path2 = "tvunits/"
 
-        img.save(f'{path}{path2}{indx}.jpg', 'JPEG')
+        indx = len(os.listdir(f'{path}{path2}'))
+        p = f'{path}{path2}{indx-1}.jpg'
+        print(indx)
+        img.save(p, 'JPEG')
+        paths.append(p)
+    return paths
 
 def upload_file(i,b):
     try:
@@ -83,37 +84,41 @@ def upload_file(i,b):
             e12['image']=img
         b['state']=DISABLED
     except Exception as e:
-        messagebox.showinfo("Err", f"No Image Chosen OR {e}")
+        messagebox.showinfo("Err", e)
 
 def added():
     with open('src/scripts/db.json', 'r+') as f:
         data = json.load(f)
         products = data["Products"]
         empty = False
-
         if len(e1.get()) == 0 or len(e2.get()) == 0 or len(e3.get()) == 0 or len(e4.get()) == 0 or len(e5.get()) == 0 or len(e6.get()) == 0 or len(e7.get()) == 0 or variable.get() == "Product Type" or len(images) != 2:
             empty = True
+        
+        dup = False
 
-        dic = {
-            "p_id": e1.get(),
-            "product_code_en": f"- ID: {e1.get()}",
-            "product_code_ar": f"- \u0631\u0642\u0645 \u0627\u0644\u0645\u0646\u062a\u062c:  {e1.get()}",
-            "product_title_en": e2.get(),
-            "product_title_ar": e3.get(),
-            "product_description_en": f"- Details: {e4.get()}",
-            "product_description_ar": f"- \u0627\u0644\u062a\u0641\u0627\u0635\u064a\u0644: {e5.get()}",
-            "product_price_en": f"{e6.get()} EGP",
-            "product_price_ar": f"{e6.get()} \u062c.\u0645",
-            "product_dimensions_en": f"- Dimensions: {e7.get()}",
-            "product_dimensions_ar": f"- \u0627\u0644\u0627\u0628\u0639\u0627\u062f: {e7.get()}",
-            "product_type": variable.get(),
-            "product_img_path_displayed": "",
-            "product_img_path_original": ""
-        }
+        for i in products:
+            if i["p_id"] == e1.get().capitalize():
+                dup = True
+                break
 
-        if not empty:
-            save_img()
-            messagebox.showinfo("Done", "Product Added!")
+        if not empty and not dup:
+            paths = save_img()
+            dic = {
+                "p_id": e1.get().capitalize(),
+                "product_code_en": f"- ID: {e1.get().capitalize()}",
+                "product_code_ar": f"- \u0631\u0642\u0645 \u0627\u0644\u0645\u0646\u062a\u062c:  {e1.get().capitalize()}",
+                "product_title_en": e2.get(),
+                "product_title_ar": e3.get(),
+                "product_description_en": f"- Details: {e4.get()}",
+                "product_description_ar": f"- \u0627\u0644\u062a\u0641\u0627\u0635\u064a\u0644: {e5.get()}",
+                "product_price_en": f"{e6.get()} EGP",
+                "product_price_ar": f"{e6.get()} \u062c.\u0645",
+                "product_dimensions_en": f"- Dimensions: {e7.get()}",
+                "product_dimensions_ar": f"- \u0627\u0644\u0627\u0628\u0639\u0627\u062f: {e7.get()}",
+                "product_type": variable.get(),
+                "product_img_path_displayed": paths[0],
+                "product_img_path_original": paths[1]
+            }
             products.append(dic)
             e1.delete(0, END)
             e2.delete(0, END)
@@ -133,8 +138,11 @@ def added():
             variable.set("Product Type")
             images.clear()
             empty = True
-        else:
-            messagebox.showinfo("Err", "All Fields Are Required")
+            messagebox.showinfo("Done", "Product Added.")
+        elif empty:
+            messagebox.showinfo("Err", "All Fields Are Required.")
+        elif dup:
+            messagebox.showinfo("Err", "Product ID Already Exists.")
 
         f.seek(0)
         json.dump(data, f, indent=4)
