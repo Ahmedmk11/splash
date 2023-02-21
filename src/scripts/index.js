@@ -20,6 +20,8 @@ import ig from '../assets/images/icons/ig.svg';
 import wa from '../assets/images/icons/wa.svg';
 import db from './db.json';
 
+import {PriorityQueue} from '@datastructures-js/priority-queue';
+
 export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
 export const actionsContainer = document.getElementById('actions-container');
@@ -79,7 +81,7 @@ menuImg.classList.add('mobile');
 menu.appendChild(xImg)
 
 export const livingroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/livingrooms', false, /\.(png|jpe?g|svg)$/));
-export const abedroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/bedrooms/adults', false, /\.(png|jpe?g|svg)$/));
+export const abedroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/bedrooms/master', false, /\.(png|jpe?g|svg)$/));
 export const kbedroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/bedrooms/kids', false, /\.(png|jpe?g|svg)$/));
 export const receptionsArr = importAll(require.context('../assets/images/pictures/products/displayed/receptions', false, /\.(png|jpe?g|svg)$/));
 export const tvunitsArr = importAll(require.context('../assets/images/pictures/products/displayed/tvunits', false, /\.(png|jpe?g|svg)$/));
@@ -87,7 +89,7 @@ export const diningroomsArr = importAll(require.context('../assets/images/pictur
 export const recommendationsArr = importAll(require.context('../assets/images/pictures/products/recommendations', false, /\.(png|jpe?g|svg)$/));
 
 export const livingroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/livingrooms', false, /\.(png|jpe?g|svg)$/));
-export const abedroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/bedrooms/adults', false, /\.(png|jpe?g|svg)$/));
+export const abedroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/bedrooms/master', false, /\.(png|jpe?g|svg)$/));
 export const kbedroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/bedrooms/kids', false, /\.(png|jpe?g|svg)$/));
 export const receptionsArrOG = importAll(require.context('../assets/images/pictures/products/original/receptions', false, /\.(png|jpe?g|svg)$/));
 export const tvunitsArrOG = importAll(require.context('../assets/images/pictures/products/original/tvunits', false, /\.(png|jpe?g|svg)$/));
@@ -101,11 +103,11 @@ const navAr2 = ['الرئيسية', 'غرف المعيشة', 'غرف نوم رئ
 const navEn2 = ['Home', 'Living Rooms', 'Master Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
 let flag = 'page';
 let currItem = [];
+let srchArr = [];
+let resi = [];
 let products = db.Products
 
-if (window.location.href == 'http://localhost:8080/') {
-    goHome()
-}
+goHome()
 switchLang('ar');
 
 export function importAll(r) {
@@ -156,17 +158,27 @@ export function similarity(s1, s2) {
 }
 
 export function searchResults(target) {
-    window.location.href = "search-results.html"
     middleContainer.focus()
+    resi = []
+    const resultsQueue = new PriorityQueue((a, b) => {
+        if (a[1] > b[1]) {
+          return -1;
+        }
+        if (a[1] < b[1]) {
+          return 1;
+        }
+      }
+    );
+
     target = target.toUpperCase()
-    let results = []
     let breakk = false
     const re = new RegExp(/M\d\d(\d)?(\d)?/);
     if (re.test(target)) {
         for (let i = 0; i < products.length; i++) {
             const product = products[i];
             if (product.p_id == target) {
-                results.push(i)
+                resultsQueue.enqueue([i, 1, product.product_type])
+                resi.push(i)
                 breakk = true
             }
         }
@@ -182,8 +194,10 @@ export function searchResults(target) {
                 splt.forEach(wrd => {
                     if (wrd.length > 3){
                         wrd = wrd.toUpperCase()
-                        if (similarity(wrd, target) > 0.65 || target.length > 3 && (wrd.includes(target) || target.includes(wrd))){
-                            results.push(i)
+                        let sim = similarity(wrd, target)
+                        if (sim > 0.65 || target.length > 3 && (wrd.includes(target) || target.includes(wrd))){
+                            resultsQueue.enqueue([i, sim, product.product_type])
+                            resi.push(i)
                         }
                     }
                 });
@@ -191,7 +205,45 @@ export function searchResults(target) {
         }
     }
     srch.value = ''
-    // fn
+    populateSearchResults(resultsQueue)
+}
+
+export function populateSearchResults(r) {
+    middleContainer.innerHTML = '';
+    srchArr = []
+    while(!r.isEmpty()){
+        let l = r.dequeue()
+        if (l[2] == "Livingrooms") {
+            srchArr.push(livingroomsArr[`${l[0]}.jpg`])
+        }
+        else if (l[2] == "Kids Bedrooms") {
+            srchArr.push(kbedroomsArr[`${l[0]}.jpg`])
+        }
+        else if (l[2] == "Master Bedrooms") {
+            srchArr.push(abedroomsArr[`${l[0]}.jpg`])
+        }
+        else if (l[2] == "Diningrooms") {
+            srchArr.push(diningroomsArr[`${l[0]}.jpg`])
+        }
+        else if (l[2] == "Receptions") {
+            srchArr.push(receptionsArr[`${l[0]}.jpg`])
+        }
+        else if (l[2] == "TV Units") {
+            srchArr.push(tvunitsArr[`${l[0]}.jpg`])
+        }
+    }
+
+    flag = 'page'
+    let grid = document.createElement("div");
+    grid.id = 'grid';
+
+    for (let i = 0; i < srchArr.length; i++) {
+        let img = createCard(grid, -1, [i, resi[i]]);
+        img.addEventListener('click', () => {
+            populateItem(-1, [i, resi[i]])
+        });
+    }
+    middleContainer.append(grid);
 }
 
 export function populateRecommendations(r) {
@@ -368,6 +420,7 @@ export function goHome() {
     container2.appendChild(dots)
     middleContainer.appendChild(container2)
     flag = 'page'
+    hideMenu()
 }
 
 export function hideMenu() {
@@ -385,10 +438,8 @@ export function chooseMode(n) {
         case 1:
             return livingroomsArr
         case 2:
-            window.location.href = "master-bedrooms.html"
             return abedroomsArr
         case 3:
-            window.location.href = "kids-bedrooms.html"
             return kbedroomsArr
         case 4:
             return receptionsArr
@@ -398,6 +449,8 @@ export function chooseMode(n) {
             return tvunitsArr
         case 7:
             return recommendationsArr
+        case -1:
+            return srchArr
         default:
             break;
     }
@@ -406,10 +459,10 @@ export function chooseMode(n) {
 
 function createCard(container, n, index) {
     let arr = chooseMode(n)
-    let p_title_en = document.createElement('p').textContent = products[index].product_title_en
-    let p_title_ar = document.createElement('p').textContent = products[index].product_title_ar
-    let p_price_en = document.createElement('p').textContent = products[index].product_price_en
-    let p_price_ar = document.createElement('p').textContent = products[index].product_price_ar
+    let p_title_en = ''
+    let p_title_ar = ''
+    let p_price_en = ''
+    let p_price_ar = ''
     
     const tmp = document.createElement("div");
     const info = document.createElement("div");
@@ -424,7 +477,19 @@ function createCard(container, n, index) {
     tmp.classList.add('item');
     info.classList.add('info');
     infoL.classList.add('info-left');
-    img.src = arr[`${index}.jpg`];
+    if (n == -1) {
+        img.src = arr[index[0]];
+        p_title_en = document.createElement('p').textContent = products[index[1]].product_title_en
+        p_title_ar = document.createElement('p').textContent = products[index[1]].product_title_ar
+        p_price_en = document.createElement('p').textContent = products[index[1]].product_price_en
+        p_price_ar = document.createElement('p').textContent = products[index[1]].product_price_ar
+    } else {
+        img.src = arr[`${index}.jpg`];
+        p_title_en = document.createElement('p').textContent = products[index].product_title_en
+        p_title_ar = document.createElement('p').textContent = products[index].product_title_ar
+        p_price_en = document.createElement('p').textContent = products[index].product_price_en
+        p_price_ar = document.createElement('p').textContent = products[index].product_price_ar
+    }
     img.setAttribute('data-scale', '1.2');
     addFav.src = starLogoB;
     if (langBtn.value == 'english') {
@@ -454,13 +519,14 @@ function createCard(container, n, index) {
 
 function populateItem(n, i) {
     middleContainer.innerHTML = '';
-
-    let p_code_en = document.createElement('p').textContent = products[i].product_code_en
-    let p_code_ar = document.createElement('p').textContent = products[i].product_code_ar
-    let p_dimensions_en = document.createElement('p').textContent = products[i].product_dimensions_en
-    let p_dimensions_ar = document.createElement('p').textContent = products[i].product_dimensions_ar
-    let p_desc_en = document.createElement('p').textContent = products[i].product_description_en
-    let p_desc_ar = document.createElement('p').textContent = products[i].product_description_ar
+    currItem.push(n)
+    currItem.push(i)
+    let p_code_en = ''
+    let p_code_ar = ''
+    let p_dimensions_en = ''
+    let p_dimensions_ar = ''
+    let p_desc_en = ''
+    let p_desc_ar = ''
 
     flag = 'item';
     let fl = false
@@ -472,7 +538,19 @@ function populateItem(n, i) {
     const desc1 = document.createElement('div');
     const desc2 = document.createElement('div');
     const desc3 = document.createElement('div');
-    let img = createCard(item, n, i);
+    let img = ''
+    
+    img = createCard(item, n, i);
+    if (n == -1) {
+        i = i[1]
+    }
+
+    p_code_en = document.createElement('p').textContent = products[i].product_code_en
+    p_code_ar = document.createElement('p').textContent = products[i].product_code_ar
+    p_dimensions_en = document.createElement('p').textContent = products[i].product_dimensions_en
+    p_dimensions_ar = document.createElement('p').textContent = products[i].product_dimensions_ar
+    p_desc_en = document.createElement('p').textContent = products[i].product_description_en
+    p_desc_ar = document.createElement('p').textContent = products[i].product_description_ar
 
     img.addEventListener('click', () => {
         if (!fl) {
@@ -531,8 +609,6 @@ function populateItem(n, i) {
     viewItem.appendChild(item)
     viewItem.appendChild(details)
     middleContainer.append(viewItem)
-    currItem.push(n)
-    currItem.push(i)
 }
 
 export function populateGrid(n) {
@@ -548,6 +624,7 @@ export function populateGrid(n) {
             populateItem(n, i)
         });
     }
+    hideMenu()
     middleContainer.append(grid);
 }
 
@@ -652,6 +729,7 @@ export function switchLang(target) {
             const btn = navP[i];
             btn.textContent = navAr2[i];
         }
+        menu.classList.remove('ens');
         menu.classList.add('ars');
         bedroomsBtn.textContent = 'غرف النوم';
         profileImg.setAttribute("title", "عرض الصفحة الشخصية");
@@ -668,6 +746,7 @@ export function switchLang(target) {
             const btn = navP[i];
             btn.textContent = navEn2[i];
         }
+        menu.classList.remove('ars');
         menu.classList.add('ens');
         bedroomsBtn.textContent = 'Bedrooms'
         profileImg.setAttribute("title", "View Profile");

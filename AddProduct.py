@@ -1,9 +1,89 @@
 import json
 from tkinter import *
 from tkinter import messagebox  
+from tkinter import filedialog
+from tkinter.filedialog import askopenfile
+from PIL import Image, ImageTk
 
 window = Tk()
 window.title("Add Product")
+images = []
+indx = 0
+e11 = 0
+e12 = 0
+p11 = 0
+p12 = 0
+
+with open("src/scripts/db.json", "r") as file:
+    d = json.load(file)
+    indx = len(d['Products'])
+  
+def callback(*args):
+    if variable.get() != 'Product Type':
+        e9['state'] = ACTIVE
+    else:
+        e9['state'] = DISABLED
+
+
+def save_img():
+    first = True
+    for img in images:
+        path = ''
+        path2 = ''
+        if first == True:
+            path = "src/assets/images/pictures/products/displayed/"
+            first = False
+        else:
+            path = "src/assets/images/pictures/products/original/"
+        if variable.get() == "Livingrooms":
+            path2 = "livingrooms/"
+        elif variable.get() == "Kids Bedrooms":
+            path2 = "bedrooms/kids/"
+        elif variable.get() == "Master Bedrooms":
+            path2 = "bedrooms/master/"
+        elif variable.get() == "Diningrooms":
+            path2 = "diningrooms/"
+        elif variable.get() == "Receptions":
+            path2 = "receptions/"
+        elif variable.get() == "TV Units":
+            path2 = "tvunits/"
+
+        img.save(f'{path}{path2}{indx}.jpg', 'JPEG')
+
+def upload_file(i,b):
+    try:
+        f_types = [('Jpg Files', '*.jpg'),
+        ('PNG Files','*.png')]
+        filename = filedialog.askopenfilename(filetypes=f_types)
+        img=Image.open(filename)
+        images.append(img)
+        width, height = img.size  
+        width_new=int(width/2.5)
+        height_new=int(height/2.5)
+        img=img.resize((width_new,height_new))
+        img=ImageTk.PhotoImage(img)
+        if i == 0:
+            global e11
+            global p11
+            e11 = Label(window)
+            e11.place(x=450, y=0)
+            p11 = Label(window,text = "Displayed Image", font=('Arial', 18))
+            p11.place(x=450, y=height_new+20)
+            e11.image = img
+            e11['image']=img
+            e10['state']=ACTIVE
+        else:
+            global e12
+            global p12
+            e12 = Label(window)
+            e12.place(x=760, y=0)
+            p12 = Label(window,text = "Original Image", font=('Arial', 18))
+            p12.place(x=760, y=height_new+20)
+            e12.image = img
+            e12['image']=img
+        b['state']=DISABLED
+    except Exception as e:
+        messagebox.showinfo("Err", f"No Image Chosen OR {e}")
 
 def added():
     with open('src/scripts/db.json', 'r+') as f:
@@ -11,7 +91,7 @@ def added():
         products = data["Products"]
         empty = False
 
-        if len(e1.get()) == 0 or len(e2.get()) == 0 or len(e3.get()) == 0 or len(e4.get()) == 0 or len(e5.get()) == 0 or len(e6.get()) == 0 or len(e7.get()) == 0 or len(e8.get()) == 0:
+        if len(e1.get()) == 0 or len(e2.get()) == 0 or len(e3.get()) == 0 or len(e4.get()) == 0 or len(e5.get()) == 0 or len(e6.get()) == 0 or len(e7.get()) == 0 or variable.get() == "Product Type" or len(images) != 2:
             empty = True
 
         dic = {
@@ -26,21 +106,33 @@ def added():
             "product_price_ar": f"{e6.get()} \u062c.\u0645",
             "product_dimensions_en": f"- Dimensions: {e7.get()}",
             "product_dimensions_ar": f"- \u0627\u0644\u0627\u0628\u0639\u0627\u062f: {e7.get()}",
-            "product_type": e8.get()
+            "product_type": variable.get(),
+            "product_img_path_displayed": "",
+            "product_img_path_original": ""
         }
 
-        e1.delete(0, END)
-        e2.delete(0, END)
-        e3.delete(0, END)
-        e4.delete(0, END)
-        e5.delete(0, END)
-        e6.delete(0, END)
-        e7.delete(0, END)
-        e8.delete(0, END)
-
         if not empty:
+            save_img()
             messagebox.showinfo("Done", "Product Added!")
             products.append(dic)
+            e1.delete(0, END)
+            e2.delete(0, END)
+            e3.delete(0, END)
+            e4.delete(0, END)
+            e5.delete(0, END)
+            e6.delete(0, END)
+            e7.delete(0, END)
+            global e11
+            global e12
+            global p11
+            global p12
+            e11.destroy()
+            e12.destroy()
+            p11.destroy()
+            p12.destroy()
+            variable.set("Product Type")
+            images.clear()
+            empty = True
         else:
             messagebox.showinfo("Err", "All Fields Are Required")
 
@@ -48,8 +140,8 @@ def added():
         json.dump(data, f, indent=4)
         f.truncate()
 
-window.minsize(height=350, width=400)
-window.maxsize(height=350, width=400)
+window.minsize(height=420, width=1300)
+window.maxsize(height=420, width=1300)
 
 p1 = Label(window,text = "Product ID", font=('Arial', 18))
 p1.grid(row = 0, column = 0)
@@ -88,10 +180,23 @@ e7.grid(row = 6, column = 1)
 
 p8 = Label(window,text = "Product Type", font=('Arial', 18))
 p8.grid(row = 7, column = 0)
-e8 = Entry(window, width=15, font =("Arial", 20, "bold"))
+variable = StringVar(window)
+variable.set("Product Type")
+variable.trace("w", callback)
+e8 = OptionMenu(window, variable, "Livingrooms", "Kids Bedrooms", "Master Bedrooms", "Diningrooms", "Receptions", "TV Units")
 e8.grid(row = 7, column = 1)
 
-btn = Button(window, text = "Add", fg = "black", command= added)
-btn.grid(row = 8, column = 0)
+p9 = Label(window,text = "Import Image", font=('Arial', 18))
+p9.grid(row = 8, column = 0)
+e9 = Button(window, text='Upload Displayed', width=20,command = lambda:upload_file(0,e9), state=DISABLED)
+e9.grid(row=8, column=1) 
+
+p10 = Label(window,text = "Import Image", font=('Arial', 18))
+p10.grid(row = 9, column = 0)
+e10 = Button(window, text='Upload Original', width=20,command = lambda:upload_file(1,e10), state=DISABLED)
+e10.grid(row= 9, column=1) 
+
+btn = Button(window, text = "Add Product", fg = "black", command= added, width=8, height=2)
+btn.grid(row = 10, column = 0)
 
 window.mainloop()

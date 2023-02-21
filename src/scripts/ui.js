@@ -30,6 +30,11 @@ if (hasTouch()) {
     } catch (ex) {}
 }
 
+
+
+
+
+
 homeBtn.addEventListener('click', () => {
     newSelect(homeBtn);
     goHome();
@@ -65,47 +70,59 @@ tvunitsBtn.addEventListener('click', () => {
     populateGrid(6);
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
 homeP.addEventListener('click', () => {
     newSelect(homeBtn);
     goHome();
-    hideMenu();
 });
 
 livingroomsP.addEventListener('click', () => {
     newSelect(livingroomsBtn);
     populateGrid(1);
-    hideMenu();
 });
 
 abedroomsP.addEventListener('click', () => {
     newSelect(abedroomsBtn);
     populateGrid(2);
-    hideMenu();
 });
 
 kbedroomsP.addEventListener('click', () => {
     newSelect(kbedroomsBtn);
     populateGrid(3);
-    hideMenu();
 });
 
 receptionsP.addEventListener('click', () => {
     newSelect(receptionsBtn);
     populateGrid(4);
-    hideMenu();
 });
 
 diningroomsP.addEventListener('click', () => {
     newSelect(diningroomsBtn);
     populateGrid(5);
-    hideMenu();
 });
 
 tvunitsP.addEventListener('click', () => {
     newSelect(tvunitsBtn);
     populateGrid(6);
-    hideMenu();
 });
+
+
+
+
+
+
+
 
 langBtn.addEventListener('change', () => {
     if (langBtn.value == 'arabic') {
