@@ -46,7 +46,6 @@ def save_img():
 
         indx = len(os.listdir(f'{path}{path2}'))
         p = f'{path}{path2}{indx-1}.jpg'
-        print(indx)
         img.save(p, 'JPEG')
         paths.append(p)
     return paths

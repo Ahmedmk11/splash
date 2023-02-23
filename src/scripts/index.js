@@ -1,7 +1,6 @@
 import starLogoB from '../assets/images/icons/starB.png';
 import starFilled from '../assets/images/icons/starFilled.png';
 import logo from '../assets/images/pictures/logo.jpg';
-import zoomedIcn from '../assets/images/testing/zoomed/dog.jpeg';
 import profileLogo from '../assets/images/icons/profile.png';
 import starLogo from '../assets/images/icons/star.png';
 import cartLogo from '../assets/images/icons/cart.png';
@@ -21,6 +20,8 @@ import wa from '../assets/images/icons/wa.svg';
 import db from './db.json';
 
 import {PriorityQueue} from '@datastructures-js/priority-queue';
+
+let products = db.Products
 
 export const middleContainer = document.getElementById('middle-container');
 export const headerUp = document.getElementById('header-upper');
@@ -86,7 +87,7 @@ export const kbedroomsArr = importAll(require.context('../assets/images/pictures
 export const receptionsArr = importAll(require.context('../assets/images/pictures/products/displayed/receptions', false, /\.(png|jpe?g|svg)$/));
 export const tvunitsArr = importAll(require.context('../assets/images/pictures/products/displayed/tvunits', false, /\.(png|jpe?g|svg)$/));
 export const diningroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/diningrooms', false, /\.(png|jpe?g|svg)$/));
-export const recommendationsArr = importAll(require.context('../assets/images/pictures/products/recommendations', false, /\.(png|jpe?g|svg)$/));
+// export const recommendationsArr = importAll(require.context('../assets/images/pictures/products/recommendations', false, /\.(png|jpe?g|svg)$/));
 
 export const livingroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/livingrooms', false, /\.(png|jpe?g|svg)$/));
 export const abedroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/bedrooms/master', false, /\.(png|jpe?g|svg)$/));
@@ -101,11 +102,99 @@ const navAr = ['الرئيسية', 'غرف المعيشة', 'غرف نوم رئ�
 const navEn = ['Home', 'Living Rooms', 'Master Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
 const navAr2 = ['الرئيسية', 'غرف المعيشة', 'غرف نوم رئيسية', 'غرف نوم اطفال', 'صالونات', 'مكتبات', 'غرف سفرة'];
 const navEn2 = ['Home', 'Living Rooms', 'Master Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
+
+const LivingRoomsDetails = []
+const KidsBedroomsDetails = []
+const MasterBedroomsDetails = []
+const DiningRoomsDetails = []
+const ReceptionsDetails = []
+const TVUnitsDetails = []
+const recommendationsArrDetails = []
+const recommendationsArr = {}
+const recommendationsArrOG = {}
+let iii = 0
+
+products.forEach(p => {
+    switch (p.product_type) {
+        case "Livingrooms":
+            LivingRoomsDetails.push(p.index)
+            if (p.recommended == 1) {
+                let a = p.product_img_path_displayed.split('/')
+                let indx2 = a[a.length-1]
+                let ex = indx2.split('.')[1]
+                recommendationsArr[`${iii}.${ex}`] = livingroomsArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = livingroomsArrOG[indx2]
+                iii++
+            }
+            break;
+        case "Kids Bedrooms":
+            KidsBedroomsDetails.push(p.index)
+            if (p.recommended == 1) {
+                let a = p.product_img_path_displayed.split('/')
+                let indx2 = a[a.length-1]
+                let ex = indx2.split('.')[1]
+                recommendationsArr[`${iii}.${ex}`] = kbedroomsArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = kbedroomsArrOG[indx2]
+                iii++
+            }
+            break;
+        case "Master Bedrooms":
+            MasterBedroomsDetails.push(p.index)
+            if (p.recommended == 1) {
+                let a = p.product_img_path_displayed.split('/')
+                let indx2 = a[a.length-1]
+                let ex = indx2.split('.')[1]
+                recommendationsArr[`${iii}.${ex}`] = abedroomsArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = abedroomsArrOG[indx2]
+                iii++
+
+            }
+            break;
+        case "Diningrooms":
+            DiningRoomsDetails.push(p.index)
+            if (p.recommended == 1) {
+                let a = p.product_img_path_displayed.split('/')
+                let indx2 = a[a.length-1]
+                let ex = indx2.split('.')[1]
+                recommendationsArr[`${iii}.${ex}`] = diningroomsArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = diningroomsArrOG[indx2]
+                iii++
+            }
+            break;
+        case "Receptions":
+            ReceptionsDetails.push(p.index)
+            if (p.recommended == 1) {
+                let a = p.product_img_path_displayed.split('/')
+                let indx2 = a[a.length-1]
+                let ex = indx2.split('.')[1]
+                recommendationsArr[`${iii}.${ex}`] = receptionsArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = receptionsArrOG[indx2]
+                iii++
+            }
+            break;
+        case "TV Units":
+            TVUnitsDetails.push(p.index)
+            if (p.recommended == 1) {
+                let a = p.product_img_path_displayed.split('/')
+                let indx2 = a[a.length-1]
+                let ex = indx2.split('.')[1]
+                recommendationsArr[`${iii}.${ex}`] = tvunitsArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = tvunitsArrOG[indx2]
+                iii++
+            }
+            break;
+        default:
+            break;
+    }
+    if (p.recommended == 1) {
+        recommendationsArrDetails.push(p.index)
+    }
+});
+
 let flag = 'page';
 let currItem = [];
 let srchArr = [];
 let resi = [];
-let products = db.Products
 
 goHome()
 switchLang('ar');
@@ -172,7 +261,7 @@ export function searchResults(target) {
 
     target = target.toUpperCase()
     let breakk = false
-    const re = new RegExp(/M\d\d(\d)?(\d)?/);
+    const re = new RegExp(/[A-Za-z]\d\d(\d)?(\d)?/);
     if (re.test(target)) {
         for (let i = 0; i < products.length; i++) {
             const product = products[i];
@@ -456,9 +545,31 @@ export function chooseMode(n) {
     }
 }
 
+export function chooseDetails(n) {
+    switch (n) {
+        case 1:
+            return LivingRoomsDetails
+        case 2:
+            return MasterBedroomsDetails
+        case 3:
+            return KidsBedroomsDetails
+        case 4:
+            return ReceptionsDetails
+        case 5:
+            return DiningRoomsDetails
+        case 6:
+            return TVUnitsDetails
+        case 7:
+            return recommendationsArrDetails
+        default:
+            break;
+    }
+}
+
 
 function createCard(container, n, index) {
     let arr = chooseMode(n)
+    let arrDetails = chooseDetails(n)
     let p_title_en = ''
     let p_title_ar = ''
     let p_price_en = ''
@@ -477,7 +588,7 @@ function createCard(container, n, index) {
     tmp.classList.add('item');
     info.classList.add('info');
     infoL.classList.add('info-left');
-    if (n == -1) {
+    if (n == -1) { // search, to be fixed
         img.src = arr[index[0]];
         p_title_en = document.createElement('p').textContent = products[index[1]].product_title_en
         p_title_ar = document.createElement('p').textContent = products[index[1]].product_title_ar
@@ -485,10 +596,14 @@ function createCard(container, n, index) {
         p_price_ar = document.createElement('p').textContent = products[index[1]].product_price_ar
     } else {
         img.src = arr[`${index}.jpg`];
-        p_title_en = document.createElement('p').textContent = products[index].product_title_en
-        p_title_ar = document.createElement('p').textContent = products[index].product_title_ar
-        p_price_en = document.createElement('p').textContent = products[index].product_price_en
-        p_price_ar = document.createElement('p').textContent = products[index].product_price_ar
+        p_title_en = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_title_en
+        p_title_ar = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_title_ar
+        p_price_en = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_price_en
+        p_price_ar = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_price_ar
+    }
+    if (n == 7) {
+        infoL.classList.add('recommendation-info-L')
+        info.classList.add('recommendation-info')
     }
     img.setAttribute('data-scale', '1.2');
     addFav.src = starLogoB;
@@ -545,12 +660,42 @@ function populateItem(n, i) {
         i = i[1]
     }
 
-    p_code_en = document.createElement('p').textContent = products[i].product_code_en
-    p_code_ar = document.createElement('p').textContent = products[i].product_code_ar
-    p_dimensions_en = document.createElement('p').textContent = products[i].product_dimensions_en
-    p_dimensions_ar = document.createElement('p').textContent = products[i].product_dimensions_ar
-    p_desc_en = document.createElement('p').textContent = products[i].product_description_en
-    p_desc_ar = document.createElement('p').textContent = products[i].product_description_ar
+    let arrDetails = chooseDetails(n)
+
+    let arr = []
+
+    switch (n) {
+        case 1:
+            arr = livingroomsArrOG
+            break;
+        case 2:
+            arr = abedroomsArrOG
+            break;
+        case 3:
+            arr = kbedroomsArrOG
+            break;
+        case 4:
+            arr = receptionsArrOG
+            break;
+        case 5:
+            arr = diningroomsArrOG
+            break;
+        case 6:
+            arr = tvunitsArrOG
+            break;
+        case 7:
+            arr = recommendationsArrOG
+            break;
+        default:
+            break;
+    }
+
+    p_code_en = document.createElement('p').textContent = products[parseInt(arrDetails[i])].product_code_en
+    p_code_ar = document.createElement('p').textContent = products[parseInt(arrDetails[i])].product_code_ar
+    p_dimensions_en = document.createElement('p').textContent = products[parseInt(arrDetails[i])].product_dimensions_en
+    p_dimensions_ar = document.createElement('p').textContent = products[parseInt(arrDetails[i])].product_dimensions_ar
+    p_desc_en = document.createElement('p').textContent = products[parseInt(arrDetails[i])].product_description_en
+    p_desc_ar = document.createElement('p').textContent = products[parseInt(arrDetails[i])].product_description_ar
 
     img.addEventListener('click', () => {
         if (!fl) {
@@ -562,7 +707,7 @@ function populateItem(n, i) {
             fl = true
             let zoomedIn = new Image()
             let x2 = new Image()
-            zoomedIn.src = zoomedIcn
+            zoomedIn.src = arr[`${i}.jpg`];
             x2.src = x2Icn
             zoomedIn.classList.add('zoomed-in')
             x2.classList.add('x2')
@@ -574,12 +719,14 @@ function populateItem(n, i) {
                 fl = false
                 const elements = document.getElementsByClassName('zoomed-in');
                 const el = document.getElementsByClassName('x2')
+                const con = document.getElementsByClassName('zoomed-container')
                 elements[0].parentNode.removeChild(elements[0]);
                 el[0].parentNode.removeChild(el[0]);
                 const blurred = document.body.children
                 for (let k = 0; k < blurred.length; k++){
                     blurred[k].classList.remove('popup')
-                }           
+                }
+                con[0].parentNode.removeChild(con[0]);
             })
         }
     })

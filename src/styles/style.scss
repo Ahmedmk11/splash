@@ -64,18 +64,32 @@ img:hover:after {
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
-    width: 1024px;
+    width: 100%;
+    height: 100%;
 }
 
 .zoomed-in {
     position: relative;
-    width: 1024px;
+    max-height: 500px;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+@media only screen and (min-width:600px) and (max-width:768px)
+{
+    
 }
 
 .x2 {
     position: absolute;
-    top: 8%;
-    left: 8%;
+    top: 5%;
+    left: 5%;
 }
 
 .x2:hover {
@@ -538,7 +552,16 @@ input[type=search]:focus, select:focus {
         grid-template-columns: repeat(auto-fill, 400px); 
         grid-template-rows: repeat(auto-fill, 500px); 
         justify-content: center;
+        direction: var(--direction);
     }
+}
+
+.recommendation-info-L {
+    height: fit-content !important;
+}
+
+.recommendation-info {
+    height: fit-content !important;
 }
 
 .item {
@@ -609,14 +632,14 @@ input[type=search]:focus, select:focus {
         font-size: 1.2rem;
         .info {
             display: flex;
-            flex-direction: var(--flex-row-direction);
             justify-content: space-between;
+            direction: var(--direction);
             align-items: center;
             width: 100%;
             .info-left {
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: space-evenly;
                 margin-bottom: 5px;
                 width: fit-content;
                 p {
@@ -705,7 +728,7 @@ input[type=search]:focus, select:focus {
                 width: 80%;
                 width: fit-content;
                 height: fit-content;
-                font-size: 1.5vmax;
+                font-size: 1.35rem;
             }
         }
     }
@@ -790,7 +813,7 @@ input[type=search]:focus, select:focus {
         }
     }
     #view-item #item-details #detailsB div {
-        font-size: 16px !important;
+        font-size: 1.15rem !important;
     }
     #container2 {
         #recommendations-container{
@@ -809,5 +832,10 @@ input[type=search]:focus, select:focus {
     }
     .zoomed-in, .zoomed-container {
         max-width: 100vw !important;
-    } 
+    }
+    .x2 {
+        position: absolute;
+        top: 10%;
+        left: 8%;
+    }
 }
