@@ -4,6 +4,7 @@ body.ar {
     --pos-icon: 2%;
     --direction: rtl;
     --slide: -100%;
+    --text-align: right;
 }
 
 body.en {
@@ -12,6 +13,7 @@ body.en {
     --pos-icon: 98%;
     --direction: ltr;
     --slide: 100%;
+    --text-align: left;
 }
 
 html, body {
@@ -554,6 +556,12 @@ input[type=search]:focus, select:focus {
         justify-content: center;
         direction: var(--direction);
     }
+}
+
+#results-found {
+    width: 80%;
+    text-align: var(--text-align);
+    direction: var(--direction);
 }
 
 .recommendation-info-L {

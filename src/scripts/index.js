@@ -87,7 +87,6 @@ export const kbedroomsArr = importAll(require.context('../assets/images/pictures
 export const receptionsArr = importAll(require.context('../assets/images/pictures/products/displayed/receptions', false, /\.(png|jpe?g|svg)$/));
 export const tvunitsArr = importAll(require.context('../assets/images/pictures/products/displayed/tvunits', false, /\.(png|jpe?g|svg)$/));
 export const diningroomsArr = importAll(require.context('../assets/images/pictures/products/displayed/diningrooms', false, /\.(png|jpe?g|svg)$/));
-// export const recommendationsArr = importAll(require.context('../assets/images/pictures/products/recommendations', false, /\.(png|jpe?g|svg)$/));
 
 export const livingroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/livingrooms', false, /\.(png|jpe?g|svg)$/));
 export const abedroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/bedrooms/master', false, /\.(png|jpe?g|svg)$/));
@@ -110,9 +109,18 @@ const DiningRoomsDetails = []
 const ReceptionsDetails = []
 const TVUnitsDetails = []
 const recommendationsArrDetails = []
+const searchArrDetails = []
+
 const recommendationsArr = {}
 const recommendationsArrOG = {}
+
+let searchArr = {}
+let searchArrOG = {}
+
 let iii = 0
+
+let flag = 'page';
+let currItem = [];
 
 products.forEach(p => {
     switch (p.product_type) {
@@ -191,11 +199,6 @@ products.forEach(p => {
     }
 });
 
-let flag = 'page';
-let currItem = [];
-let srchArr = [];
-let resi = [];
-
 goHome()
 switchLang('ar');
 
@@ -248,7 +251,6 @@ export function similarity(s1, s2) {
 
 export function searchResults(target) {
     middleContainer.focus()
-    resi = []
     const resultsQueue = new PriorityQueue((a, b) => {
         if (a[1] > b[1]) {
           return -1;
@@ -263,16 +265,17 @@ export function searchResults(target) {
     let breakk = false
     const re = new RegExp(/[A-Za-z]\d\d(\d)?(\d)?/);
     if (re.test(target)) {
+        console.log('regex match')
         for (let i = 0; i < products.length; i++) {
             const product = products[i];
             if (product.p_id == target) {
                 resultsQueue.enqueue([i, 1, product.product_type])
-                resi.push(i)
                 breakk = true
             }
         }
     }
     if (!breakk){
+        console.log("!break")
         for (let i = 0; i < products.length; i++) {
             let pool = []
             const product = products[i];
@@ -286,7 +289,6 @@ export function searchResults(target) {
                         let sim = similarity(wrd, target)
                         if (sim > 0.65 || target.length > 3 && (wrd.includes(target) || target.includes(wrd))){
                             resultsQueue.enqueue([i, sim, product.product_type])
-                            resi.push(i)
                         }
                     }
                 });
@@ -294,42 +296,78 @@ export function searchResults(target) {
         }
     }
     srch.value = ''
+    console.log(resultsQueue)
     populateSearchResults(resultsQueue)
 }
 
 export function populateSearchResults(r) {
     middleContainer.innerHTML = '';
-    srchArr = []
+    searchArr = {}
+    let indxx = 0
     while(!r.isEmpty()){
         let l = r.dequeue()
+        let p = products[l[0]]
+        console.log(l)
         if (l[2] == "Livingrooms") {
-            srchArr.push(livingroomsArr[`${l[0]}.jpg`])
+            let a = p.product_img_path_displayed.split('/')
+            let indx2 = a[a.length-1]
+            let ex = indx2.split('.')[1]
+            searchArr[`${indxx}.${ex}`] = livingroomsArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = livingroomsArrOG[indx2]
+            indxx++
         }
         else if (l[2] == "Kids Bedrooms") {
-            srchArr.push(kbedroomsArr[`${l[0]}.jpg`])
+            let a = p.product_img_path_displayed.split('/')
+            let indx2 = a[a.length-1]
+            let ex = indx2.split('.')[1]
+            searchArr[`${indxx}.${ex}`] = kbedroomsArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = kbedroomsArrOG[indx2]
+            indxx++
         }
         else if (l[2] == "Master Bedrooms") {
-            srchArr.push(abedroomsArr[`${l[0]}.jpg`])
+            let a = p.product_img_path_displayed.split('/')
+            let indx2 = a[a.length-1]
+            let ex = indx2.split('.')[1]
+            searchArr[`${indxx}.${ex}`] = abedroomsArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = abedroomsArrOG[indx2]
+            indxx++
         }
         else if (l[2] == "Diningrooms") {
-            srchArr.push(diningroomsArr[`${l[0]}.jpg`])
+            let a = p.product_img_path_displayed.split('/')
+            let indx2 = a[a.length-1]
+            let ex = indx2.split('.')[1]
+            searchArr[`${indxx}.${ex}`] = diningroomsArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = diningroomsArrOG[indx2]
+            indxx++
         }
         else if (l[2] == "Receptions") {
-            srchArr.push(receptionsArr[`${l[0]}.jpg`])
+            let a = p.product_img_path_displayed.split('/')
+            let indx2 = a[a.length-1]
+            let ex = indx2.split('.')[1]
+            searchArr[`${indxx}.${ex}`] = receptionsArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = receptionsArrOG[indx2]
+            indxx++
         }
         else if (l[2] == "TV Units") {
-            srchArr.push(tvunitsArr[`${l[0]}.jpg`])
+            let a = p.product_img_path_displayed.split('/')
+            let indx2 = a[a.length-1]
+            let ex = indx2.split('.')[1]
+            console.log(indx2)
+            searchArr[`${indxx}.${ex}`] = tvunitsArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = tvunitsArrOG[indx2]
+            indxx++
         }
+        searchArrDetails.push(l[0])
     }
 
     flag = 'page'
     let grid = document.createElement("div");
     grid.id = 'grid';
 
-    for (let i = 0; i < srchArr.length; i++) {
-        let img = createCard(grid, -1, [i, resi[i]]);
+    for (let i = 0; i < Object.keys(searchArr).length; i++) {
+        let img = createCard(grid, -1, i);
         img.addEventListener('click', () => {
-            populateItem(-1, [i, resi[i]])
+            populateItem(-1, i)
         });
     }
     middleContainer.append(grid);
@@ -539,7 +577,7 @@ export function chooseMode(n) {
         case 7:
             return recommendationsArr
         case -1:
-            return srchArr
+            return searchArr
         default:
             break;
     }
@@ -561,6 +599,8 @@ export function chooseDetails(n) {
             return TVUnitsDetails
         case 7:
             return recommendationsArrDetails
+        case -1:
+            return searchArrDetails
         default:
             break;
     }
@@ -588,19 +628,19 @@ function createCard(container, n, index) {
     tmp.classList.add('item');
     info.classList.add('info');
     infoL.classList.add('info-left');
-    if (n == -1) { // search, to be fixed
-        img.src = arr[index[0]];
-        p_title_en = document.createElement('p').textContent = products[index[1]].product_title_en
-        p_title_ar = document.createElement('p').textContent = products[index[1]].product_title_ar
-        p_price_en = document.createElement('p').textContent = products[index[1]].product_price_en
-        p_price_ar = document.createElement('p').textContent = products[index[1]].product_price_ar
-    } else {
-        img.src = arr[`${index}.jpg`];
-        p_title_en = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_title_en
-        p_title_ar = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_title_ar
-        p_price_en = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_price_en
-        p_price_ar = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_price_ar
-    }
+    // if (n == -1) { // search, to be fixed
+    //     img.src = arr[index[0]];
+    //     p_title_en = document.createElement('p').textContent = products[index[1]].product_title_en
+    //     p_title_ar = document.createElement('p').textContent = products[index[1]].product_title_ar
+    //     p_price_en = document.createElement('p').textContent = products[index[1]].product_price_en
+    //     p_price_ar = document.createElement('p').textContent = products[index[1]].product_price_ar
+    // } else {
+    img.src = arr[`${index}.jpg`];
+    p_title_en = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_title_en
+    p_title_ar = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_title_ar
+    p_price_en = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_price_en
+    p_price_ar = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_price_ar
+    // }
     if (n == 7) {
         infoL.classList.add('recommendation-info-L')
         info.classList.add('recommendation-info')
@@ -656,9 +696,6 @@ function populateItem(n, i) {
     let img = ''
     
     img = createCard(item, n, i);
-    if (n == -1) {
-        i = i[1]
-    }
 
     let arrDetails = chooseDetails(n)
 
@@ -685,6 +722,9 @@ function populateItem(n, i) {
             break;
         case 7:
             arr = recommendationsArrOG
+            break;
+        case -1:
+            arr = searchArrOG
             break;
         default:
             break;
@@ -763,6 +803,14 @@ export function populateGrid(n) {
     let imageArr = chooseMode(n)
     flag = 'page'
     let grid = document.createElement("div");
+    let resultsFound = document.createElement("h2");
+    resultsFound.id = "results-found"
+    if (document.body.classList.contains('en')) {
+        resultsFound.textContent = `${Object.keys(imageArr).length} Products were found.`
+    } else {   
+        resultsFound.textContent = `تم العثور على ${Object.keys(imageArr).length} منتجات.`
+    }
+
     grid.id = 'grid';
 
     for (let i = 0; i < Object.keys(imageArr).length; i++) {
@@ -772,6 +820,7 @@ export function populateGrid(n) {
         });
     }
     hideMenu()
+    middleContainer.append(resultsFound)
     middleContainer.append(grid);
 }
 
