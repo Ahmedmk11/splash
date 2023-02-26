@@ -90,8 +90,11 @@ def added():
         data = json.load(f)
         products = data["Products"]
         empty = False
+        toolong = False
         if len(e1.get()) == 0 or len(e2.get()) == 0 or len(e3.get()) == 0 or len(e4.get()) == 0 or len(e5.get()) == 0 or len(e6.get()) == 0 or len(e7.get()) == 0 or variable.get() == "Product Type" or len(images) != 2:
             empty = True
+        if len(e2.get()) >= 40 or len(e3.get()) >= 40:
+            toolong = True
         
         dup = False
 
@@ -100,7 +103,7 @@ def added():
                 dup = True
                 break
 
-        if not empty and not dup:
+        if not empty and not dup and not toolong:
             paths = save_img()
             dic = {
                 "p_id": e1.get().capitalize(),
@@ -137,11 +140,14 @@ def added():
             variable.set("Product Type")
             images.clear()
             empty = True
+            toolong = False
             messagebox.showinfo("Done", "Product Added.")
         elif empty:
             messagebox.showinfo("Err", "All Fields Are Required.")
         elif dup:
             messagebox.showinfo("Err", "Product ID Already Exists.")
+        elif toolong:
+            messagebox.showinfo("Err", "Use Shorter Titles (40 Characters).")
 
         f.seek(0)
         json.dump(data, f, indent=4)
