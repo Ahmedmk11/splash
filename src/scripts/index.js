@@ -208,6 +208,29 @@ export function importAll(r) {
     return images;
 }
 
+export function showResultsCount(m, a) {
+    let resultsFound = document.createElement("h2");
+    resultsFound.id = "results-found"
+    let grm = ''
+
+    if (document.body.classList.contains('en')) {
+        if (Object.keys(a).length == 1) {
+            grm = ' was'
+        } else {
+            grm = 's were'
+        }
+        resultsFound.textContent = `${Object.keys(a).length} Product${grm} found.`
+    } else {   
+        if (Object.keys(a).length == 1) {
+            grm = 'منتج'
+        } else {
+            grm = 'منتجات'
+        }
+        resultsFound.textContent = `تم العثور على ${Object.keys(a).length} ${grm}.`
+    }
+    m.append(resultsFound);
+}
+
 export function editDistance(s1, s2) {
     s1 = s1.toLowerCase();
     s2 = s2.toLowerCase();
@@ -251,6 +274,7 @@ export function similarity(s1, s2) {
 
 export function searchResults(target) {
     middleContainer.focus()
+    let added = []
     const resultsQueue = new PriorityQueue((a, b) => {
         if (a[1] > b[1]) {
           return -1;
@@ -265,7 +289,6 @@ export function searchResults(target) {
     let breakk = false
     const re = new RegExp(/[A-Za-z]\d\d(\d)?(\d)?/);
     if (re.test(target)) {
-        console.log('regex match')
         for (let i = 0; i < products.length; i++) {
             const product = products[i];
             if (product.p_id == target) {
@@ -275,39 +298,41 @@ export function searchResults(target) {
         }
     }
     if (!breakk){
-        console.log("!break")
         for (let i = 0; i < products.length; i++) {
             let pool = []
             const product = products[i];
             pool.push(product.product_description_ar, product.product_description_en,
             product.product_title_ar, product.product_title_en, product.product_type)
             pool.forEach(el => {
-                let splt = el.split(" ")
-                splt.forEach(wrd => {
-                    if (wrd.length > 3){
-                        wrd = wrd.toUpperCase()
-                        let sim = similarity(wrd, target)
-                        if (sim > 0.65 || target.length > 3 && (wrd.includes(target) || target.includes(wrd))){
+                if (el.length > 3){
+                    el = el.toUpperCase()
+                    let sim = similarity(el, target)
+                    if (sim > 0.65 || (target.length > 2 && (el.includes(target) || target.includes(el)))){
+                        if (!added.includes(product.p_id)) {
                             resultsQueue.enqueue([i, sim, product.product_type])
+                            added.push(product.p_id)
                         }
                     }
-                });
+                }
             });
         }
     }
     srch.value = ''
-    console.log(resultsQueue)
     populateSearchResults(resultsQueue)
 }
 
 export function populateSearchResults(r) {
     middleContainer.innerHTML = '';
     searchArr = {}
+    let ls = []
     let indxx = 0
-    while(!r.isEmpty()){
+    while(!r.isEmpty()) {
         let l = r.dequeue()
+        ls.push(l)
+    }
+
+    ls.forEach(l => {
         let p = products[l[0]]
-        console.log(l)
         if (l[2] == "Livingrooms") {
             let a = p.product_img_path_displayed.split('/')
             let indx2 = a[a.length-1]
@@ -352,13 +377,14 @@ export function populateSearchResults(r) {
             let a = p.product_img_path_displayed.split('/')
             let indx2 = a[a.length-1]
             let ex = indx2.split('.')[1]
-            console.log(indx2)
             searchArr[`${indxx}.${ex}`] = tvunitsArr[indx2]
             searchArrOG[`${indxx}.${ex}`] = tvunitsArrOG[indx2]
             indxx++
         }
         searchArrDetails.push(l[0])
-    }
+    });
+
+    showResultsCount(middleContainer, searchArr)
 
     flag = 'page'
     let grid = document.createElement("div");
@@ -803,15 +829,10 @@ export function populateGrid(n) {
     let imageArr = chooseMode(n)
     flag = 'page'
     let grid = document.createElement("div");
-    let resultsFound = document.createElement("h2");
-    resultsFound.id = "results-found"
-    if (document.body.classList.contains('en')) {
-        resultsFound.textContent = `${Object.keys(imageArr).length} Products were found.`
-    } else {   
-        resultsFound.textContent = `تم العثور على ${Object.keys(imageArr).length} منتجات.`
-    }
 
     grid.id = 'grid';
+
+    showResultsCount(middleContainer, imageArr)
 
     for (let i = 0; i < Object.keys(imageArr).length; i++) {
         let img = createCard(grid, n, i);
@@ -820,7 +841,6 @@ export function populateGrid(n) {
         });
     }
     hideMenu()
-    middleContainer.append(resultsFound)
     middleContainer.append(grid);
 }
 
