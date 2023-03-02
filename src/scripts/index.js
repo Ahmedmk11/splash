@@ -1,8 +1,4 @@
-import starLogoB from '../assets/images/icons/starB.png';
-import starFilled from '../assets/images/icons/starFilled.png';
 import logo from '../assets/images/pictures/logo.jpg';
-import profileLogo from '../assets/images/icons/profile.png';
-import starLogo from '../assets/images/icons/star.png';
 import cartLogo from '../assets/images/icons/cart.png';
 import menuLogo from '../assets/images/icons/menu.png';
 import prevImg from '../assets/images/icons/left.png';
@@ -48,8 +44,6 @@ export const tvunitsP = document.getElementById('tvunits-p');
 export const diningroomsP = document.getElementById('diningrooms-p');
 
 export const logoImg = new Image();
-export const profileImg = new Image();
-export const starImg = new Image();
 export const cartImg = new Image();
 export const menuImg = new Image();
 export const xImg = new Image();
@@ -58,8 +52,6 @@ export const igImg = new Image();
 export const waImg = new Image();
 
 logoImg.src = logo;
-profileImg.src = profileLogo;
-starImg.src = starLogo;
 cartImg.src = cartLogo;
 menuImg.src = menuLogo;
 xImg.src = xClose;
@@ -95,8 +87,8 @@ export const receptionsArrOG = importAll(require.context('../assets/images/pictu
 export const tvunitsArrOG = importAll(require.context('../assets/images/pictures/products/original/tvunits', false, /\.(png|jpe?g|svg)$/));
 export const diningroomsArrOG = importAll(require.context('../assets/images/pictures/products/original/diningrooms', false, /\.(png|jpe?g|svg)$/));
 
-const navBtns = [homeBtn, livingroomsBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn];
-const navP = [homeP, livingroomsP, abedroomsP, kbedroomsP, receptionsP, tvunitsP, diningroomsP];
+export const navBtns = [homeBtn, livingroomsBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn, tvunitsBtn, diningroomsBtn];
+export const navP = [homeP, livingroomsP, abedroomsP, kbedroomsP, receptionsP, tvunitsP, diningroomsP];
 const navAr = ['الرئيسية', 'غرف المعيشة', 'غرف نوم رئيسية', 'غرف نوم اطفال', 'صالونات', 'مكتبات', 'غرف سفرة'];
 const navEn = ['Home', 'Living Rooms', 'Master Bedrooms', 'Kids Bedrooms', 'Receptions', 'TV Units', 'Dining Rooms'];
 const navAr2 = ['الرئيسية', 'غرف المعيشة', 'غرف نوم رئيسية', 'غرف نوم اطفال', 'صالونات', 'مكتبات', 'غرف سفرة'];
@@ -110,12 +102,15 @@ const ReceptionsDetails = []
 const TVUnitsDetails = []
 const recommendationsArrDetails = []
 const searchArrDetails = []
+const cartArrDetails = []
+const cartIndexes = []
 
 const recommendationsArr = {}
 const recommendationsArrOG = {}
-
-let searchArr = {}
-let searchArrOG = {}
+const searchArr = {}
+const searchArrOG = {}
+const cartArr = {}
+const cartArrOG = {}
 
 let iii = 0
 
@@ -206,6 +201,104 @@ export function importAll(r) {
     let images = {};
     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
     return images;
+}
+
+export function addToCart(product_index) {
+    cartIndexes.push(product_index)
+}
+
+export function populateViewCart() {
+    middleContainer.innerHTML = ''
+    console.log(cartArr)
+    let a = ''
+    let indx2 = -1
+    let iiii = 0
+    cartIndexes.forEach(cartIndex => {
+        products.forEach(p => {
+            if (cartIndex == p.index) {
+                switch (p.product_type) {
+                    case "Livingrooms":
+                        a = p.product_img_path_displayed.split('/')
+                        indx2 = a[a.length-1]
+                        cartArr[`${iiii}.jpg`] = livingroomsArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = livingroomsArrOG[indx2]
+                        iiii++
+                        break;
+                    case "Kids Bedrooms":
+                        a = p.product_img_path_displayed.split('/')
+                        indx2 = a[a.length-1]
+                        cartArr[`${iiii}.jpg`] = kbedroomsArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = kbedroomsArrOG[indx2]
+                        iiii++
+                        break;
+                    case "Master Bedrooms":
+                        a = p.product_img_path_displayed.split('/')
+                        indx2 = a[a.length-1]
+                        cartArr[`${iiii}.jpg`] = abedroomsArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = abedroomsArrOG[indx2]
+                        iiii++
+                        break;
+                    case "Diningrooms":
+                        a = p.product_img_path_displayed.split('/')
+                        indx2 = a[a.length-1]
+                        cartArr[`${iiii}.jpg`] = diningroomsArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = diningroomsArrOG[indx2]
+                        iiii++
+                        break;
+                    case "Receptions":
+                        a = p.product_img_path_displayed.split('/')
+                        indx2 = a[a.length-1]
+                        cartArr[`${iiii}.jpg`] = receptionsArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = receptionsArrOG[indx2]
+                        iiii++
+                        break;
+                    case "TV Units":
+                        a = p.product_img_path_displayed.split('/')
+                        indx2 = a[a.length-1]
+                        cartArr[`${iiii}.jpg`] = tvunitsArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = tvunitsArrOG[indx2]
+                        iiii++
+                        break;
+                    default:
+                        break;
+                }
+                cartArrDetails.push(p.index)
+            }
+        });
+    });
+
+    const header = document.createElement('div');
+    const title = document.createElement('p')
+    const quantity = document.createElement('p')
+    const price = document.createElement('p')
+    const totalprice = document.createElement('p') 
+
+    if (document.body.classList.contains('en')) {
+        title.textContent = 'Product'
+        quantity.textContent = 'Quantity'
+        price.textContent = 'Price'
+    } else {
+        title.textContent = 'المنتج'
+        quantity.textContent = 'الكمية'
+        price.textContent = 'السعر'
+    }
+
+    for (let i = 0; i < Object.keys(cartArr).length; i++) {
+        // let img = createCard(grid, n, i);
+        let img = new Image();
+        img.src = cartArrOG[`${i}.jpg`];
+        img.classList.add('cart-item-img')
+        img.addEventListener('click', () => {
+            populateItem(8, i)
+        });
+        middleContainer.append(img)
+    }
+
+    header.append(title)
+    header.append(quantity)
+    header.append(price)
+
+    flag = 'page'
 }
 
 export function showResultsCount(m, a) {
@@ -602,6 +695,8 @@ export function chooseMode(n) {
             return tvunitsArr
         case 7:
             return recommendationsArr
+        case 8:
+            return cartArr
         case -1:
             return searchArr
         default:
@@ -625,6 +720,8 @@ export function chooseDetails(n) {
             return TVUnitsDetails
         case 7:
             return recommendationsArrDetails
+        case 8:
+            return cartArrDetails
         case -1:
             return searchArrDetails
         default:
@@ -649,46 +746,39 @@ function createCard(container, n, index) {
     const nameP = document.createElement("p");
     const priceP = document.createElement("p");
     const hr = document.createElement('hr');
-    const img = new Image();
-    const addFav = new Image();
     tmp.classList.add('item');
     info.classList.add('info');
     infoL.classList.add('info-left');
-    // if (n == -1) { // search, to be fixed
-    //     img.src = arr[index[0]];
-    //     p_title_en = document.createElement('p').textContent = products[index[1]].product_title_en
-    //     p_title_ar = document.createElement('p').textContent = products[index[1]].product_title_ar
-    //     p_price_en = document.createElement('p').textContent = products[index[1]].product_price_en
-    //     p_price_ar = document.createElement('p').textContent = products[index[1]].product_price_ar
-    // } else {
+    const img = new Image();
     img.src = arr[`${index}.jpg`];
     p_title_en = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_title_en
     p_title_ar = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_title_ar
     p_price_en = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_price_en
     p_price_ar = document.createElement('p').textContent = products[parseInt(arrDetails[index])].product_price_ar
-    // }
     if (n == 7) {
         infoL.classList.add('recommendation-info-L')
         info.classList.add('recommendation-info')
     }
     img.setAttribute('data-scale', '1.2');
-    addFav.src = starLogoB;
     if (langBtn.value == 'english') {
         nameP.textContent = p_title_en
-        addFav.setAttribute("title", "Add to favorites");
         cart.textContent = 'Add to Cart';
         priceP.textContent = p_price_en
     } else {
         nameP.textContent = p_title_ar
-        addFav.setAttribute("title", "اضافه الى قائمة المفضلات");
         cart.textContent = "اضافة الي عربة التسوق";
         priceP.textContent = p_price_ar
     }
 
+    
+    cart.addEventListener('click', () => {
+        addToCart(products[parseInt(arrDetails[index])].index)
+    });
+    
+
     infoL.append(nameP);
     infoL.append(priceP);
     info.append(infoL);
-    info.append(addFav);
     tmpL.append(hr);
     tmpL.append(info);
     tmp.append(img);
@@ -748,6 +838,9 @@ function populateItem(n, i) {
             break;
         case 7:
             arr = recommendationsArrOG
+            break;
+        case 8:
+            arr = cartArrOG
             break;
         case -1:
             arr = searchArrOG
@@ -881,14 +974,6 @@ export function populateLang() {
     });
 }
 
-export function addToFav(item) {
-    if (item.src == starFilled) {
-        item.src = starLogoB;
-    } else {
-        item.src = starFilled;
-    }
-}
-
 export function newSelect(button) {
     bedroomsBtn.classList.remove('selected-page')
     navBtns.forEach(btn => {
@@ -948,8 +1033,6 @@ export function switchLang(target) {
         menu.classList.remove('ens');
         menu.classList.add('ars');
         bedroomsBtn.textContent = 'غرف النوم';
-        profileImg.setAttribute("title", "عرض الصفحة الشخصية");
-        starImg.setAttribute("title", "عرض قائمة المفضلات");
         cartImg.setAttribute("title", "عرض عربة التسوق");
     } else {
         srch.setAttribute('placeholder', "Search here..");
@@ -965,8 +1048,6 @@ export function switchLang(target) {
         menu.classList.remove('ars');
         menu.classList.add('ens');
         bedroomsBtn.textContent = 'Bedrooms'
-        profileImg.setAttribute("title", "View Profile");
-        starImg.setAttribute("title", "View Favorites");
         cartImg.setAttribute("title", "View Cart");
     }
 }

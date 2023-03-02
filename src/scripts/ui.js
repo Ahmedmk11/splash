@@ -2,14 +2,11 @@ import '../styles/style.css';
 import {goHome, populateGrid, newSelect, populateLang, switchLang, livingroomsBtn, menuImg,
 xImg, menu, homeP, livingroomsP, receptionsP, tvunitsP, diningroomsP, kbedroomsP,
 abedroomsP, hasTouch, hideMenu, homeBtn, abedroomsBtn, kbedroomsBtn, receptionsBtn,
-tvunitsBtn, diningroomsBtn,langBtn, srch, logoImg, profileImg,
-starImg, cartImg, headerUp, actionsContainer, searchResults, middleContainer} from './index.js';
+tvunitsBtn, diningroomsBtn,langBtn, srch, logoImg, profileImg, cartImg, headerUp, actionsContainer, searchResults, populateViewCart} from './index.js';
 
 logoImg.id = 'logo-img';
 headerUp.prepend(logoImg);
-clf.append(starImg);
 clf.append(cartImg);
-clf.append(profileImg);
 clf.append(menuImg);
 actionsContainer.append(clf);
 
@@ -29,11 +26,6 @@ if (hasTouch()) {
         }
     } catch (ex) {}
 }
-
-
-
-
-
 
 homeBtn.addEventListener('click', () => {
     newSelect(homeBtn);
@@ -70,18 +62,6 @@ tvunitsBtn.addEventListener('click', () => {
     populateGrid(6);
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
 homeP.addEventListener('click', () => {
     newSelect(homeBtn);
     goHome();
@@ -117,13 +97,6 @@ tvunitsP.addEventListener('click', () => {
     populateGrid(6);
 });
 
-
-
-
-
-
-
-
 langBtn.addEventListener('change', () => {
     if (langBtn.value == 'arabic') {
         document.body.classList.add('ar');
@@ -154,7 +127,11 @@ menuImg.addEventListener('click', () => {
 })
 
 srch.addEventListener('keydown', function(event) {
-    if(event.key === 'Enter') {
+    if (event.key === 'Enter') {
         searchResults(srch.value)
     }
+})
+
+cartImg.addEventListener('click', () => {
+    populateViewCart()
 })

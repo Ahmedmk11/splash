@@ -231,6 +231,11 @@ img:hover:after {
     right: 0 !important;
 }
 
+.cart-item-img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
 #menu {
     width: 0%;
     height: 100%;
@@ -375,11 +380,13 @@ input[type=search]:focus, select:focus {
     width: 20%;
     flex-wrap: wrap;
     div {
-        min-width: 120px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        img {
+            margin: 10px;
+        }
     }
     select {
         border: none;
@@ -747,10 +754,6 @@ input[type=search]:focus, select:focus {
 }
 .selected-page::after {
     background-color: black !important;
-}
-
-.fav {
-    background-color: gold;
 }
 
 @media (min-width: 768px) {
