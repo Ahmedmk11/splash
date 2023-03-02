@@ -115,11 +115,14 @@ def added():
                 "product_description_ar": f"- \u0627\u0644\u062a\u0641\u0627\u0635\u064a\u0644: {e5.get()}",
                 "product_price_en": f"{e6.get()} EGP",
                 "product_price_ar": f"{e6.get()} \u062c.\u0645",
+                "product_price": int(e6.get()),
                 "product_dimensions_en": f"- Dimensions: {e7.get()}",
                 "product_dimensions_ar": f"- \u0627\u0644\u0627\u0628\u0639\u0627\u062f: {e7.get()}",
                 "product_type": variable.get(),
                 "product_img_path_displayed": paths[0],
-                "product_img_path_original": paths[1]
+                "product_img_path_original": paths[1],
+                "recommended": 0,
+                "index": len(products)
             }
             products.append(dic)
             e1.delete(0, END)

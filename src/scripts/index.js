@@ -102,15 +102,12 @@ const ReceptionsDetails = []
 const TVUnitsDetails = []
 const recommendationsArrDetails = []
 const searchArrDetails = []
-const cartArrDetails = []
 const cartIndexes = []
 
 const recommendationsArr = {}
 const recommendationsArrOG = {}
 const searchArr = {}
 const searchArrOG = {}
-const cartArr = {}
-const cartArrOG = {}
 
 let iii = 0
 
@@ -209,6 +206,9 @@ export function addToCart(product_index) {
 
 export function populateViewCart() {
     middleContainer.innerHTML = ''
+    const cartArrDetails = []
+    const cartArr = {}
+    const cartArrOG = {}
     console.log(cartArr)
     let a = ''
     let indx2 = -1
@@ -268,10 +268,12 @@ export function populateViewCart() {
     });
 
     const header = document.createElement('div');
+    const mid = document.createElement('div');
     const title = document.createElement('p')
     const quantity = document.createElement('p')
     const price = document.createElement('p')
-    const totalprice = document.createElement('p') 
+    const totalprice = document.createElement('p')
+    let tp = 0
 
     if (document.body.classList.contains('en')) {
         title.textContent = 'Product'
@@ -283,21 +285,40 @@ export function populateViewCart() {
         price.textContent = 'السعر'
     }
 
+    console.log(cartArrDetails)
+
     for (let i = 0; i < Object.keys(cartArr).length; i++) {
-        // let img = createCard(grid, n, i);
+        let temp = document.createElement('div')
+
+        let titlei = document.createElement('p').textContent = products[parseInt(cartArrDetails[i])].product_title_en
+        let quantityi = 1; // here
+        let pricei = document.createElement('p').textContent = products[parseInt(cartArrDetails[i])].product_price
+
         let img = new Image();
         img.src = cartArrOG[`${i}.jpg`];
         img.classList.add('cart-item-img')
         img.addEventListener('click', () => {
             populateItem(8, i)
         });
-        middleContainer.append(img)
+        
+        temp.append(img)
+        temp.append(titlei)
+        temp.append(quantityi)
+        temp.append(pricei)
+        mid.append(temp)
+
+        tp += parseInt(products[parseInt(cartArrDetails[i])].product_price)
     }
+
+    totalprice.textContent = tp
 
     header.append(title)
     header.append(quantity)
     header.append(price)
 
+    middleContainer.append(header)
+    middleContainer.append(mid)
+    middleContainer.append(totalprice)
     flag = 'page'
 }
 
