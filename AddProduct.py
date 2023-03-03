@@ -117,7 +117,7 @@ def added():
                 "product_price_ar": f"{e6.get()} \u062c.\u0645",
                 "product_price": int(e6.get()),
                 "product_dimensions_en": f"- Dimensions: {e7.get()}",
-                "product_dimensions_ar": f"- \u0627\u0644\u0627\u0628\u0639\u0627\u062f: {e7.get()}",
+                "product_dimensions_ar": f"- \u0627\u0644\u0627\u0628\u0639\u0627\u062f: \u200e{e7.get()}",
                 "product_type": variable.get(),
                 "product_img_path_displayed": paths[0],
                 "product_img_path_original": paths[1],

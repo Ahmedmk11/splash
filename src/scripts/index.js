@@ -296,11 +296,9 @@ export function populateViewCart() {
             empty.textContent = 'عربة التسوق فارغة.'
             add.textContent = 'أضف منتجات'
         }
-
         add.addEventListener('click', () => {
             goHome()
         })
-
         main.classList.add('empty-cart-main')
         main.append(empty)
         main.append(add)
@@ -309,7 +307,6 @@ export function populateViewCart() {
         const mid = document.createElement('div');
         const cartfooter = document.createElement('div');
         const title = document.createElement('p')
-        const quantity = document.createElement('p')
         const price = document.createElement('p')
         const totalprice = document.createElement('p')
         const place = document.createElement('button')
@@ -317,11 +314,9 @@ export function populateViewCart() {
 
         if (document.body.classList.contains('en')) {
             title.textContent = 'Product'
-            quantity.textContent = 'Quantity'
             price.textContent = 'Price'
         } else {
             title.textContent = 'المنتج'
-            quantity.textContent = 'الكمية'
             price.textContent = 'السعر'
         }
 
@@ -329,7 +324,6 @@ export function populateViewCart() {
             let temp = document.createElement('div')
             let prod = document.createElement('span')
             let titlei = document.createElement('p')
-            let quantityi = document.createElement('p')
             let pricei = document.createElement('p')
             let hlc = document.createElement('hr')
             let removeImgDiv = document.createElement('div')
@@ -338,17 +332,14 @@ export function populateViewCart() {
             removeImg.src = removeIcn
             
             if (document.body.classList.contains('en')) {
-                titlei.textContent = products[parseInt(cartArrDetails[i])].product_title_en
+                titlei.textContent = `${products[parseInt(cartArrDetails[i])].p_id}, ${products[parseInt(cartArrDetails[i])].product_title_en}`
                 pricei.textContent = products[parseInt(cartArrDetails[i])].product_price_en
             } else {
-                titlei.textContent = products[parseInt(cartArrDetails[i])].product_title_ar
+                titlei.textContent = `${products[parseInt(cartArrDetails[i])].p_id}، ${products[parseInt(cartArrDetails[i])].product_title_ar}`
                 pricei.textContent = products[parseInt(cartArrDetails[i])].product_price_ar
             }
 
-            quantityi.textContent = 1; // here
-
             hlc.classList.add('hlc')
-            quantityi.classList.add('qp')
             pricei.classList.add('qp')
 
             let img = new Image();
@@ -363,7 +354,6 @@ export function populateViewCart() {
             prod.append(img)
             prod.append(titlei)
             temp.append(prod)
-            temp.append(quantityi)
             temp.append(pricei)
             temp.append(removeImgDiv)
             mid.append(temp)
@@ -383,11 +373,9 @@ export function populateViewCart() {
         }
 
         title.classList.add('tit')
-        quantity.classList.add('qph')
         price.classList.add('qph')
 
         header.append(title)
-        header.append(quantity)
         header.append(price)
 
         header.id = 'cart-header'

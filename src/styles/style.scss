@@ -264,6 +264,14 @@ img:hover:after {
         touch-action: manipulation;
         width: auto;
     }
+    button:hover {
+        background-color: #374151;
+    }
+    button:focus {
+        box-shadow: none;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+    }
     padding: 1em;
     margin-top: 0%;
     width: 80%;
@@ -284,7 +292,7 @@ img:hover:after {
             text-align: center;
         }
         .tit {
-            width: 50%;
+            width: 75%;
         }
         .qph {
             width: 25%;    
@@ -318,7 +326,7 @@ img:hover:after {
 
             }
             span {
-                width: 50%;
+                width: 75%;
                 display: flex;
                 flex-direction: row;
                 justify-content: space-evenly;
