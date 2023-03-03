@@ -17,6 +17,7 @@ import wa from '../assets/images/icons/wa.svg';
 import db from './db.json';
 
 import {PriorityQueue} from '@datastructures-js/priority-queue';
+const cloneDeep = require('lodash/clonedeep');
 
 let products = db.Products
 
@@ -101,14 +102,29 @@ const MasterBedroomsDetails = []
 const DiningRoomsDetails = []
 const ReceptionsDetails = []
 const TVUnitsDetails = []
-const recommendationsArrDetails = []
-const searchArrDetails = []
-const cartIndexes = []
 
+const recommendationsArrDetails = []
 const recommendationsArr = {}
 const recommendationsArrOG = {}
-const searchArr = {}
-const searchArrOG = {}
+
+let searchArr = {}
+let searchArrOG = {}
+let searchArrDetails = []
+
+let cartArrDetails = []
+let cartArr = {}
+let cartArrOG = {}
+let cartIndexes = []
+
+let resultsQueue = new PriorityQueue((a, b) => {
+    if (a[1] > b[1]) {
+      return -1;
+    }
+    if (a[1] < b[1]) {
+      return 1;
+    }
+  }
+);
 
 let iii = 0
 
@@ -208,9 +224,9 @@ export function addToCart(product_index) {
 export function populateViewCart() {
     middleContainer.innerHTML = ''
     const main = document.createElement('div')
-    const cartArrDetails = []
-    const cartArr = {}
-    const cartArrOG = {}
+    cartArrDetails = []
+    cartArr = {}
+    cartArrOG = {}
     let a = ''
     let indx2 = -1
     let iiii = 0
@@ -388,7 +404,7 @@ export function populateViewCart() {
         main.append(cartfooter)
     }
     middleContainer.append(main)
-    flag = 'page'
+    flag = 'cart'
 }
 
 export function showResultsCount(m, a) {
@@ -458,7 +474,7 @@ export function similarity(s1, s2) {
 export function searchResults(target) {
     middleContainer.focus()
     let added = []
-    const resultsQueue = new PriorityQueue((a, b) => {
+    resultsQueue = new PriorityQueue((a, b) => {
         if (a[1] > b[1]) {
           return -1;
         }
@@ -501,10 +517,11 @@ export function searchResults(target) {
         }
     }
     srch.value = ''
-    populateSearchResults(resultsQueue)
+    populateSearchResults()
 }
 
-export function populateSearchResults(r) {
+export function populateSearchResults() {
+    let r = cloneDeep(resultsQueue);
     middleContainer.innerHTML = '';
     searchArr = {}
     let ls = []
@@ -569,7 +586,7 @@ export function populateSearchResults(r) {
 
     showResultsCount(middleContainer, searchArr)
 
-    flag = 'page'
+    flag = 'search'
     let grid = document.createElement("div");
     grid.id = 'grid';
 
@@ -1059,8 +1076,12 @@ export function populateLang() {
                         break;
                 }
             }
-        } else {
+        } else if (flag == 'item') {
             populateItem(currItem[0], currItem[1])
+        } else if (flag == 'cart') {
+            populateViewCart()
+        } else if (flag == 'search') {
+            populateSearchResults()
         }
     });
 }
