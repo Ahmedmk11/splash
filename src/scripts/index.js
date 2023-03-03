@@ -9,6 +9,7 @@ import xClose from '../assets/images/icons/x.png';
 import dotIcn from '../assets/images/icons/dot.png';
 import sdotIcn from '../assets/images/icons/sdot.png';
 import x2Icn from '../assets/images/icons/x2.png';
+import removeIcn from '../assets/images/icons/remove-cart.png';
 
 import fb from '../assets/images/icons/fb.svg';
 import ig from '../assets/images/icons/ig.svg';
@@ -206,13 +207,14 @@ export function addToCart(product_index) {
 
 export function populateViewCart() {
     middleContainer.innerHTML = ''
+    const main = document.createElement('div')
     const cartArrDetails = []
     const cartArr = {}
     const cartArrOG = {}
-    console.log(cartArr)
     let a = ''
     let indx2 = -1
     let iiii = 0
+    main.id = 'cart-main'
     cartIndexes.forEach(cartIndex => {
         products.forEach(p => {
             if (cartIndex == p.index) {
@@ -267,58 +269,125 @@ export function populateViewCart() {
         });
     });
 
-    const header = document.createElement('div');
-    const mid = document.createElement('div');
-    const title = document.createElement('p')
-    const quantity = document.createElement('p')
-    const price = document.createElement('p')
-    const totalprice = document.createElement('p')
-    let tp = 0
+    if (cartArrDetails.length <= 0) {
+        const empty = document.createElement('p')
+        const add = document.createElement('button')
+        empty.id = 'cart-empty'
+        if (document.body.classList.contains('en')) {
+            empty.textContent = 'Shopping Cart is Empty.'
+            add.textContent = 'Add Items'
+        } else {
+            empty.textContent = 'عربة التسوق فارغة.'
+            add.textContent = 'أضف منتجات'
+        }
 
-    if (document.body.classList.contains('en')) {
-        title.textContent = 'Product'
-        quantity.textContent = 'Quantity'
-        price.textContent = 'Price'
+        add.addEventListener('click', () => {
+            goHome()
+        })
+
+        main.classList.add('empty-cart-main')
+        main.append(empty)
+        main.append(add)
     } else {
-        title.textContent = 'المنتج'
-        quantity.textContent = 'الكمية'
-        price.textContent = 'السعر'
+        const header = document.createElement('div');
+        const mid = document.createElement('div');
+        const cartfooter = document.createElement('div');
+        const title = document.createElement('p')
+        const quantity = document.createElement('p')
+        const price = document.createElement('p')
+        const totalprice = document.createElement('p')
+        const place = document.createElement('button')
+        let tp = 0
+
+        if (document.body.classList.contains('en')) {
+            title.textContent = 'Product'
+            quantity.textContent = 'Quantity'
+            price.textContent = 'Price'
+        } else {
+            title.textContent = 'المنتج'
+            quantity.textContent = 'الكمية'
+            price.textContent = 'السعر'
+        }
+
+        for (let i = 0; i < Object.keys(cartArr).length; i++) {
+            let temp = document.createElement('div')
+            let prod = document.createElement('span')
+            let titlei = document.createElement('p')
+            let quantityi = document.createElement('p')
+            let pricei = document.createElement('p')
+            let hlc = document.createElement('hr')
+            let removeImgDiv = document.createElement('div')
+            let removeImg = new Image()
+
+            removeImg.src = removeIcn
+            
+            if (document.body.classList.contains('en')) {
+                titlei.textContent = products[parseInt(cartArrDetails[i])].product_title_en
+                pricei.textContent = products[parseInt(cartArrDetails[i])].product_price_en
+            } else {
+                titlei.textContent = products[parseInt(cartArrDetails[i])].product_title_ar
+                pricei.textContent = products[parseInt(cartArrDetails[i])].product_price_ar
+            }
+
+            quantityi.textContent = 1; // here
+
+            hlc.classList.add('hlc')
+            quantityi.classList.add('qp')
+            pricei.classList.add('qp')
+
+            let img = new Image();
+            img.src = cartArrOG[`${i}.jpg`];
+            img.classList.add('cart-item-img')
+            img.addEventListener('click', () => {
+                populateItem(8, i)
+            });
+            temp.classList.add('cart-item')
+            
+            removeImgDiv.append(removeImg)
+            prod.append(img)
+            prod.append(titlei)
+            temp.append(prod)
+            temp.append(quantityi)
+            temp.append(pricei)
+            temp.append(removeImgDiv)
+            mid.append(temp)
+            mid.append(hlc)
+
+            tp += parseInt(products[parseInt(cartArrDetails[i])].product_price)
+        }
+        let hlc = document.createElement('hr')
+        hlc.classList.add('hlc')
+
+        if (document.body.classList.contains('en')) {
+            totalprice.textContent = `Total Price: ${tp}`
+            place.textContent = `Place Order`
+        } else {
+            totalprice.textContent = `اجمالي السعر: ${tp}`
+            place.textContent = `اتمام عملية الشراء`
+        }
+
+        title.classList.add('tit')
+        quantity.classList.add('qph')
+        price.classList.add('qph')
+
+        header.append(title)
+        header.append(quantity)
+        header.append(price)
+
+        header.id = 'cart-header'
+        mid.id = 'cart-mid'
+        totalprice.id = 'cart-total-price'
+        cartfooter.id = 'cart-footer'
+
+        cartfooter.append(totalprice)
+        cartfooter.append(place)
+
+        main.append(header)
+        main.append(hlc)
+        main.append(mid)
+        main.append(cartfooter)
     }
-
-    console.log(cartArrDetails)
-
-    for (let i = 0; i < Object.keys(cartArr).length; i++) {
-        let temp = document.createElement('div')
-
-        let titlei = document.createElement('p').textContent = products[parseInt(cartArrDetails[i])].product_title_en
-        let quantityi = 1; // here
-        let pricei = document.createElement('p').textContent = products[parseInt(cartArrDetails[i])].product_price
-
-        let img = new Image();
-        img.src = cartArrOG[`${i}.jpg`];
-        img.classList.add('cart-item-img')
-        img.addEventListener('click', () => {
-            populateItem(8, i)
-        });
-        
-        temp.append(img)
-        temp.append(titlei)
-        temp.append(quantityi)
-        temp.append(pricei)
-        mid.append(temp)
-
-        tp += parseInt(products[parseInt(cartArrDetails[i])].product_price)
-    }
-
-    totalprice.textContent = tp
-
-    header.append(title)
-    header.append(quantity)
-    header.append(price)
-
-    middleContainer.append(header)
-    middleContainer.append(mid)
-    middleContainer.append(totalprice)
+    middleContainer.append(main)
     flag = 'page'
 }
 
@@ -557,6 +626,7 @@ export function populateRecommendations(r) {
 }
 
 export function goHome() {
+    newSelect(homeBtn)
     middleContainer.innerHTML = '';
     const container = document.createElement('div')
     const container2 = document.createElement('div')

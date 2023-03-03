@@ -28,7 +28,6 @@ if (hasTouch()) {
 }
 
 homeBtn.addEventListener('click', () => {
-    newSelect(homeBtn);
     goHome();
 });
 
@@ -63,7 +62,6 @@ tvunitsBtn.addEventListener('click', () => {
 });
 
 homeP.addEventListener('click', () => {
-    newSelect(homeBtn);
     goHome();
 });
 
