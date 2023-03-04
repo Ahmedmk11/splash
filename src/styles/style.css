@@ -237,7 +237,7 @@ img:hover:after {
 #cart-main {
   padding: 1em;
   margin-top: 0%;
-  width: 80%;
+  width: 60%;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -290,7 +290,7 @@ img:hover:after {
 #cart-main #cart-header p {
   margin: 0%;
   padding: 0%;
-  text-align: center;
+  text-align: var(--text-align);
 }
 #cart-main #cart-header .tit {
   width: 75%;
@@ -323,7 +323,7 @@ img:hover:after {
   max-height: 100px;
 }
 #cart-main #cart-mid .cart-item p {
-  text-align: center;
+  text-align: var(--text-align);
   margin: 0%;
   padding: 0%;
 }
@@ -723,8 +723,7 @@ input[type=search]:focus, select:focus {
   align-items: center;
   width: 400px;
   height: 500px;
-  background-color: white;
-  box-shadow: 0px 0px 6px black;
+  background-color: #F1F5F9;
   padding-bottom: 5px;
   border-radius: 3vmin;
   -webkit-border-radius: 3vmin;
@@ -840,8 +839,7 @@ input[type=search]:focus, select:focus {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: white;
-  box-shadow: 0px 0px 6px black;
+  background-color: #F1F5F9;
   padding-bottom: 5px;
   border-radius: 3vmin;
   -webkit-border-radius: 3vmin;

@@ -348,6 +348,15 @@ export function populateViewCart() {
             img.addEventListener('click', () => {
                 populateItem(8, i)
             });
+
+            removeImg.addEventListener('click', () => {
+                cartArrDetails.splice(i, 1)
+                delete cartArr[`${i}.jpg`]
+                delete cartArrOG[`${i}.jpg`]
+                cartIndexes.splice(i, 1)
+                populateViewCart()
+            })
+
             temp.classList.add('cart-item')
             
             removeImgDiv.append(removeImg)
@@ -663,40 +672,42 @@ export function goHome() {
         }
         dots.appendChild(dot)
     }
-    window.addEventListener('resize', () => {
-        a = populateRecommendations(recommendations)
-        curr = 0
-        b = a[0]
-        last = a[1];
-        num = a[2]
-        for (let i = 0; i < b[curr].length; i++) {
-            recommendations.appendChild(b[curr][i])
-        }
-        if (curr <= 0) {
-            prev.classList.add('u')
-            prev.src = uPrevImg
-        } else {
-            prev.classList.remove('u')
-            prev.src = prevImg
-        }
-        if (curr >= last) {
-            next.src = uNextImg
-            next.classList.add('u')
-        } else {
-            next.src = nextImg
-            next.classList.remove('u')
-        }
-        dots.innerHTML = ''
-        for (let i = 0; i < Math.ceil(10/num); i++) {
-            let dot = new Image()
-            if (i == curr) {
-                dot.src = sdotIcn
-            } else {
-                dot.src = dotIcn
+    if (!hasTouch()) {
+        window.addEventListener('resize', () => {
+            a = populateRecommendations(recommendations)
+            curr = 0
+            b = a[0]
+            last = a[1];
+            num = a[2]
+            for (let i = 0; i < b[curr].length; i++) {
+                recommendations.appendChild(b[curr][i])
             }
-            dots.appendChild(dot)
-        }
-    });
+            if (curr <= 0) {
+                prev.classList.add('u')
+                prev.src = uPrevImg
+            } else {
+                prev.classList.remove('u')
+                prev.src = prevImg
+            }
+            if (curr >= last) {
+                next.src = uNextImg
+                next.classList.add('u')
+            } else {
+                next.src = nextImg
+                next.classList.remove('u')
+            }
+            dots.innerHTML = ''
+            for (let i = 0; i < Math.ceil(10/num); i++) {
+                let dot = new Image()
+                if (i == curr) {
+                    dot.src = sdotIcn
+                } else {
+                    dot.src = dotIcn
+                }
+                dots.appendChild(dot)
+            }
+        });
+    }
 
     prev.addEventListener('click', () => {
         if (curr > 0) {
