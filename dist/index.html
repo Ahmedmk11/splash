@@ -13,6 +13,61 @@
             <a id="igl" target="_blank" href="https://www.instagram.com/a.splash.furniture"></a>
             <a id="pn" target="_blank" href="https://wa.me/+201061499915"></a>
         </div>
+        <div id="address-popup" style="display: none;">
+            <form action="#" name="addressForm" method="get">
+                <div id="quit-popup">
+                    <img id="x3" src="" alt="">
+                </div>
+
+                <div class="three">
+                    <label id="un-label" for="user-name"></label>
+                    <label id="pn-label" for="phone-num"></label>
+                    <label id="email-label" for="email-address"></label>
+                </div>
+
+                <div class="three">
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Name should contain (5-30) characters')" id="user-name" placeholder="Full Name" minlength="5" maxlength="30" required>
+                    <input type="tel" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Phone number should only contain numbers and \'+\'')" id="phone-num" placeholder="+201234567890" minlength="8" maxlength="15" required>
+                    <input type="email" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Email must contain a \'@\'')" id="email-address" placeholder="user@mail.com" minlength="7" maxlength="50" required>
+                </div>
+
+                <div class="three">
+                    <label id="st-label" for="street"></label>
+                    <label id="city-label" for="city"></label>
+                    <label id="area-label" for="area"></label>
+                </div>
+
+                <div class="three">
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Street Name / Number is required')" id="street" placeholder="Abbas El-Akkad" minlength="1" required>
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('City should contain 3+ characters')" id="city" placeholder="Cairo" minlength="3" required>
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Area should contain 3+ characters')" id="area" placeholder="Nasr City" minlength="3" required>
+                </div>
+
+                <div class="three">
+                    <label id="building-label" for="building"></label>
+                    <label id="floor-label" for="floor"></label>
+                    <label id="apt-label" for="apartment"></label>
+                </div>
+
+                <div class="three">
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Building / Villa is required')" id="building" placeholder="13" minlength="1" required>
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Floor is required')" id="floor" placeholder="1" minlength="1" required>
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('')" id="apartment" placeholder="2"> 
+                </div>
+
+                <div class="two">
+                    <label id="landmark-label" for="landmark"></label>
+                    <label id="instructions-label" for="instructions"></label>
+                </div>
+
+                <div class="two">
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('')" id="landmark" placeholder="Behind the supermarket">
+                    <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('')" id="instructions" placeholder="...">
+                </div>
+
+                <button type="submit" id="submit-address" form="addressForm" value="Submit">Submit</button>
+            </form>
+        </div>
         <div id="menu">
             <div>
                 <p class="selected-p" id="home-p"></p>

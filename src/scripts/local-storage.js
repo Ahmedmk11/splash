@@ -1,10 +1,14 @@
 export class Storage {
-    
-    static saveDefault(x, y, z, w) {
+
+    static saveCart(x, y, z, w) {
         localStorage.setItem('cartArrDetails', JSON.stringify(x));
         localStorage.setItem('cartArr', JSON.stringify(y));
         localStorage.setItem('cartArrOG', JSON.stringify(z));
         localStorage.setItem('cartIndexes', JSON.stringify(w));
+    }
+
+    static saveAddress(x) {
+        localStorage.setItem('userAddress', JSON.stringify(x));
     }
 
     static getDetails() {
@@ -21,5 +25,9 @@ export class Storage {
 
     static getIndexes() {
         return localStorage.getItem('cartIndexes');
+    }
+
+    static getAddress() {
+        return localStorage.getItem('userAddress');
     }
 }

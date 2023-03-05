@@ -10,6 +10,7 @@ import dotIcn from '../assets/images/icons/dot.png';
 import sdotIcn from '../assets/images/icons/sdot.png';
 import x2Icn from '../assets/images/icons/x2.png';
 import removeIcn from '../assets/images/icons/remove-cart.png';
+import {Storage} from './local-storage';
 
 import fb from '../assets/images/icons/fb.svg';
 import ig from '../assets/images/icons/ig.svg';
@@ -44,6 +45,8 @@ export const kbedroomsP = document.getElementById('kbedrooms-p');
 export const receptionsP = document.getElementById('receptions-p');
 export const tvunitsP = document.getElementById('tvunits-p');
 export const diningroomsP = document.getElementById('diningrooms-p');
+export const addressPop = document.getElementById('address-popup');
+
 
 export const logoImg = new Image();
 export const cartImg = new Image();
@@ -116,6 +119,49 @@ let cartArr = {}
 let cartArrOG = {}
 let cartIndexes = []
 
+let _address = {
+	'username' : 'u',
+    'phone' : 'p',
+    'email' : 'e',
+  	'city' : 'c',
+  	'area' : 'a',
+  	'street' : 's',
+  	'building' : 'b',
+  	'floor' : 'f',
+  	'apartment' : 'apt',
+    'landmark' : 'l',
+    'instructions' : 'i',
+    'exists' : false
+};
+
+Storage.saveAddress(_address)
+
+let f1 = Storage.getDetails()
+let f2 = Storage.getArr()
+let f3 = Storage.getArrOg()
+let f4 = Storage.getIndexes()
+let f5 = Storage.getAddress()
+
+if (f1) {
+    cartArrDetails = JSON.parse(f1);
+}
+
+if (f2) {
+    cartArr = JSON.parse(f2);
+}
+
+if (f3) {
+    cartArrOG = JSON.parse(f3);
+}
+
+if (f4) {
+    cartIndexes = JSON.parse(f4);
+}
+
+if (f5) {
+    _address = JSON.parse(f5);
+}
+
 let resultsQueue = new PriorityQueue((a, b) => {
     if (a[1] > b[1]) {
       return -1;
@@ -127,7 +173,7 @@ let resultsQueue = new PriorityQueue((a, b) => {
 );
 
 let iii = 0
-
+let tp = 0
 let flag = 'page';
 let currItem = [];
 
@@ -164,7 +210,6 @@ products.forEach(p => {
                 recommendationsArr[`${iii}.${ex}`] = abedroomsArr[indx2]
                 recommendationsArrOG[`${iii}.${ex}`] = abedroomsArrOG[indx2]
                 iii++
-
             }
             break;
         case "Diningrooms":
@@ -215,6 +260,198 @@ export function importAll(r) {
     let images = {};
     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
     return images;
+}
+
+export function submitAddress() {
+    let un = document.getElementById('user-name');
+    let pn = document.getElementById('phone-num');
+    let email = document.getElementById('email-address');
+    let city = document.getElementById('city');
+    let area = document.getElementById('area');
+    let st = document.getElementById('street');
+    let building = document.getElementById('building');
+    let floor = document.getElementById('floor');
+    let apt = document.getElementById('apartment');
+    let landmark = document.getElementById('landmark');
+    let instructions = document.getElementById('instructions');
+
+    if (
+        un.reportValidity() &&
+        pn.reportValidity() &&
+        email.reportValidity() &&
+        city.reportValidity() &&
+        area.reportValidity() &&
+        st.reportValidity() &&
+        building.reportValidity() &&
+        floor.reportValidity() &&
+        apt.reportValidity() &&
+        landmark.reportValidity() &&
+        instructions.reportValidity()
+    ) {
+        _address = {
+            'username' : un.value,
+            'phone' : pn.value,
+            'email' : email.value,
+            'city' : city.value,
+            'area' : area.value,
+            'street' : st.value,
+            'building' : building.value,
+            'floor' : floor.value,
+            'apartment' : apt.value,
+            'landmark' : landmark.value,
+            'instructions' : instructions.value,
+            'exists' : true
+        };
+        
+        un.value = '';
+        pn.value = '';
+        email.value = '';
+        city.value = '';
+        area.value = '';
+        st.value = '';
+        building.value = '';
+        floor.value = '';
+        apt.value = '';
+        landmark.value = '';
+        instructions.value = '';
+
+        Storage.saveAddress(_address)
+        const blurred = document.body.children
+        const con = document.getElementById('address-popup')
+        for (let k = 0; k < blurred.length; k++){
+            blurred[k].classList.remove('popup')
+        }
+        con.setAttribute('style', 'display: none;')
+        populateOrder()
+    }
+}
+
+export function addAddress() {
+    const submit = document.getElementById('submit-address')
+    const x3 = document.getElementById('x3')
+
+    if (document.body.classList.contains('en')) {
+        document.getElementById('un-label').textContent = 'Name'
+        document.getElementById('pn-label').textContent = 'Phone Number'
+        document.getElementById('email-label').textContent = 'Email'
+        document.getElementById('city-label').textContent = 'City'
+        document.getElementById('area-label').textContent = 'Area'
+        document.getElementById('st-label').textContent = 'Street Name / Number'
+        document.getElementById('building-label').textContent = 'Building / Villa'
+        document.getElementById('floor-label').textContent = 'Floor'
+        document.getElementById('apt-label').textContent = 'Apartment'
+        document.getElementById('landmark-label').textContent = 'Landmark'
+        document.getElementById('instructions-label').textContent = 'Floor'
+    } else {
+        document.getElementById('un-label').textContent = 'الاسم'
+        document.getElementById('pn-label').textContent = 'رقم الهاتف'
+        document.getElementById('email-label').textContent = 'البريد الالكتروني'
+        document.getElementById('city-label').textContent = 'المحافظة'
+        document.getElementById('area-label').textContent = 'المنطقة'
+        document.getElementById('st-label').textContent = 'اسم / رقم الشارع'
+        document.getElementById('building-label').textContent = 'رقم العمارة / الڤيلا'
+        document.getElementById('floor-label').textContent = 'الطابق'
+        document.getElementById('apt-label').textContent = 'الشقة'
+        document.getElementById('landmark-label').textContent = 'علامة مميزة'
+        document.getElementById('instructions-label').textContent = 'تعليمات اخري'
+    }
+
+        const blurred = document.body.children
+        for (let k = 0; k < blurred.length; k++){
+            blurred[k].classList.add('popup')
+        }
+        addressPop.classList.remove('popup')
+        x3.src = xClose
+        x3.addEventListener('click', () => {
+            const blurred = document.body.children
+            const con = document.getElementById('address-popup')
+            for (let k = 0; k < blurred.length; k++){
+                blurred[k].classList.remove('popup')
+            }
+            con.setAttribute('style', 'display: none;')
+        })
+
+    addressPop.setAttribute('style', 'display: flex;')
+
+    submit.addEventListener('click', () => {
+        submitAddress()
+    })
+}
+
+export function sendEmail() {
+
+}
+
+export function populateOrder() {
+    middleContainer.innerHTML = ''
+    const main = document.createElement('div')
+
+    const addressContainer = document.createElement('div')
+    const addressP = document.createElement('p')
+    const addChange = document.createElement('button')
+
+    const priceContainer = document.createElement('div')
+    const subtotal = document.createElement('p')
+    const shipping = document.createElement('p')
+
+    const placeOrder = document.createElement('button')
+
+    main.id = 'order-main'
+    addressContainer.id = 'order-address-cont'
+    priceContainer.id = 'order-price-cont'
+
+    if (document.body.classList.contains('en')) {
+        if (_address.exists) {
+            addChange.textContent = 'Change'
+            let addArr = Object.values(_address)
+            addArr.splice(-1, 1)
+            addressP.textContent = addArr.join(' - ')
+        } else {
+            addChange.textContent = 'Add'
+            addressP.textContent = 'No Address Found.'
+        }
+        subtotal.textContent = `Subtotal: ${tp} EGP`
+        shipping.textContent = 'plus shipping fee.'
+        placeOrder.textContent = 'Place Order'
+    } else {
+        if (_address.exists) {
+            addChange.textContent = 'تغيير'
+            let addArr = Object.values(_address)
+            addArr.splice(-1, 1)
+            addressP.textContent = addArr.join(' - ')
+        } else {
+            addChange.textContent = 'اضافة'
+            addressP.textContent = 'لم يتم العثور على عنوان.'
+        }
+        subtotal.textContent = `الاجمالي: ${tp} ج.م`
+        shipping.textContent = 'زائد مصاريف الشحن.'
+        placeOrder.textContent = `اتمام عملية الشراء`
+    }
+
+    if (!_address.exists) {
+        placeOrder.disabled = true
+    } else {
+        placeOrder.disabled = false
+    }
+
+    addChange.addEventListener('click', () => {
+        addAddress()
+    })
+
+    placeOrder.addEventListener('click', () => {
+        sendEmail()
+    })
+
+    shipping.id = 'gray-text'
+    addressContainer.append(addressP)
+    addressContainer.append(addChange)
+    priceContainer.append(subtotal)
+    priceContainer.append(shipping)
+    main.append(addressContainer)
+    main.append(priceContainer)
+    main.append(placeOrder)
+    middleContainer.append(main)
+    flag = 'cart'
 }
 
 export function addToCart(product_index) {
@@ -310,7 +547,7 @@ export function populateViewCart() {
         const price = document.createElement('p')
         const totalprice = document.createElement('p')
         const place = document.createElement('button')
-        let tp = 0
+        tp = 0
 
         if (document.body.classList.contains('en')) {
             title.textContent = 'Product'
@@ -375,11 +612,15 @@ export function populateViewCart() {
 
         if (document.body.classList.contains('en')) {
             totalprice.textContent = `Total Price: ${tp}`
-            place.textContent = `Place Order`
+            place.textContent = `Continue`
         } else {
             totalprice.textContent = `اجمالي السعر: ${tp}`
-            place.textContent = `اتمام عملية الشراء`
+            place.textContent = `الاستمرار`
         }
+
+        place.addEventListener('click', () => {
+            populateOrder()
+        })
 
         title.classList.add('tit')
         price.classList.add('qph')
@@ -400,6 +641,8 @@ export function populateViewCart() {
         main.append(mid)
         main.append(cartfooter)
     }
+
+    Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
     middleContainer.append(main)
     flag = 'cart'
 }
