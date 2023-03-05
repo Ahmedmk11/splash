@@ -322,6 +322,8 @@ export function submitAddress() {
             blurred[k].classList.remove('popup')
         }
         con.setAttribute('style', 'display: none;')
+        zoomedCont.setAttribute('style', 'display: none;')
+
         populateOrder()
     }
 }
@@ -329,6 +331,10 @@ export function submitAddress() {
 export function addAddress() {
     const submit = document.getElementById('submit-address')
     const x3 = document.getElementById('x3')
+
+    const zoomedCont = document.createElement('div')
+    zoomedCont.id = 'zio'
+    zoomedCont.classList.add('zoomed-container')
 
     if (document.body.classList.contains('en')) {
         document.getElementById('un-label').textContent = 'Name'
@@ -355,7 +361,7 @@ export function addAddress() {
         document.getElementById('landmark-label').textContent = 'علامة مميزة'
         document.getElementById('instructions-label').textContent = 'تعليمات اخري'
     }
-
+        document.body.appendChild(zoomedCont)
         const blurred = document.body.children
         for (let k = 0; k < blurred.length; k++){
             blurred[k].classList.add('popup')
@@ -369,6 +375,7 @@ export function addAddress() {
                 blurred[k].classList.remove('popup')
             }
             con.setAttribute('style', 'display: none;')
+            zoomedCont.remove()
         })
 
     addressPop.setAttribute('style', 'display: flex;')
