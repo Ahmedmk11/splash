@@ -1,4 +1,6 @@
 prettier.config.js
+.prettierrc
+.prettierignore
 *.DS_Store
 node_modules/
 dist/

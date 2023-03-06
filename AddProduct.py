@@ -52,14 +52,13 @@ def save_img():
 
 def upload_file(i,b):
     try:
-        f_types = [('Jpg Files', '*.jpg'),
-        ('PNG Files','*.png')]
+        f_types = [('Jpg Files', '*.jpg')]
         filename = filedialog.askopenfilename(filetypes=f_types)
         img=Image.open(filename)
         images.append(img)
         width, height = img.size  
-        width_new=int(width/2.5)
-        height_new=int(height/2.5)
+        width_new=int(width/10)
+        height_new=int(height/10)
         img=img.resize((width_new,height_new))
         img=ImageTk.PhotoImage(img)
         if i == 0:
@@ -93,7 +92,7 @@ def added():
         toolong = False
         if len(e1.get()) == 0 or len(e2.get()) == 0 or len(e3.get()) == 0 or len(e4.get()) == 0 or len(e5.get()) == 0 or len(e6.get()) == 0 or len(e7.get()) == 0 or variable.get() == "Product Type" or len(images) != 2:
             empty = True
-        if len(e2.get()) >= 40 or len(e3.get()) >= 40:
+        if len(e2.get()) >= 20 or len(e3.get()) >= 20:
             toolong = True
         
         dup = False

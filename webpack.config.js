@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     index: './src/scripts/index.js',
     ui: './src/scripts/ui.js',
+    server: './src/scripts/server.js',
   },
   devtool: 'inline-source-map',
   devServer: {
