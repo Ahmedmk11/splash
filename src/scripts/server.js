@@ -14,8 +14,6 @@ app.post(`/`, (req,res)=>{
     fs.writeFile('./db.json', jsonString, err => {
         if (err) {
             console.log('Error writing file', err)
-        } else {
-            console.log('Successfully wrote file')
         }
     })
 
@@ -42,9 +40,7 @@ app.post(`/`, (req,res)=>{
     
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-        console.log(error);
-        } else {
-        console.log('Email sent: ' + info.response);
+            console.log(error);
         }
     });
 
@@ -78,9 +74,7 @@ app.post(`/`, (req,res)=>{
     
     transporter.sendMail(mailOptions2, function(error, info){
         if (error) {
-        console.log(error);
-        } else {
-        console.log('Email sent: ' + info.response);
+            console.log(error);
         }
     });
 });

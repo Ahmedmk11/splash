@@ -135,11 +135,17 @@ let _address = {
     'exists' : false
 };
 
+let uid = -1
+
+let uflag = -1
+
 let f1 = Storage.getDetails()
 let f2 = Storage.getArr()
 let f3 = Storage.getArrOg()
 let f4 = Storage.getIndexes()
 let f5 = Storage.getAddress()
+let f6 = Storage.getUID()
+let f7 = Storage.getUflag()
 
 if (f1) {
     cartArrDetails = JSON.parse(f1);
@@ -159,6 +165,14 @@ if (f4) {
 
 if (f5) {
     _address = JSON.parse(f5);
+}
+
+if (f6) {
+    uid = JSON.parse(f6);
+}
+
+if (f7) {
+    uflag = JSON.parse(f7);
 }
 
 let resultsQueue = new PriorityQueue((a, b) => {
@@ -444,6 +458,8 @@ export async function saveToDB(order) {
 
 export function orderPlaced(id) {
     middleContainer.innerHTML = ''
+    Storage.saveUID(id)
+    uid = id
     const main = document.createElement('div')
     const success = document.createElement('h3')
     const orderNum = document.createElement('p')
@@ -462,7 +478,9 @@ export function orderPlaced(id) {
         'order_items' : getProductIDIndex().join(' - ')
     }
 
-    saveToDB(order)
+    if (uflag != '1') {
+        saveToDB(order)
+    }
 
     if (document.body.classList.contains('en')) {
         success.textContent = 'Order Placed Successfully!'
@@ -473,8 +491,6 @@ export function orderPlaced(id) {
         orderNum.textContent = `رقم الطلب: ${id}`
         btn. textContent = 'مواصلة التسوق'
     }
-
-    console.log(order)
 
     cartArrDetails = []
     cartArr = {}
@@ -493,6 +509,8 @@ export function orderPlaced(id) {
     main.append(success)
     main.append(orderNum)
     main.append(btn)
+    uflag = 1
+    Storage.saveUflag(uflag)
     middleContainer.append(main)
 }
 
@@ -1030,6 +1048,12 @@ export function populateRecommendations(r) {
 }
 
 export function goHome() {
+    if (uflag == 1) {
+        orderPlaced(uid)
+        uflag = 0
+        Storage.saveUflag(0)
+        return
+    }
     newSelect(homeBtn)
     middleContainer.innerHTML = '';
     const container = document.createElement('div')

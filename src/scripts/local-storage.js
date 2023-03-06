@@ -11,6 +11,14 @@ export class Storage {
         localStorage.setItem('userAddress', JSON.stringify(x));
     }
 
+    static saveUID(x) {
+        localStorage.setItem('uid', JSON.stringify(x));
+    }
+
+    static saveUflag(x) {
+        localStorage.setItem('uflag', JSON.stringify(x));
+    }
+
     static getDetails() {
         return localStorage.getItem('cartArrDetails');
     }
@@ -29,5 +37,13 @@ export class Storage {
 
     static getAddress() {
         return localStorage.getItem('userAddress');
+    }
+
+    static getUID() {
+        return localStorage.getItem('uid');
+    }
+
+    static getUflag() {
+        return localStorage.getItem('uflag');
     }
 }
