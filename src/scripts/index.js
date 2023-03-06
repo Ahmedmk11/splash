@@ -1,15 +1,15 @@
 import logo from '../assets/images/pictures/logo.jpg';
-import cartLogo from '../assets/images/icons/cart.png';
-import menuLogo from '../assets/images/icons/menu.png';
-import prevImg from '../assets/images/icons/left.png';
-import nextImg from '../assets/images/icons/right.png';
-import uPrevImg from '../assets/images/icons/uleft.png';
-import uNextImg from '../assets/images/icons/uright.png';
-import xClose from '../assets/images/icons/x.png';
-import dotIcn from '../assets/images/icons/dot.png';
-import sdotIcn from '../assets/images/icons/sdot.png';
-import x2Icn from '../assets/images/icons/x2.png';
-import removeIcn from '../assets/images/icons/remove-cart.png';
+import cartLogo from '../assets/images/icons/cart.svg'; //
+import menuLogo from '../assets/images/icons/menu.svg'; //
+import prevImg from '../assets/images/icons/left.svg'; //
+import nextImg from '../assets/images/icons/right.svg'; //
+import uPrevImg from '../assets/images/icons/uleft.svg'; //
+import uNextImg from '../assets/images/icons/uright.svg'; //
+import xClose from '../assets/images/icons/x.svg'; //
+import dotIcn from '../assets/images/icons/dot.svg'; //
+import sdotIcn from '../assets/images/icons/sdot.svg'; //
+import x2Icn from '../assets/images/icons/x2.svg'; //
+import removeIcn from '../assets/images/icons/remove-cart.svg';
 import {Storage} from './local-storage';
 
 import fb from '../assets/images/icons/fb.svg';
@@ -64,6 +64,10 @@ xImg.src = xClose;
 fbImg.src = fb;
 igImg.src = ig;
 waImg.src = wa;
+
+cartImg.setAttribute("style", "width: 25px;height: 25px;")
+menuImg.setAttribute("style", "width: 25px;height: 25px;")
+xImg.setAttribute("style", "width: 20px;height: 20px;")
 
 const sm = document.getElementById('sm');
 const fbl = document.getElementById('fbl');
@@ -732,6 +736,7 @@ export function populateViewCart() {
             let removeImg = new Image()
 
             removeImg.src = removeIcn
+            removeImg.setAttribute("style", "width: 22px;height: 22px;")
             
             if (document.body.classList.contains('en')) {
                 titlei.textContent = `${products[parseInt(cartArrDetails[i])].p_id}, ${products[parseInt(cartArrDetails[i])].product_title_en}`
@@ -1068,6 +1073,9 @@ export function goHome() {
     prev.classList.add('u')
     container2.id = 'container2'
 
+    prev.setAttribute("style", "width: 50px;height: 50px;")
+    next.setAttribute("style", "width: 50px;height: 50px;")
+
     let a = populateRecommendations(recommendations)
     let b = a[0]
     let curr = 0;
@@ -1080,8 +1088,10 @@ export function goHome() {
     for (let i = 0; i < Math.ceil(10/num); i++) {
         let dot = new Image()
         if (i == curr) {
+            dot.setAttribute("style", "width: 15px;height: 15px;")
             dot.src = sdotIcn
         } else {
+            dot.setAttribute("style", "width: 12px;height: 12px;")
             dot.src = dotIcn
         }
         dots.appendChild(dot)
@@ -1114,8 +1124,10 @@ export function goHome() {
             for (let i = 0; i < Math.ceil(10/num); i++) {
                 let dot = new Image()
                 if (i == curr) {
+                    dot.setAttribute("style", "width: 15px;height: 15px;")
                     dot.src = sdotIcn
                 } else {
+                    dot.setAttribute("style", "width: 12px;height: 12px;")
                     dot.src = dotIcn
                 }
                 dots.appendChild(dot)
@@ -1134,8 +1146,10 @@ export function goHome() {
             for (let i = 0; i < Math.ceil(10/num); i++) {
                 let dot = new Image()
                 if (i == curr) {
+                    dot.setAttribute("style", "width: 15px;height: 15px;")
                     dot.src = sdotIcn
                 } else {
+                    dot.setAttribute("style", "width: 12px;height: 12px;")
                     dot.src = dotIcn
                 }
                 dots.appendChild(dot)
@@ -1160,8 +1174,10 @@ export function goHome() {
             for (let i = 0; i < Math.ceil(10/num); i++) {
                 let dot = new Image()
                 if (i == curr) {
+                    dot.setAttribute("style", "width: 15px;height: 15px;")
                     dot.src = sdotIcn
                 } else {
+                    dot.setAttribute("style", "width: 12px;height: 12px;")
                     dot.src = dotIcn
                 }
                 dots.appendChild(dot)
@@ -1389,6 +1405,7 @@ function populateItem(n, i) {
             let x2 = new Image()
             zoomedIn.src = arr[`${i}.jpg`];
             x2.src = x2Icn
+            x2.setAttribute("style", "width: 40px;height: 40px;")
             zoomedIn.classList.add('zoomed-in')
             x2.classList.add('x2')
             zoomedCont.classList.add('zoomed-container')
