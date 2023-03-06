@@ -19,6 +19,7 @@ import db from './db.json';
 
 import {PriorityQueue} from '@datastructures-js/priority-queue';
 const cloneDeep = require('lodash/clonedeep');
+import { nanoid } from 'nanoid'
 
 let products = db.Products
 
@@ -133,8 +134,6 @@ let _address = {
     'instructions' : 'i',
     'exists' : false
 };
-
-Storage.saveAddress(_address)
 
 let f1 = Storage.getDetails()
 let f2 = Storage.getArr()
@@ -322,7 +321,7 @@ export function submitAddress() {
             blurred[k].classList.remove('popup')
         }
         con.setAttribute('style', 'display: none;')
-        zoomedCont.setAttribute('style', 'display: none;')
+        document.getElementById('zio').remove()
 
         populateOrder()
     }
@@ -331,39 +330,74 @@ export function submitAddress() {
 export function addAddress() {
     const submit = document.getElementById('submit-address')
     const x3 = document.getElementById('x3')
+    let astrs = []
+    let ps = []
+    let astr = '';
+    let p = ''
+    for (let l = 0; l < 11; l++) {
+        if (l < 8) {
+            astr = document.createElement('sup')
+            astr.textContent = '*'
+            astr.classList.add('astr')
+            astrs.push(astr)
+        }
+        p = document.createElement('p')
+        ps.push(p)
+    }
 
     const zoomedCont = document.createElement('div')
     zoomedCont.id = 'zio'
     zoomedCont.classList.add('zoomed-container')
 
     if (document.body.classList.contains('en')) {
-        document.getElementById('un-label').textContent = 'Name'
-        document.getElementById('pn-label').textContent = 'Phone Number'
-        document.getElementById('email-label').textContent = 'Email'
-        document.getElementById('city-label').textContent = 'City'
-        document.getElementById('area-label').textContent = 'Area'
-        document.getElementById('st-label').textContent = 'Street Name / Number'
-        document.getElementById('building-label').textContent = 'Building / Villa'
-        document.getElementById('floor-label').textContent = 'Floor'
-        document.getElementById('apt-label').textContent = 'Apartment'
-        document.getElementById('landmark-label').textContent = 'Landmark'
-        document.getElementById('instructions-label').textContent = 'Floor'
+        ps[0].textContent = 'Name'
+        ps[1].textContent = 'Phone Number'
+        ps[2].textContent = 'Email'
+        ps[3].textContent = 'City'
+        ps[4].textContent = 'Area'
+        ps[5].textContent = 'Street Name / Number'
+        ps[6].textContent = 'Building / Villa'
+        ps[7].textContent = 'Floor'
+        ps[8].textContent = `Apartment`
+        ps[9].textContent = 'Landmark'
+        ps[10].textContent = 'Instructions'
     } else {
-        document.getElementById('un-label').textContent = 'الاسم'
-        document.getElementById('pn-label').textContent = 'رقم الهاتف'
-        document.getElementById('email-label').textContent = 'البريد الالكتروني'
-        document.getElementById('city-label').textContent = 'المحافظة'
-        document.getElementById('area-label').textContent = 'المنطقة'
-        document.getElementById('st-label').textContent = 'اسم / رقم الشارع'
-        document.getElementById('building-label').textContent = 'رقم العمارة / الڤيلا'
-        document.getElementById('floor-label').textContent = 'الطابق'
-        document.getElementById('apt-label').textContent = 'الشقة'
-        document.getElementById('landmark-label').textContent = 'علامة مميزة'
-        document.getElementById('instructions-label').textContent = 'تعليمات اخري'
+        ps[0].textContent = 'الاسم'
+        ps[1].textContent = 'رقم الهاتف'
+        ps[2].textContent = 'البريد الالكتروني'
+        ps[3].textContent = 'المحافظة'
+        ps[4].textContent = 'المنطقة'
+        ps[5].textContent = 'اسم / رقم الشارع'
+        ps[6].textContent = 'رقم العمارة / الڤيلا'
+        ps[7].textContent = 'الطابق'
+        ps[8].textContent = 'الشقة'
+        ps[9].textContent = 'علامة مميزة'
+        ps[10].textContent = 'تعليمات اخري'
     }
+
+        document.getElementById('un-label').append(astrs[0])
+        document.getElementById('un-label').append(ps[0])
+        document.getElementById('pn-label').append(astrs[1])
+        document.getElementById('pn-label').append(ps[1])
+        document.getElementById('email-label').append(astrs[2])
+        document.getElementById('email-label').append(ps[2])
+        document.getElementById('city-label').append(astrs[3])
+        document.getElementById('city-label').append(ps[3])
+        document.getElementById('area-label').append(astrs[4])
+        document.getElementById('area-label').append(ps[4])
+        document.getElementById('st-label').append(astrs[5])
+        document.getElementById('st-label').append(ps[5])
+        document.getElementById('building-label').append(astrs[6])
+        document.getElementById('building-label').append(ps[6])
+        document.getElementById('floor-label').append(astrs[7])
+        document.getElementById('floor-label').append(ps[7])
+        document.getElementById('apt-label').append(ps[8])
+        document.getElementById('landmark-label').append(ps[9])
+        document.getElementById('instructions-label').append(ps[10])
+
         document.body.appendChild(zoomedCont)
         const blurred = document.body.children
-        for (let k = 0; k < blurred.length; k++){
+        for (let k = 0; k < blurred.length; k++) {
             blurred[k].classList.add('popup')
         }
         addressPop.classList.remove('popup')
@@ -385,8 +419,81 @@ export function addAddress() {
     })
 }
 
-export function sendEmail() {
+export function getProductIDIndex() {
+    let res = []
+    cartIndexes.forEach(index => {
+        products.forEach(product => {
+            if (index == product.index) {
+                res.push(product.p_id)
+            }
+        })
+    });
+    return res
+}
 
+export async function saveToDB(order) {
+    db.Orders.push(order);
+    let obj = {
+        db : db,
+        curr : order
+    }
+    let objStr = await JSON.stringify(obj);
+    await fetch('http://localhost:3000/', {method:`POST`, headers: {'Content-Type':'application/json'}, 
+    body: objStr})
+}
+
+export function orderPlaced(id) {
+    middleContainer.innerHTML = ''
+    const main = document.createElement('div')
+    const success = document.createElement('h3')
+    const orderNum = document.createElement('p')
+    const btn = document.createElement('button')
+
+    let today = new Date();
+    let date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date+' '+time+' '+Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    let order = {
+        'order_id' : id,
+        'order_address' : _address,
+        'order_subtotal' : tp,
+        'order_datetime' : dateTime,
+        'order_items' : getProductIDIndex().join(' - ')
+    }
+
+    saveToDB(order)
+
+    if (document.body.classList.contains('en')) {
+        success.textContent = 'Order Placed Successfully!'
+        orderNum.textContent = `Order ID: ${id}`
+        btn. textContent = 'Continue Shopping'
+    } else {
+        success.textContent = 'تم تقديم الطلب بنجاح!'
+        orderNum.textContent = `رقم الطلب: ${id}`
+        btn. textContent = 'مواصلة التسوق'
+    }
+
+    console.log(order)
+
+    cartArrDetails = []
+    cartArr = {}
+    cartArrOG = {}
+    cartIndexes = []
+    tp = 0
+
+    Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
+
+    btn.addEventListener('click', () => {
+        goHome()
+    })
+
+    main.id = 'success-message'
+
+    main.append(success)
+    main.append(orderNum)
+    main.append(btn)
+    middleContainer.append(main)
 }
 
 export function populateOrder() {
@@ -394,7 +501,10 @@ export function populateOrder() {
     const main = document.createElement('div')
 
     const addressContainer = document.createElement('div')
+    const addressDNE = document.createElement('p')
     const addressP = document.createElement('p')
+    const instP = document.createElement('p')
+    const landmarkP = document.createElement('p')
     const addChange = document.createElement('button')
 
     const priceContainer = document.createElement('div')
@@ -412,10 +522,21 @@ export function populateOrder() {
             addChange.textContent = 'Change'
             let addArr = Object.values(_address)
             addArr.splice(-1, 1)
+            addArr.splice(-1, 1)
+            addArr.splice(-1, 1)
+            if (!_address.apartment) {
+                addArr.splice(-1, 1)
+            }
+            if (_address.landmark) {
+                landmarkP.textContent = `Landmark: ${_address.landmark}`
+            }
+            if (_address.instructions) {
+                instP.textContent = `Instructions: ${_address.instructions}`
+            }
             addressP.textContent = addArr.join(' - ')
         } else {
             addChange.textContent = 'Add'
-            addressP.textContent = 'No Address Found.'
+            addressDNE.textContent = 'No Address Found.'
         }
         subtotal.textContent = `Subtotal: ${tp} EGP`
         shipping.textContent = 'plus shipping fee.'
@@ -425,10 +546,21 @@ export function populateOrder() {
             addChange.textContent = 'تغيير'
             let addArr = Object.values(_address)
             addArr.splice(-1, 1)
+            addArr.splice(-1, 1)
+            addArr.splice(-1, 1)
+            if (!_address.apartment) {
+                addArr.splice(-1, 1)
+            }
+            if (_address.landmark) {
+                landmarkP.textContent = `علامة مميزة: ${_address.landmark}`
+            }
+            if (_address.instructions) {
+                instP.textContent = `تعليمات اخري: ${_address.instructions}`
+            }
             addressP.textContent = addArr.join(' - ')
         } else {
             addChange.textContent = 'اضافة'
-            addressP.textContent = 'لم يتم العثور على عنوان.'
+            addressDNE.textContent = 'لم يتم العثور على عنوان.'
         }
         subtotal.textContent = `الاجمالي: ${tp} ج.م`
         shipping.textContent = 'زائد مصاريف الشحن.'
@@ -446,11 +578,19 @@ export function populateOrder() {
     })
 
     placeOrder.addEventListener('click', () => {
-        sendEmail()
+        orderPlaced(nanoid(21))
     })
 
+    if (_address.exists) {
+        addressContainer.append(addressP)
+        addressContainer.append(landmarkP)
+        addressContainer.append(instP)
+    } else {
+        addressContainer.append(addressDNE)
+    }
+
     shipping.id = 'gray-text'
-    addressContainer.append(addressP)
+
     addressContainer.append(addChange)
     priceContainer.append(subtotal)
     priceContainer.append(shipping)
