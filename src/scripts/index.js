@@ -598,9 +598,12 @@ export async function saveToDB(order) {
         curr: order,
     }
     let objStr = await JSON.stringify(obj)
-    await fetch('http://localhost:3000/', {
+    await fetch('https://ahmedmk11.github.io:3000/splash', {
         method: `POST`,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type':'application/json',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept" },
         body: objStr,
     })
 }
