@@ -611,6 +611,7 @@ export function orderPlaced(id) {
     uid = id
     const main = document.createElement('div')
     const success = document.createElement('h3')
+    const success2 = document.createElement('h4')
     const orderNum = document.createElement('p')
     const btn = document.createElement('button')
 
@@ -644,10 +645,12 @@ export function orderPlaced(id) {
 
     if (document.body.classList.contains('en')) {
         success.textContent = 'Order Placed Successfully!'
+        success2.textContent = 'Please check your mail for confirmation.'
         orderNum.textContent = `Order ID: ${id}`
         btn.textContent = 'Continue Shopping'
     } else {
         success.textContent = 'تم تقديم الطلب بنجاح!'
+        success2.textContent = 'يرجى التحقق من بريدك الإلكتروني للتأكيد.'
         orderNum.textContent = `رقم الطلب: ${id}`
         btn.textContent = 'مواصلة التسوق'
     }
@@ -669,6 +672,7 @@ export function orderPlaced(id) {
     main.id = 'success-message'
 
     main.append(success)
+    main.append(success2)
     main.append(orderNum)
     main.append(btn)
     uflag = 1

@@ -9,7 +9,7 @@ let port = 3000
 app.use(bodyParser.json())
 app.use(cors())
 
-app.post(`/`, (req, res) => {
+app.post('/', (req, res) => {
     let jsonString = JSON.stringify(req.body.db, null, 4)
     fs.writeFile('./db.json', jsonString, (err) => {
         if (err) {
