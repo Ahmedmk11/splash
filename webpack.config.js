@@ -9,7 +9,6 @@ module.exports = {
   entry: {
     index: './src/scripts/index.js',
     ui: './src/scripts/ui.js',
-    server: './src/scripts/server.js',
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -53,13 +52,19 @@ module.exports = {
   resolve: {
     fallback: {
       "util": require.resolve("util"),
-      "crypto": false,
-      "timers": false,
-      "stream": false, 
       "fs": false,
-      "http": false,
+      "timers": false,
+      "tls": false,
+      "net": false,
+      "path": false,
       "zlib": false,
-    },
+      "http": false,
+      "https": false,
+      "stream": false,
+      "crypto": false,
+      "crypto-browserify": require.resolve('crypto-browserify'),
+      "os": false,
+    }, 
     extensions: ['.ts', '.js'],
   },
 };
