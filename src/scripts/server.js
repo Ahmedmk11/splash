@@ -23,7 +23,7 @@ app.post('/', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'splashordersmail@gmail.com',
-            pass: '',
+            pass: process.env.pass,
         },
     })
 
