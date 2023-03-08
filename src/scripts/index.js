@@ -586,6 +586,7 @@ export async function saveToDB(order) {
     let objStr = await JSON.stringify(obj)
     const response = await fetch('https://splash-7e1y.onrender.com/', {
         method: `POST`,
+        // mode: 'no-cors',
         headers: { 'Content-Type':'application/json' },
         body: objStr,
     })
@@ -598,6 +599,8 @@ export function orderPlaced(id) {
     const success2 = document.createElement('h4')
     const orderNum = document.createElement('p')
     const btn = document.createElement('button')
+
+    main.id = 'success-message'
 
     let today = new Date()
     let date =
@@ -623,8 +626,13 @@ export function orderPlaced(id) {
         order_items: getProductIDIndex().join(' - '),
     }
 
+    let wait = document.createElement('h3')
+    wait.textContent = document.body.classList.contains('en') ? 'Please Wait..' : 'الرجاء الانتظار..'
+    main.append(wait)
+    middleContainer.append(main)
+
     saveToDB(order)
-    .then(() => {
+    .then((function() {
         if (document.body.classList.contains('en')) {
             success.textContent = 'Order Placed Successfully!'
             success2.textContent = 'Please check your mail for confirmation.'
@@ -646,14 +654,15 @@ export function orderPlaced(id) {
         btn.addEventListener('click', () => {
             goHome()
         })
-
+        main.innerHTML = ''
+        middleContainer.innerHTML = ''
         main.append(success)
         main.append(success2)
         main.append(orderNum)
         main.append(btn)
-    })
 
-    .catch((err) => {
+        middleContainer.append(main)
+    }, function (err) {
         console.log(err)
         if (document.body.classList.contains('en')) {
             success.textContent = 'Oops Something Went Wrong.'
@@ -668,14 +677,16 @@ export function orderPlaced(id) {
             orderPlaced(id)
         })
 
+        main.innerHTML = ''
+        middleContainer.innerHTML = ''
         main.append(success)
         main.append(success2)
         main.append(btn)
-    })
+
+        middleContainer.append(main)
+    }))
 
     flag = 'page'
-    main.id = 'success-message'
-    middleContainer.append(main)
 }
 
 export function populateOrder() {
