@@ -584,7 +584,7 @@ export async function saveToDB(order) {
         curr: order,
     }
     let objStr = await JSON.stringify(obj)
-    const response = await fetch('https://splash-7e1y.onrender.com/', {
+    await fetch('https://splash-7e1y.onrender.com/', {
         method: `POST`,
         // mode: 'no-cors',
         headers: { 'Content-Type':'application/json' },
