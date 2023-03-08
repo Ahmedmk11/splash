@@ -578,17 +578,22 @@ export function getProductIDIndex() {
 }
 
 export async function saveToDB(order) {
-    db.Orders.push(order)
-    let obj = {
-        db: db,
-        curr: order,
+    try {
+        db.Orders.push(order)
+        let obj = {
+            db: db,
+            curr: order,
+        }
+        let objStr = await JSON.stringify(obj)
+        await fetch('https://splash-7e1y.onrender.com/', {
+            method: `POST`,
+            headers: { 'Content-Type':'application/json' },
+            body: objStr,
+        })
+        return 1   
+    } catch (error) {
+        return error
     }
-    let objStr = await JSON.stringify(obj)
-    await fetch('https://splash-7e1y.onrender.com/', {
-        method: `POST`,
-        headers: { 'Content-Type':'application/json' },
-        body: objStr,
-    })
 }
 
 export function orderPlaced(id) {
@@ -623,40 +628,58 @@ export function orderPlaced(id) {
         order_items: getProductIDIndex().join(' - '),
     }
 
-    saveToDB(order)
+    let isErr = saveToDB(order)
 
-    if (document.body.classList.contains('en')) {
-        success.textContent = 'Order Placed Successfully!'
-        success2.textContent = 'Please check your mail for confirmation.'
-        orderNum.textContent = `Order ID: ${id}`
-        btn.textContent = 'Continue Shopping'
+    if (isErr == 1) {
+        if (document.body.classList.contains('en')) {
+            success.textContent = 'Order Placed Successfully!'
+            success2.textContent = 'Please check your mail for confirmation.'
+            orderNum.textContent = `Order ID: ${id}`
+            btn.textContent = 'Continue Shopping'
+        } else {
+            success.textContent = 'تم تقديم الطلب بنجاح!'
+            success2.textContent = 'يرجى التحقق من بريدك الإلكتروني للتأكيد.'
+            orderNum.textContent = `رقم الطلب: ${id}`
+            btn.textContent = 'مواصلة التسوق'
+        }
+        cartArrDetails = []
+        cartArr = {}
+        cartArrOG = {}
+        cartIndexes = []
+        tp = 0
+        Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
+
+        btn.addEventListener('click', () => {
+            goHome()
+        })
+
+        main.append(success)
+        main.append(success2)
+        main.append(orderNum)
+        main.append(btn)
+
     } else {
-        success.textContent = 'تم تقديم الطلب بنجاح!'
-        success2.textContent = 'يرجى التحقق من بريدك الإلكتروني للتأكيد.'
-        orderNum.textContent = `رقم الطلب: ${id}`
-        btn.textContent = 'مواصلة التسوق'
+        console.log(isErr)
+        if (document.body.classList.contains('en')) {
+            success.textContent = 'Oops Something Went Wrong.'
+            success2.textContent = 'Please try again or contact us.'
+            btn.textContent = 'Try Again'
+        } else {
+            success.textContent = 'لقد حدث خطأ ما.'
+            success2.textContent = 'يرجى المحاولة مرة أخرى أو الاتصال بنا.'
+            btn.textContent = 'اعادة المحاولة'
+        }
+        btn.addEventListener('click', () => {
+            orderPlaced(id)
+        })
+
+        main.append(success)
+        main.append(success2)
+        main.append(btn)
     }
 
-    cartArrDetails = []
-    cartArr = {}
-    cartArrOG = {}
-    cartIndexes = []
-    tp = 0
-
     flag = 'page'
-
-    Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
-
-    btn.addEventListener('click', () => {
-        goHome()
-    })
-
     main.id = 'success-message'
-
-    main.append(success)
-    main.append(success2)
-    main.append(orderNum)
-    main.append(btn)
     middleContainer.append(main)
 }
 
