@@ -584,12 +584,14 @@ export async function saveToDB(order) {
         curr: order,
     }
     let objStr = await JSON.stringify(obj)
-    await fetch('https://splash-7e1y.onrender.com/', {
+    let response = await fetch('https://splash-7e1y.onrender.com/', {
         method: `POST`,
         // mode: 'no-cors',
         headers: { 'Content-Type':'application/json' },
         body: objStr,
     })
+
+    return response.body
 }
 
 export function orderPlaced(id) {
@@ -632,7 +634,7 @@ export function orderPlaced(id) {
     middleContainer.append(main)
 
     saveToDB(order)
-    .then((function() {
+    .then(function() {
         if (document.body.classList.contains('en')) {
             success.textContent = 'Order Placed Successfully!'
             success2.textContent = 'Please check your mail for confirmation.'
@@ -662,7 +664,8 @@ export function orderPlaced(id) {
         main.append(btn)
 
         middleContainer.append(main)
-    }, function (err) {
+    })
+    .catch(function (err) {
         console.log(err)
         if (document.body.classList.contains('en')) {
             success.textContent = 'Oops Something Went Wrong.'
@@ -684,7 +687,7 @@ export function orderPlaced(id) {
         main.append(btn)
 
         middleContainer.append(main)
-    }))
+    })
 
     flag = 'page'
 }

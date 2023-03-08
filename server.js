@@ -13,13 +13,6 @@ app.use(bodyParser.json())
 
 app.post('/', (req, res) => {
     console.log('inside post')
-    let jsonString = JSON.stringify(req.body.db, null, 4)
-    fs.writeFile('./db.json', jsonString, (err) => {
-        if (err) {
-            console.log('Error writing file', err)
-        }
-    })
-
     let currentOrder = req.body.curr
 
     var transporter = nodemailer.createTransport({
@@ -84,6 +77,15 @@ app.post('/', (req, res) => {
         console.log('inside email 2')
         if (error) {
             console.log(error)
+        }
+    })
+
+    let jsonString = JSON.stringify(req.body.db, null, 4)
+    fs.writeFile('./db.json', jsonString, (err) => {
+        if (err) {
+            console.log('Error writing file', err)
+        } else {
+            res.status(200).send('Done!')
         }
     })
 })
