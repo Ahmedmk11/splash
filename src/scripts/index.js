@@ -296,6 +296,7 @@ let resultsQueue = new PriorityQueue((a, b) => {
 let iii = 0
 let tp = 0
 let flag = 'page'
+let nflag = true
 let currItem = []
 
 products.forEach((p) => {
@@ -383,6 +384,17 @@ export function importAll(r) {
         images[item.replace('./', '')] = r(item)
     })
     return images
+}
+
+function popUp(m) {
+    let popup = m == 1 ? document.getElementById("myPopup") : document.getElementById("myPopup2")
+    popup.classList.remove("hide");
+    popup.classList.add("show");
+
+    setTimeout( function() {
+        popup.classList.remove("show");
+        popup.classList.add("hide"); 
+    }, 1000);
 }
 
 export function submitAddress() {
@@ -799,6 +811,7 @@ export function populateOrder() {
 
 export function addToCart(product_index) {
     cartIndexes.push(product_index)
+    popUp(1)
 }
 
 export function populateViewCart() {
@@ -882,22 +895,30 @@ export function populateViewCart() {
         main.classList.add('empty-cart-main')
         main.append(empty)
         main.append(add)
+
     } else {
+        const notif = document.createElement('div')
         const header = document.createElement('div')
         const mid = document.createElement('div')
         const cartfooter = document.createElement('div')
         const title = document.createElement('p')
         const price = document.createElement('p')
+        const notifP = document.createElement('p')
         const totalprice = document.createElement('p')
         const place = document.createElement('button')
+
         tp = 0
+
+        notif.id = 'notif'
 
         if (document.body.classList.contains('en')) {
             title.textContent = 'Product'
             price.textContent = 'Price'
+            notifP.textContent = 'Item Removed from Cart!'
         } else {
             title.textContent = 'المنتج'
             price.textContent = 'السعر'
+            notifP.textContent = ' تمت الإزالة من عربة التسوق!'
         }
 
         for (let i = 0; i < Object.keys(cartArr).length; i++) {
@@ -923,7 +944,7 @@ export function populateViewCart() {
                     products[parseInt(cartArrDetails[i])].p_id
                 }، ${products[parseInt(cartArrDetails[i])].product_title_ar}`
                 pricei.textContent =
-                    products[parseInt(cartArrDetails[i])].product_price_ar
+                    products[parseInt(cartArrDetails[i])].product_price_ar                
             }
 
             hlc.classList.add('hlc')
@@ -941,6 +962,7 @@ export function populateViewCart() {
                 delete cartArr[`${i}.jpg`]
                 delete cartArrOG[`${i}.jpg`]
                 cartIndexes.splice(i, 1)
+                nflag = false
                 populateViewCart()
             })
 
@@ -985,6 +1007,12 @@ export function populateViewCart() {
 
         cartfooter.append(totalprice)
         cartfooter.append(place)
+
+        if (!nflag) {
+            notif.append(notifP)
+            main.append(notif)
+            nflag = true
+        }
 
         main.append(header)
         main.append(hlc)
@@ -1470,6 +1498,10 @@ function createCard(container, n, index) {
     const nameP = document.createElement('p')
     const priceP = document.createElement('p')
     const hr = document.createElement('hr')
+    let span = document.createElement('span')
+    span.classList.add('popuptext')
+    span.id = 'myPopup'
+    cart.classList.add('ttpopup')
     tmp.classList.add('item')
     info.classList.add('info')
     infoL.classList.add('info-left')
@@ -1492,16 +1524,19 @@ function createCard(container, n, index) {
         nameP.textContent = p_title_en
         cart.textContent = 'Add to Cart'
         priceP.textContent = p_price_en
+        span.textContent = 'Item Added to Cart!'
     } else {
         nameP.textContent = p_title_ar
         cart.textContent = 'اضافة الي عربة التسوق'
         priceP.textContent = p_price_ar
+        span.textContent = 'تمت الإضافة إلى عربة التسوق!'
     }
 
     cart.addEventListener('click', () => {
         addToCart(products[parseInt(arrDetails[index])].index)
     })
 
+    cart.append(span)
     infoL.append(nameP)
     infoL.append(priceP)
     info.append(infoL)

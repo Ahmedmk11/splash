@@ -81,7 +81,7 @@ app.post('/', (req, res) => {
     })
 
     let jsonString = JSON.stringify(req.body.db, null, 4)
-    fs.writeFile('./db.json', jsonString, (err) => {
+    fs.writeFile('./src/scripts/db.json', jsonString, (err) => {
         if (err) {
             console.log('Error writing file', err)
         } else {
