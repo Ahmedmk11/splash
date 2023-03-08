@@ -6,8 +6,10 @@ var nodemailer = require('nodemailer')
 var app = express()
 let port = process.env.PORT || 3000
 
+app.use(cors({
+    origin: '*'
+}));
 app.use(bodyParser.json())
-app.use(cors())
 
 app.post('/', (req, res) => {
     console.log('inside post')
