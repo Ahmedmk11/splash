@@ -17,6 +17,9 @@ app.post('/', (req, res) => {
     fs.writeFile('./db.json', jsonString, (err) => {
         if (err) {
             console.log('Error writing file', err)
+            res.send(err)
+        } else {
+            res.send(1)
         }
     })
 
