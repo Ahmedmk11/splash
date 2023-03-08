@@ -9,6 +9,7 @@ let port = process.env.PORT || 3000
 app.use(cors({
     origin: '*'
 }));
+
 app.use(bodyParser.json())
 
 app.post('/', (req, res) => {
@@ -27,10 +28,19 @@ app.post('/', (req, res) => {
         from: 'splashordersmail@gmail.com',
         to: currentOrder.order_address.email,
         subject: 'Your Order from Splash',
-        text: `Your order from Splash will be delievered as soon as possible!\n
-        Order ID: ${currentOrder.order_id}\n
-        Subtotal (exc. shipping): ${currentOrder.order_subtotal}\n
-        Items: ${currentOrder.order_items}`,
+        html: 
+        `<body style="background-color: #0d4d79;">
+            <h3><strong>Your order from Splash will be delievered as soon as possible!</strong></h3>
+            <h3>Order ID: ${currentOrder.order_id}</h3>
+            <h3>Items: ${currentOrder.order_items}\n</h3>
+            <h4>Subtotal (exc. shipping): ${currentOrder.order_subtotal}</h4>
+            <img src="cid:cid@unique"/>
+        </body>`,
+        attachments: [{
+            filename: 'logo.jpg',
+            path: './src/assets/images/pictures/logo.jpg',
+            cid: 'cid@unique'
+        }]
     }
 
     transporter.sendMail(mailOptions, function (error, info) {
