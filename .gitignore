@@ -3,4 +3,3 @@ prettier.config.js
 .prettierignore
 *.DS_Store
 node_modules/
-dist/

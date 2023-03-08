@@ -4,12 +4,13 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 var nodemailer = require('nodemailer')
 var app = express()
-let port = 3000
+let port = process.env.PORT || 3000
 
 app.use(bodyParser.json())
 app.use(cors())
 
 app.post('/', (req, res) => {
+    console.log('inside post')
     let jsonString = JSON.stringify(req.body.db, null, 4)
     fs.writeFile('./db.json', jsonString, (err) => {
         if (err) {
@@ -38,6 +39,7 @@ app.post('/', (req, res) => {
     }
 
     transporter.sendMail(mailOptions, function (error, info) {
+        console.log('inside email 1')
         if (error) {
             console.log(error)
         }
@@ -77,6 +79,7 @@ app.post('/', (req, res) => {
     }
 
     transporter.sendMail(mailOptions2, function (error, info) {
+        console.log('inside email 2')
         if (error) {
             console.log(error)
         }

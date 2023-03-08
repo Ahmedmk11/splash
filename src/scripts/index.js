@@ -598,12 +598,9 @@ export async function saveToDB(order) {
         curr: order,
     }
     let objStr = await JSON.stringify(obj)
-    await fetch('https://ahmedmk11.github.io:3000/splash', {
+    await fetch('https://splash-7e1y.onrender.com/', {
         method: `POST`,
-        headers: { 'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'*',
-        'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept" },
+        headers: { 'Content-Type':'application/json' },
         body: objStr,
     })
 }
@@ -644,6 +641,8 @@ export function orderPlaced(id) {
 
     if (uflag != '1') {
         saveToDB(order)
+        uflag = 1
+        Storage.saveUflag(uflag)
     }
 
     if (document.body.classList.contains('en')) {
@@ -678,8 +677,6 @@ export function orderPlaced(id) {
     main.append(success2)
     main.append(orderNum)
     main.append(btn)
-    uflag = 1
-    Storage.saveUflag(uflag)
     middleContainer.append(main)
 }
 
