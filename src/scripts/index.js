@@ -589,7 +589,6 @@ export async function saveToDB(order) {
         headers: { 'Content-Type':'application/json' },
         body: objStr,
     })
-    return response.json()
 }
 
 export function orderPlaced(id) {
@@ -624,58 +623,59 @@ export function orderPlaced(id) {
         order_items: getProductIDIndex().join(' - '),
     }
 
-    saveToDB(order).then((isErr) => {
-        if (isErr == 1) {
-            if (document.body.classList.contains('en')) {
-                success.textContent = 'Order Placed Successfully!'
-                success2.textContent = 'Please check your mail for confirmation.'
-                orderNum.textContent = `Order ID: ${id}`
-                btn.textContent = 'Continue Shopping'
-            } else {
-                success.textContent = 'تم تقديم الطلب بنجاح!'
-                success2.textContent = 'يرجى التحقق من بريدك الإلكتروني للتأكيد.'
-                orderNum.textContent = `رقم الطلب: ${id}`
-                btn.textContent = 'مواصلة التسوق'
-            }
-            cartArrDetails = []
-            cartArr = {}
-            cartArrOG = {}
-            cartIndexes = []
-            tp = 0
-            Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
-    
-            btn.addEventListener('click', () => {
-                goHome()
-            })
-    
-            main.append(success)
-            main.append(success2)
-            main.append(orderNum)
-            main.append(btn)
-    
+    saveToDB(order)
+    .then(() => {
+        if (document.body.classList.contains('en')) {
+            success.textContent = 'Order Placed Successfully!'
+            success2.textContent = 'Please check your mail for confirmation.'
+            orderNum.textContent = `Order ID: ${id}`
+            btn.textContent = 'Continue Shopping'
         } else {
-            console.log(isErr)
-            if (document.body.classList.contains('en')) {
-                success.textContent = 'Oops Something Went Wrong.'
-                success2.textContent = 'Please try again or contact us.'
-                btn.textContent = 'Try Again'
-            } else {
-                success.textContent = 'لقد حدث خطأ ما.'
-                success2.textContent = 'يرجى المحاولة مرة أخرى أو الاتصال بنا.'
-                btn.textContent = 'اعادة المحاولة'
-            }
-            btn.addEventListener('click', () => {
-                orderPlaced(id)
-            })
-    
-            main.append(success)
-            main.append(success2)
-            main.append(btn)
+            success.textContent = 'تم تقديم الطلب بنجاح!'
+            success2.textContent = 'يرجى التحقق من بريدك الإلكتروني للتأكيد.'
+            orderNum.textContent = `رقم الطلب: ${id}`
+            btn.textContent = 'مواصلة التسوق'
         }
-        flag = 'page'
-        main.id = 'success-message'
-        middleContainer.append(main)
+        cartArrDetails = []
+        cartArr = {}
+        cartArrOG = {}
+        cartIndexes = []
+        tp = 0
+        Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
+
+        btn.addEventListener('click', () => {
+            goHome()
+        })
+
+        main.append(success)
+        main.append(success2)
+        main.append(orderNum)
+        main.append(btn)
     })
+
+    .catch((err) => {
+        console.log(err)
+        if (document.body.classList.contains('en')) {
+            success.textContent = 'Oops Something Went Wrong.'
+            success2.textContent = 'Please try again or contact us.'
+            btn.textContent = 'Try Again'
+        } else {
+            success.textContent = 'لقد حدث خطأ ما.'
+            success2.textContent = 'يرجى المحاولة مرة أخرى أو الاتصال بنا.'
+            btn.textContent = 'اعادة المحاولة'
+        }
+        btn.addEventListener('click', () => {
+            orderPlaced(id)
+        })
+
+        main.append(success)
+        main.append(success2)
+        main.append(btn)
+    })
+
+    flag = 'page'
+    main.id = 'success-message'
+    middleContainer.append(main)
 }
 
 export function populateOrder() {
