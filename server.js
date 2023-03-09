@@ -4,11 +4,13 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 var nodemailer = require('nodemailer')
 var app = express()
-let port = process.env.PORT || 3000
+let port = process.env.PORT
 
-app.use(cors({
-    origin: '*'
-}));
+app.use(
+    cors({
+        origin: '*',
+    })
+)
 
 app.use(bodyParser.json())
 
@@ -28,22 +30,23 @@ app.post('/', (req, res) => {
         from: 'splashordersmail@gmail.com',
         to: currentOrder.order_address.email,
         subject: 'Your Order from Splash',
-        html: 
-        `<body style="background-color: #fff;">
+        html: `<body style="background-color: #fff;">
             <h3><strong>Your order from Splash will be delievered as soon as possible!</strong></h3>
             <h4>Order ID: ${currentOrder.order_id}</h4>
             <h4>Items: ${currentOrder.order_items}\n</h4>
             <h4>Subtotal (exc. shipping): ${currentOrder.order_subtotal}</h4>
             <img src="cid:cid@unique"/>
         </body>`,
-        attachments: [{
-            filename: 'logo.jpg',
-            path: './src/assets/images/pictures/logo.jpg',
-            cid: 'cid@unique'
-        }]
+        attachments: [
+            {
+                filename: 'logo.jpg',
+                path: './src/assets/images/pictures/logo.jpg',
+                cid: 'cid@unique',
+            },
+        ],
     }
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function (error) {
         console.log('inside email 1')
         if (error) {
             console.log(error)
@@ -83,7 +86,7 @@ app.post('/', (req, res) => {
         Extra Instructions: ${txt3}\n`,
     }
 
-    transporter.sendMail(mailOptions2, function (error, info) {
+    transporter.sendMail(mailOptions2, function (error) {
         console.log('inside email 2')
         if (error) {
             console.log(error)

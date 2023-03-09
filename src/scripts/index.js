@@ -64,7 +64,10 @@ fbImg.src = fb
 igImg.src = ig
 waImg.src = wa
 
-cartImg.setAttribute('style', 'width: 40px;height: 40px; transform: translate(0px, -5px);')
+cartImg.setAttribute(
+    'style',
+    'width: 40px;height: 40px; transform: translate(0px, -5px);'
+)
 menuImg.setAttribute('style', 'width: 40px;height: 40px;')
 xImg.setAttribute('style', 'width: 20px;height: 20px;')
 
@@ -380,21 +383,24 @@ switchLang('en')
 
 export function importAll(r) {
     let images = {}
-    r.keys().map((item, index) => {
+    r.keys().map((item) => {
         images[item.replace('./', '')] = r(item)
     })
     return images
 }
 
 function popUp(m) {
-    let popup = m == 1 ? document.getElementById("myPopup") : document.getElementById("myPopup2")
-    popup.classList.remove("hide");
-    popup.classList.add("show");
+    let popup =
+        m == 1
+            ? document.getElementById('myPopup')
+            : document.getElementById('myPopup2')
+    popup.classList.remove('hide')
+    popup.classList.add('show')
 
-    setTimeout( function() {
-        popup.classList.remove("show");
-        popup.classList.add("hide"); 
-    }, 1000);
+    setTimeout(function () {
+        popup.classList.remove('show')
+        popup.classList.add('hide')
+    }, 1000)
 }
 
 export function submitAddress() {
@@ -609,7 +615,7 @@ export async function saveToDB(order) {
     let response = await fetch('https://splash-7e1y.onrender.com/', {
         method: `POST`,
         // mode: 'no-cors',
-        headers: { 'Content-Type':'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: objStr,
     })
 
@@ -622,7 +628,7 @@ export function getCount(arr) {
         obj[arr[i]] = 1
         for (let j = 0; j < arr.length; j++) {
             if (i != j && arr[i] == arr[j]) {
-                obj[arr[i]] ++
+                obj[arr[i]]++
             }
         }
     }
@@ -658,10 +664,10 @@ export function orderPlaced(id) {
     let gpii = getProductIDIndex(2)
     let obj = getCount(gpii)
     let ot = ''
-    const keys = Object.keys(obj);
-    keys.forEach((key, index) => {
+    const keys = Object.keys(obj)
+    keys.forEach((key) => {
         ot += `${obj[key]}x '${key}' - `
-    });
+    })
     ot = ot.slice(0, -3)
 
     let order = {
@@ -670,69 +676,73 @@ export function orderPlaced(id) {
         order_subtotal: tp,
         order_datetime: dateTime,
         order_items: ot,
-        order_items_ids: getProductIDIndex(1).join(' - ')
+        order_items_ids: getProductIDIndex(1).join(' - '),
     }
-    
+
     let wait = document.createElement('h3')
-    wait.textContent = document.body.classList.contains('en') ? 'Please Wait..' : 'الرجاء الانتظار..'
+    wait.textContent = document.body.classList.contains('en')
+        ? 'Please Wait..'
+        : 'الرجاء الانتظار..'
     main.append(wait)
     middleContainer.append(main)
 
     saveToDB(order)
-    .then(function() {
-        if (document.body.classList.contains('en')) {
-            success.textContent = 'Order Placed Successfully!'
-            success2.textContent = 'Please check your mail for confirmation.'
-            orderNum.textContent = `Order ID: ${id}`
-            btn.textContent = 'Continue Shopping'
-        } else {
-            success.textContent = 'تم تقديم الطلب بنجاح!'
-            success2.textContent = 'يرجى التحقق من بريدك الإلكتروني للتأكيد.'
-            orderNum.textContent = `رقم الطلب: ${id}`
-            btn.textContent = 'مواصلة التسوق'
-        }
-        cartArrDetails = []
-        cartArr = {}
-        cartArrOG = {}
-        cartIndexes = []
-        tp = 0
-        Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
+        .then(function () {
+            if (document.body.classList.contains('en')) {
+                success.textContent = 'Order Placed Successfully!'
+                success2.textContent =
+                    'Please check your mail for confirmation.'
+                orderNum.textContent = `Order ID: ${id}`
+                btn.textContent = 'Continue Shopping'
+            } else {
+                success.textContent = 'تم تقديم الطلب بنجاح!'
+                success2.textContent =
+                    'يرجى التحقق من بريدك الإلكتروني للتأكيد.'
+                orderNum.textContent = `رقم الطلب: ${id}`
+                btn.textContent = 'مواصلة التسوق'
+            }
+            cartArrDetails = []
+            cartArr = {}
+            cartArrOG = {}
+            cartIndexes = []
+            tp = 0
+            Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
 
-        btn.addEventListener('click', () => {
-            goHome()
+            btn.addEventListener('click', () => {
+                goHome()
+            })
+            main.innerHTML = ''
+            middleContainer.innerHTML = ''
+            main.append(success)
+            main.append(success2)
+            main.append(orderNum)
+            main.append(btn)
+
+            middleContainer.append(main)
         })
-        main.innerHTML = ''
-        middleContainer.innerHTML = ''
-        main.append(success)
-        main.append(success2)
-        main.append(orderNum)
-        main.append(btn)
+        .catch(function (err) {
+            console.log(err)
+            if (document.body.classList.contains('en')) {
+                success.textContent = 'Oops Something Went Wrong.'
+                success2.textContent = 'Please try again or contact us.'
+                btn.textContent = 'Try Again'
+            } else {
+                success.textContent = 'لقد حدث خطأ ما.'
+                success2.textContent = 'يرجى المحاولة مرة أخرى أو الاتصال بنا.'
+                btn.textContent = 'اعادة المحاولة'
+            }
+            btn.addEventListener('click', () => {
+                orderPlaced(id)
+            })
 
-        middleContainer.append(main)
-    })
-    .catch(function (err) {
-        console.log(err)
-        if (document.body.classList.contains('en')) {
-            success.textContent = 'Oops Something Went Wrong.'
-            success2.textContent = 'Please try again or contact us.'
-            btn.textContent = 'Try Again'
-        } else {
-            success.textContent = 'لقد حدث خطأ ما.'
-            success2.textContent = 'يرجى المحاولة مرة أخرى أو الاتصال بنا.'
-            btn.textContent = 'اعادة المحاولة'
-        }
-        btn.addEventListener('click', () => {
-            orderPlaced(id)
+            main.innerHTML = ''
+            middleContainer.innerHTML = ''
+            main.append(success)
+            main.append(success2)
+            main.append(btn)
+
+            middleContainer.append(main)
         })
-
-        main.innerHTML = ''
-        middleContainer.innerHTML = ''
-        main.append(success)
-        main.append(success2)
-        main.append(btn)
-
-        middleContainer.append(main)
-    })
 
     flag = 'page'
 }
@@ -928,7 +938,6 @@ export function populateViewCart() {
         main.classList.add('empty-cart-main')
         main.append(empty)
         main.append(add)
-
     } else {
         const notif = document.createElement('div')
         const header = document.createElement('div')
@@ -977,7 +986,7 @@ export function populateViewCart() {
                     products[parseInt(cartArrDetails[i])].p_id
                 }، ${products[parseInt(cartArrDetails[i])].product_title_ar}`
                 pricei.textContent =
-                    products[parseInt(cartArrDetails[i])].product_price_ar                
+                    products[parseInt(cartArrDetails[i])].product_price_ar
             }
 
             hlc.classList.add('hlc')

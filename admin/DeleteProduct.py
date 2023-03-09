@@ -33,7 +33,7 @@ def random_string_generator(str_size, allowed_chars):
     return ''.join(random.choice(allowed_chars) for x in range(str_size))
 
 def deleted():
-    with open('src/scripts/db.json', 'r+') as f:
+    with open('../src/scripts/db.json', 'r+') as f:
         data = json.load(f)
         products = data["Products"]
         flag = True
@@ -68,8 +68,8 @@ def deleted():
 
             filename = random_string_generator(16, chars)
 
-            target1 = f"src/assets/images/pictures/products/deleted/displayed/{filename}.{disEXT}"
-            target2 = f"src/assets/images/pictures/products/deleted/original/{filename}.{ogEXT}"
+            target1 = f"../src/assets/images/pictures/products/deleted/displayed/{filename}.{disEXT}"
+            target2 = f"../src/assets/images/pictures/products/deleted/original/{filename}.{ogEXT}"
 
             del products[c]
             shutil.move(displayed, target1)

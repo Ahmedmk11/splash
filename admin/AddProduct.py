@@ -27,10 +27,10 @@ def save_img():
         path = ''
         path2 = ''
         if first == True:
-            path = "src/assets/images/pictures/products/displayed/"
+            path = "../src/assets/images/pictures/products/displayed/"
             first = False
         else:
-            path = "src/assets/images/pictures/products/original/"
+            path = "../src/assets/images/pictures/products/original/"
         if variable.get() == "Livingrooms":
             path2 = "livingrooms/"
         elif variable.get() == "Kids Bedrooms":
@@ -85,12 +85,14 @@ def upload_file(i,b):
         messagebox.showinfo("Err", e)
 
 def added():
-    with open('src/scripts/db.json', 'r+') as f:
+    with open('../src/scripts/db.json', 'r+') as f:
         data = json.load(f)
         products = data["Products"]
         empty = False
         toolong = False
-        if len(e1.get()) == 0 or len(e2.get()) == 0 or len(e3.get()) == 0 or len(e4.get()) == 0 or len(e5.get()) == 0 or len(e6.get()) == 0 or len(e7.get()) == 0 or variable.get() == "Product Type" or len(images) != 2:
+        if (len(e1.get()) == 0 or len(e2.get()) == 0 or len(e3.get()) == 0 or len(e4.get()) == 0 or 
+            len(e5.get()) == 0 or len(e6.get()) == 0 or len(e7.get()) == 0 or
+            variable.get() == "Product Type" or len(images) != 2):
             empty = True
         if len(e2.get()) >= 20 or len(e3.get()) >= 20:
             toolong = True

@@ -792,7 +792,7 @@ footer {
 }
 
 .ttpopup .popuptext::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 100%;
     left: 50%;
@@ -813,13 +813,25 @@ footer {
 }
 
 @keyframes fadeIn {
-    from {opacity: 0; visibility: hidden;}
-    to {opacity:1 ; visibility: visible;}
+    from {
+        opacity: 0;
+        visibility: hidden;
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 @keyframes fadeOut {
-    from {opacity: 1; visibility: visible;}
-    to {opacity:0 ; visibility: hidden;}
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 
 .icon-bar {

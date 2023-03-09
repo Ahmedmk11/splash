@@ -12,6 +12,7 @@ import {
     homeP,
     livingroomsP,
     receptionsP,
+    clf,
     tvunitsP,
     diningroomsP,
     kbedroomsP,
@@ -54,7 +55,9 @@ if (hasTouch()) {
                 }
             }
         }
-    } catch (ex) {}
+    } catch (ex) {
+        console.log(ex)
+    }
 }
 
 homeBtn.addEventListener('click', () => {
