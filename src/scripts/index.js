@@ -18,8 +18,8 @@ import wa from '../assets/images/icons/wa.svg'
 import db from './db.json'
 
 import { PriorityQueue } from '@datastructures-js/priority-queue'
-const cloneDeep = require('lodash/clonedeep')
 import { nanoid } from 'nanoid'
+const cloneDeep = require('lodash/clonedeep')
 
 let products = db.Products
 
@@ -1447,17 +1447,65 @@ export function goHome() {
         }
     })
 
+    const bottominfo = document.createElement('div')
+    const aboutus = document.createElement('div')
+    const aboutusP = document.createElement('h2')
+    const bodyP = document.createElement('p')
+    const contactinfo = document.createElement('div')
+    let emailP = document.createElement('p')
+    let phoneP = document.createElement('p')
+    const locationdiv = document.createElement('div')
+    const locationH = document.createElement('p')
+    const map = document.createElement('div')
+    const emaila = 'amgadkamalsplash@gmail.com'
+    const phonen = '\u200e+201061499915'
+
+    bottominfo.id = 'bottominfo'
+    aboutus.id = 'aboutus'
+    contactinfo.id = 'contactinfo'
+
+    if (document.body.classList.contains('en')) {
+        aboutusP.textContent = 'About Us'
+        bodyP.textContent =
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum.'
+        locationH.textContent = 'Address: '
+        emailP.textContent = 'Email: '
+        phoneP.textContent = 'Phone Number: '
+    } else {
+        aboutusP.textContent = 'معلومات عنا'
+        bodyP.textContent =
+            'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديد يونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس أيوتي أريري دولار إن ريبريهينديرأيت فوليوبتاتي فيلايت أيسسي كايلليوم دولار أيو فيجايت نيولا باراياتيور. أيكسسيبتيور ساينت أوككايكات كيوبايداتات نون بروايدينت ,سيونت ان كيولبا كيو أوفيسيا ديسيريونتموليت انيم أيدي ايست لابوريوم.'
+        locationH.textContent = 'العنوان: '
+        emailP.textContent = 'البريد الالكتروني: '
+        phoneP.textContent = 'رقم الهاتف: '
+    }
+
+    map.innerHTML =
+        '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2201.7959423384946!2d31.351844794440076!3d30.06803303157667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e0a5d8c6019%3A0x8a3000b99b38e809!2sThe%20higher%20institute%20of%20Social%20Work%20in%20Cairo!5e1!3m2!1sen!2seg!4v1678377531886!5m2!1sen!2seg" style="border:0; width: 80vw; height: 500px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+
+    emailP.textContent += emaila
+    phoneP.textContent += phonen
     container.id = 'recommendations-container'
     prev.id = 'prev-img'
     next.id = 'next-img'
     recommendations.id = 'recommendations'
 
+    locationdiv.appendChild(locationH)
+    locationdiv.appendChild(map)
+    contactinfo.append(emailP)
+    contactinfo.append(phoneP)
+    contactinfo.append(locationdiv)
+    aboutus.appendChild(aboutusP)
+    aboutus.appendChild(bodyP)
+    bottominfo.append(aboutus)
+    bottominfo.append(contactinfo)
     container.appendChild(prev)
     container.appendChild(recommendations)
     container.appendChild(next)
     container2.appendChild(container)
     container2.appendChild(dots)
     middleContainer.appendChild(container2)
+    middleContainer.appendChild(bottominfo)
     flag = 'page'
     hideMenu()
 }

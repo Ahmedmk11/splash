@@ -6,12 +6,10 @@
         "node": true
     },
     "extends": "eslint:recommended",
-    "overrides": [
-    ],
+    "overrides": [],
     "parserOptions": {
         "sourceType": "module",
         "ecmaVersion": "latest"
     },
-    "rules": {
-    }
+    "rules": {}
 }
