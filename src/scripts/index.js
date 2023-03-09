@@ -64,8 +64,8 @@ fbImg.src = fb
 igImg.src = ig
 waImg.src = wa
 
-cartImg.setAttribute('style', 'width: 25px;height: 25px;')
-menuImg.setAttribute('style', 'width: 25px;height: 25px;')
+cartImg.setAttribute('style', 'width: 40px;height: 40px; transform: translate(0px, -5px);')
+menuImg.setAttribute('style', 'width: 40px;height: 40px;')
 xImg.setAttribute('style', 'width: 20px;height: 20px;')
 
 const sm = document.getElementById('sm')
@@ -376,7 +376,7 @@ products.forEach((p) => {
 })
 
 goHome()
-switchLang('ar')
+switchLang('en')
 
 export function importAll(r) {
     let images = {}
@@ -577,15 +577,25 @@ export function addAddress() {
     })
 }
 
-export function getProductIDIndex() {
+export function getProductIDIndex(m = 1) {
     let res = []
-    cartIndexes.forEach((index) => {
-        products.forEach((product) => {
-            if (index == product.index) {
-                res.push(product.p_id)
-            }
+    if (m == 1) {
+        cartIndexes.forEach((index) => {
+            products.forEach((product) => {
+                if (index == product.index) {
+                    res.push(product.p_id)
+                }
+            })
         })
-    })
+    } else if (m == 2) {
+        cartIndexes.forEach((index) => {
+            products.forEach((product) => {
+                if (index == product.index) {
+                    res.push(product.product_title_en)
+                }
+            })
+        })
+    }
     return res
 }
 
@@ -604,6 +614,19 @@ export async function saveToDB(order) {
     })
 
     return response.body
+}
+
+export function getCount(arr) {
+    let obj = {}
+    for (let i = 0; i < arr.length; i++) {
+        obj[arr[i]] = 1
+        for (let j = 0; j < arr.length; j++) {
+            if (i != j && arr[i] == arr[j]) {
+                obj[arr[i]] ++
+            }
+        }
+    }
+    return obj
 }
 
 export function orderPlaced(id) {
@@ -632,14 +655,23 @@ export function orderPlaced(id) {
         ' ' +
         Intl.DateTimeFormat().resolvedOptions().timeZone
 
+    let gpii = getProductIDIndex(2)
+    let obj = getCount(gpii)
+    let ot = ''
+    const keys = Object.keys(obj);
+    keys.forEach((key, index) => {
+        ot += `${obj[key]}x '${key}' - `
+    });
+    ot = ot.slice(0, -3)
+
     let order = {
         order_id: id,
         order_address: _address,
         order_subtotal: tp,
         order_datetime: dateTime,
-        order_items: getProductIDIndex().join(' - '),
+        order_items: ot,
     }
-
+    
     let wait = document.createElement('h3')
     wait.textContent = document.body.classList.contains('en') ? 'Please Wait..' : 'الرجاء الانتظار..'
     main.append(wait)

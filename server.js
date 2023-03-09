@@ -29,7 +29,7 @@ app.post('/', (req, res) => {
         to: currentOrder.order_address.email,
         subject: 'Your Order from Splash',
         html: 
-        `<body style="background-color: #0d4d79;">
+        `<body style="background-color: #fff;">
             <h3><strong>Your order from Splash will be delievered as soon as possible!</strong></h3>
             <h3>Order ID: ${currentOrder.order_id}</h3>
             <h3>Items: ${currentOrder.order_items}\n</h3>

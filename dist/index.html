@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Splash</title>
     <link rel="icon" href="assets/favicon.png"><script defer src="runtime.bundle.js"></script><script defer src="index.bundle.js"></script><script defer src="ui.bundle.js"></script></head>
 
-    <body class="ar">
+    <body class="en">
         <div id="sm" class="icon-bar">
             <a
                 id="fbl"
@@ -36,7 +36,7 @@
                         oninput="setCustomValidity('')"
                         oninvalid="this.setCustomValidity('Name should contain (5-30) characters')"
                         id="user-name"
-                        placeholder="Full Name"
+                        placeholder="John Smith"
                         minlength="5"
                         maxlength="30"
                         required
@@ -73,7 +73,7 @@
                         oninput="setCustomValidity('')"
                         oninvalid="this.setCustomValidity('Street Name / Number is required')"
                         id="street"
-                        placeholder="Abbas El-Akkad"
+                        placeholder="Street 9"
                         minlength="1"
                         required
                     />
@@ -138,14 +138,14 @@
                         oninput="setCustomValidity('')"
                         oninvalid="this.setCustomValidity('')"
                         id="landmark"
-                        placeholder="Behind the supermarket"
+                        placeholder="Near the Club"
                     />
                     <input
                         type="text"
                         oninput="setCustomValidity('')"
                         oninvalid="this.setCustomValidity('')"
                         id="instructions"
-                        placeholder="..."
+                        placeholder="Any Additional Notes"
                     />
                 </div>
                 <button
@@ -175,14 +175,14 @@
                     <input
                         type="search"
                         id="srch-in"
-                        dir="rtl"
-                        placeholder="ابحث هنا.."
+                        dir="ltr"
+                        placeholder="Search here.."
                     />
                     <div id="actions-container">
                         <div id="clf"></div>
                         <select name="language" id="slct-lang">
-                            <option value="arabic" selected>العربية</option>
-                            <option value="english">English</option>
+                            <option value="arabic">العربية</option>
+                            <option value="english" selected>English</option>
                         </select>
                     </div>
                 </div>
@@ -206,7 +206,7 @@
                 <p>
                     Splash © <span id="starting-year">2022</span
                     ><span id="current-year"></span>
-                    <span id="ftr">.جميع الحقوق محفوظة</span>
+                    <span id="ftr">All Rights Reserved.</span>
                 </p>
             </footer>
         </div>
