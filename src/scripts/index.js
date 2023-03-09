@@ -577,7 +577,7 @@ export function addAddress() {
     })
 }
 
-export function getProductIDIndex(m = 1) {
+export function getProductIDIndex(m) {
     let res = []
     if (m == 1) {
         cartIndexes.forEach((index) => {
@@ -670,6 +670,7 @@ export function orderPlaced(id) {
         order_subtotal: tp,
         order_datetime: dateTime,
         order_items: ot,
+        order_items_ids: getProductIDIndex(1).join(' - ')
     }
     
     let wait = document.createElement('h3')

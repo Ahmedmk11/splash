@@ -31,8 +31,8 @@ app.post('/', (req, res) => {
         html: 
         `<body style="background-color: #fff;">
             <h3><strong>Your order from Splash will be delievered as soon as possible!</strong></h3>
-            <h3>Order ID: ${currentOrder.order_id}</h3>
-            <h3>Items: ${currentOrder.order_items}\n</h3>
+            <h4>Order ID: ${currentOrder.order_id}</h4>
+            <h4>Items: ${currentOrder.order_items}\n</h4>
             <h4>Subtotal (exc. shipping): ${currentOrder.order_subtotal}</h4>
             <img src="cid:cid@unique"/>
         </body>`,
@@ -67,7 +67,7 @@ app.post('/', (req, res) => {
         text: `Order ID: ${currentOrder.order_id}\n
         Subtotal (exc. shipping): ${currentOrder.order_subtotal}\n
         Time: ${currentOrder.order_datetime}\n
-        Items: ${currentOrder.order_items}\n
+        Items: ${currentOrder.order_items_ids}\n
         ------------------------------------
         Client:\n
         Name: ${currentOrder.order_address.username}\n
