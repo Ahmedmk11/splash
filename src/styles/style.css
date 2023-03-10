@@ -690,6 +690,7 @@ input::placeholder {
   padding: 0px 10px 0px 10px;
   color: #000;
   white-space: nowrap;
+  margin: 8px;
 }
 #menu p:hover {
   cursor: pointer;
