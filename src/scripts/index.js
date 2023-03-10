@@ -1460,11 +1460,11 @@ export function goHome() {
     const map = document.createElement('div')
     const emaila = document.createElement('a')
     const phonen = document.createElement('a')
-    emaila.href = "amgadkamalsplash@gmail.com"
-    phonen.href = "tel:+201061499915"
+    emaila.href = 'amgadkamalsplash@gmail.com'
+    phonen.href = 'tel:+201221045135'
 
-    emaila.textContent = "amgadkamalsplash@gmail.com"
-    phonen.textContent = "\u200e+201061499915"
+    emaila.textContent = 'amgadkamalsplash@gmail.com'
+    phonen.textContent = '\u200e+201221045135'
 
     const em = document.createElement('div')
     const pn = document.createElement('div')
