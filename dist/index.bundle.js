@@ -7629,7 +7629,7 @@ module.exports = __webpack_require__.p + "8a7fc1bff957368a6fb0.svg";
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-module.exports = __webpack_require__.p + "481ca208085f6e284362.jpg";
+module.exports = __webpack_require__.p + "c62f910141bc62edecc4.jpg";
 
 /***/ }),
 
