@@ -389,10 +389,10 @@ export function importAll(r) {
     return images
 }
 
-function popUp(m) {
+function popUp(m, i) {
     let popup =
         m == 1
-            ? document.getElementById('myPopup')
+            ? document.getElementById(`myPopup-${i}`)
             : document.getElementById('myPopup2')
     popup.classList.remove('hide')
     popup.classList.add('show')
@@ -852,9 +852,9 @@ export function populateOrder() {
     flag = 'order'
 }
 
-export function addToCart(product_index) {
+export function addToCart(product_index, i) {
     cartIndexes.push(product_index)
-    popUp(1)
+    popUp(1, i)
 }
 
 export function populateViewCart() {
@@ -1607,7 +1607,7 @@ function createCard(container, n, index) {
     const hr = document.createElement('hr')
     let span = document.createElement('span')
     span.classList.add('popuptext')
-    span.id = 'myPopup'
+    span.id = `myPopup-${index}`
     cart.classList.add('ttpopup')
     tmp.classList.add('item')
     info.classList.add('info')
@@ -1640,7 +1640,7 @@ function createCard(container, n, index) {
     }
 
     cart.addEventListener('click', () => {
-        addToCart(products[parseInt(arrDetails[index])].index)
+        addToCart(products[parseInt(arrDetails[index])].index, index)
     })
 
     cart.append(span)
