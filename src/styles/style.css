@@ -407,7 +407,6 @@ input::placeholder {
   cursor: pointer;
 }
 #recommendations-container #recommendations {
-  background-color: var(--light-color);
   height: 42vh;
   padding: 0px 25px 0px 25px;
   width: 68vw;
@@ -428,10 +427,9 @@ input::placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: #0d4d79;
+  background-color: var(--light-color);
   max-width: 200px;
   height: 250px;
-  border: 2px solid black;
   border-radius: 15px;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
@@ -657,9 +655,9 @@ input::placeholder {
 #menu {
   width: 0%;
   height: 100%;
-  background-color: #0d4d79;
+  background-color: #fff;
   position: fixed;
-  z-index: 1;
+  z-index: 1001;
   top: 0;
   overflow-x: hidden;
   display: flex;
@@ -690,16 +688,16 @@ input::placeholder {
   font-size: 24px;
   text-decoration: underline;
   padding: 0px 10px 0px 10px;
-  color: white;
+  color: #000;
   white-space: nowrap;
 }
 #menu p:hover {
   cursor: pointer;
-  color: black;
 }
 
 .selected-p {
   color: black !important;
+  font-weight: 900 !important;
 }
 
 #logo-img {
@@ -1015,6 +1013,14 @@ select:focus {
   align-items: center;
   width: 85%;
 }
+#bottominfo p {
+  font-weight: 600;
+}
+#bottominfo h2 {
+  font-weight: 900;
+  text-decoration: underline;
+  text-align: var(--text-align);
+}
 #bottominfo #aboutus {
   padding: 15px;
   background-color: var(--light-color);
@@ -1025,14 +1031,6 @@ select:focus {
   -moz-border-radius: 15px;
   -ms-border-radius: 15px;
   -o-border-radius: 15px;
-}
-#bottominfo #aboutus h2 {
-  font-weight: 900;
-  text-decoration: underline;
-  text-align: var(--text-align);
-}
-#bottominfo #aboutus p {
-  font-weight: 600;
 }
 #bottominfo #contactinfo {
   margin-top: 40px;
@@ -1047,8 +1045,28 @@ select:focus {
   -ms-border-radius: 15px;
   -o-border-radius: 15px;
 }
-#bottominfo #contactinfo p {
-  font-weight: 600;
+#bottominfo #contactinfo a {
+  color: #000;
+  font-weight: 900;
+  margin: 0px 5px 0px 5px;
+}
+#bottominfo #contactinfo a:visited {
+  color: #000;
+}
+#bottominfo #contactinfo #map-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#bottominfo #contactinfo #map-cont p {
+  align-self: flex-start;
+}
+
+.empn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 #nav-bar {
@@ -1097,7 +1115,7 @@ select:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 }
 #middle-container #grid {
   margin: auto;

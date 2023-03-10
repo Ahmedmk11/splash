@@ -33,7 +33,7 @@ def random_string_generator(str_size, allowed_chars):
     return ''.join(random.choice(allowed_chars) for x in range(str_size))
 
 def deleted():
-    with open('../src/scripts/db.json', 'r+') as f:
+    with open('src/scripts/db.json', 'r+') as f:
         data = json.load(f)
         products = data["Products"]
         flag = True
@@ -51,6 +51,8 @@ def deleted():
                 flag = False
             c += 1
 
+        typ = products[c]["product_type"]
+
         if flag and not empty:
             displayed = products[c]["product_img_path_displayed"]
             original = products[c]["product_img_path_original"]
@@ -64,12 +66,12 @@ def deleted():
             disEXT = displayed.split('.')[1]
             ogEXT = original.split('.')[1]
 
-            chars = string.ascii_letters + string.punctuation
+            chars = string.ascii_letters
 
             filename = random_string_generator(16, chars)
 
-            target1 = f"../src/assets/images/pictures/products/deleted/displayed/{filename}.{disEXT}"
-            target2 = f"../src/assets/images/pictures/products/deleted/original/{filename}.{ogEXT}"
+            target1 = f"src/assets/images/pictures/products/deleted/displayed/{filename}.{disEXT}"
+            target2 = f"src/assets/images/pictures/products/deleted/original/{filename}.{ogEXT}"
 
             del products[c]
             shutil.move(displayed, target1)
@@ -80,10 +82,18 @@ def deleted():
 
             e1.delete(0, END)
 
+            print(new_names_d)
+            for iiii in range(len(products)):
+                print(iiii)
+
+            typi = 0
             for ind in range(len(products)):
                 p = products[ind]
-                p["product_img_path_displayed"] = new_names_d[ind]
-                p["product_img_path_original"] = new_names_o[ind]
+                p["index"] = ind
+                if p["product_type"] == typ:
+                    p["product_img_path_displayed"] = new_names_d[typi]
+                    p["product_img_path_original"] = new_names_o[typi]
+                    typi += 1
 
             messagebox.showinfo("Done", "Product Deleted!")
         elif empty:
@@ -105,4 +115,3 @@ btn = Button(window, text = "Delete", fg = "black", command= deleted)
 btn.grid(row = 1, column = 0)
 
 window.mainloop()
-    

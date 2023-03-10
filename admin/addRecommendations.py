@@ -6,7 +6,7 @@ window = Tk()
 window.title("Add Product")
 
 def added():
-    with open('../src/scripts/db.json', 'r+') as f:
+    with open('src/scripts/db.json', 'r+') as f:
         data = json.load(f)
         products = data["Products"]
         empty = False
@@ -15,7 +15,7 @@ def added():
         len(e8.get()) == 0 or len(e9.get()) == 0 or len(e10.get()) == 0):
             empty = True
 
-        ids = [e1.get(),e2.get(),e3.get(),e4.get(),e5.get(),e6.get(),e7.get(),e8.get(),e9.get(),e10.get()]
+        ids = [e1.get().capitalize(), e2.get().capitalize(), e3.get().capitalize(), e4.get().capitalize(), e5.get().capitalize(), e6.get().capitalize(), e7.get().capitalize(), e8.get().capitalize(), e9.get().capitalize(), e10.get().capitalize()]
 
         if not empty:
             for i in products:

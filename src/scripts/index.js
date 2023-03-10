@@ -1173,12 +1173,12 @@ export function searchResults(target) {
                 product.product_type
             )
             pool.forEach((el) => {
-                if (el.length > 3) {
+                if (el.length > 1) {
                     el = el.toUpperCase()
                     let sim = similarity(el, target)
                     if (
                         sim > 0.65 ||
-                        (target.length > 2 &&
+                        (target.length > 1 &&
                             (el.includes(target) || target.includes(el)))
                     ) {
                         if (!added.includes(product.p_id)) {
@@ -1450,6 +1450,7 @@ export function goHome() {
     const bottominfo = document.createElement('div')
     const aboutus = document.createElement('div')
     const aboutusP = document.createElement('h2')
+    const contactusP = document.createElement('h2')
     const bodyP = document.createElement('p')
     const contactinfo = document.createElement('div')
     let emailP = document.createElement('p')
@@ -1457,15 +1458,27 @@ export function goHome() {
     const locationdiv = document.createElement('div')
     const locationH = document.createElement('p')
     const map = document.createElement('div')
-    const emaila = 'amgadkamalsplash@gmail.com'
-    const phonen = '\u200e+201061499915'
+    const emaila = document.createElement('a')
+    const phonen = document.createElement('a')
+    emaila.href = "amgadkamalsplash@gmail.com"
+    phonen.href = "tel:+201061499915"
 
+    emaila.textContent = "amgadkamalsplash@gmail.com"
+    phonen.textContent = "\u200e+201061499915"
+
+    const em = document.createElement('div')
+    const pn = document.createElement('div')
+
+    em.classList.add('empn')
+    pn.classList.add('empn')
     bottominfo.id = 'bottominfo'
     aboutus.id = 'aboutus'
     contactinfo.id = 'contactinfo'
+    locationdiv.id = 'map-cont'
 
     if (document.body.classList.contains('en')) {
         aboutusP.textContent = 'About Us'
+        contactusP.textContent = 'Contact Us'
         bodyP.textContent =
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum.'
         locationH.textContent = 'Address: '
@@ -1473,6 +1486,7 @@ export function goHome() {
         phoneP.textContent = 'Phone Number: '
     } else {
         aboutusP.textContent = 'معلومات عنا'
+        contactusP.textContent = 'إتصل بنا'
         bodyP.textContent =
             'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديد يونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس أيوتي أريري دولار إن ريبريهينديرأيت فوليوبتاتي فيلايت أيسسي كايلليوم دولار أيو فيجايت نيولا باراياتيور. أيكسسيبتيور ساينت أوككايكات كيوبايداتات نون بروايدينت ,سيونت ان كيولبا كيو أوفيسيا ديسيريونتموليت انيم أيدي ايست لابوريوم.'
         locationH.textContent = 'العنوان: '
@@ -1481,19 +1495,22 @@ export function goHome() {
     }
 
     map.innerHTML =
-        '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2201.7959423384946!2d31.351844794440076!3d30.06803303157667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e0a5d8c6019%3A0x8a3000b99b38e809!2sThe%20higher%20institute%20of%20Social%20Work%20in%20Cairo!5e1!3m2!1sen!2seg!4v1678377531886!5m2!1sen!2seg" style="border:0; width: 80vw; height: 500px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+        '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d928.3980224242471!2d31.35023753591257!3d30.067931390829408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e0b0fc3d643%3A0x8d5a05fcf35f394e!2sTawfik%20Ahmed%20El-Bakry%2C%20Al%20Manteqah%20as%20Sadesah%2C%20Nasr%20City%2C%20Cairo%20Governorate%204450473!5e0!3m2!1sen!2seg!4v1678397177975!5m2!1sen!2seg" style="border:0;width: 80vw; height: 500px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="map"></iframe>'
 
-    emailP.textContent += emaila
-    phoneP.textContent += phonen
     container.id = 'recommendations-container'
     prev.id = 'prev-img'
     next.id = 'next-img'
     recommendations.id = 'recommendations'
 
+    em.append(emailP)
+    em.append(emaila)
+    pn.append(phoneP)
+    pn.append(phonen)
     locationdiv.appendChild(locationH)
     locationdiv.appendChild(map)
-    contactinfo.append(emailP)
-    contactinfo.append(phoneP)
+    contactinfo.append(contactusP)
+    contactinfo.append(em)
+    contactinfo.append(pn)
     contactinfo.append(locationdiv)
     aboutus.appendChild(aboutusP)
     aboutus.appendChild(bodyP)

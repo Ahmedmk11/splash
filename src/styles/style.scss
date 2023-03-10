@@ -411,7 +411,6 @@ input::placeholder {
         cursor: pointer;
     }
     #recommendations {
-        background-color: var(--light-color);
         height: 42vh;
         padding: 0px 25px 0px 25px;
         width: 68vw;
@@ -431,19 +430,14 @@ input::placeholder {
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            background-color: #0d4d79;
+            background-color: var(--light-color);
             max-width: 200px;
             height: 250px;
-            border: 2px solid black;
             border-radius: 15px;
             -webkit-border-radius: 15px;
             -moz-border-radius: 15px;
             -ms-border-radius: 15px;
             -o-border-radius: 15px;
-            // display: flex;
-            // flex-direction: column;
-            // justify-content: space-between;
-            // align-items: center;
             div {
                 font-size: 16px !important;
             }
@@ -671,9 +665,9 @@ input::placeholder {
 #menu {
     width: 0%;
     height: 100%;
-    background-color: #0d4d79;
+    background-color: #fff;
     position: fixed;
-    z-index: 1;
+    z-index: 1001;
     top: 0;
     overflow-x: hidden;
     display: flex;
@@ -703,17 +697,17 @@ input::placeholder {
         font-size: 24px;
         text-decoration: underline;
         padding: 0px 10px 0px 10px;
-        color: white;
+        color: #000;
         white-space: nowrap;
     }
     p:hover {
         cursor: pointer;
-        color: black;
     }
 }
 
 .selected-p {
     color: black !important;
+    font-weight: 900 !important;
 }
 
 #logo-img {
@@ -1039,19 +1033,19 @@ select:focus {
     justify-content: space-evenly;
     align-items: center;
     width: 85%;
+    p {
+        font-weight: 600;
+    }
+    h2 {
+        font-weight: 900;
+        text-decoration: underline;
+        text-align: var(--text-align);
+    }
     #aboutus {
         padding: 15px;
         background-color: var(--light-color);
         direction: var(--direction);
         width: 100%;
-        h2 {
-            font-weight: 900;
-            text-decoration: underline;
-            text-align: var(--text-align);
-        }
-        p {
-            font-weight: 600;
-        }
         border-radius: 15px;
         -webkit-border-radius: 15px;
         -moz-border-radius: 15px;
@@ -1065,15 +1059,35 @@ select:focus {
         text-align: var(--text-align);
         direction: var(--direction);
         width: 100%;
-        p {
-            font-weight: 600;
-        }
         border-radius: 15px;
         -webkit-border-radius: 15px;
         -moz-border-radius: 15px;
         -ms-border-radius: 15px;
         -o-border-radius: 15px;
+        a {
+            color: #000;
+            font-weight: 900;
+            margin: 0px 5px 0px 5px;
+        }
+        a:visited {
+            color: #000;
+        }
+        #map-cont {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            p {
+                align-self: flex-start;
+            }
+        }
     }
+}
+
+.empn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #nav-bar {
@@ -1122,7 +1136,7 @@ select:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     #grid {
         margin: auto;
         width: 90%;

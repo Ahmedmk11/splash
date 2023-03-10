@@ -27,10 +27,10 @@ def save_img():
         path = ''
         path2 = ''
         if first == True:
-            path = "../src/assets/images/pictures/products/displayed/"
+            path = "src/assets/images/pictures/products/displayed/"
             first = False
         else:
-            path = "../src/assets/images/pictures/products/original/"
+            path = "src/assets/images/pictures/products/original/"
         if variable.get() == "Livingrooms":
             path2 = "livingrooms/"
         elif variable.get() == "Kids Bedrooms":
@@ -85,7 +85,8 @@ def upload_file(i,b):
         messagebox.showinfo("Err", e)
 
 def added():
-    with open('../src/scripts/db.json', 'r+') as f:
+    path = "src/scripts/db.json"
+    with open(path, 'r+') as f:
         data = json.load(f)
         products = data["Products"]
         empty = False
