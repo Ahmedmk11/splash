@@ -614,7 +614,6 @@ export async function saveToDB(order) {
     let objStr = await JSON.stringify(obj)
     let response = await fetch('https://splash-7e1y.onrender.com/', {
         method: `POST`,
-        // mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: objStr,
     })
@@ -1138,6 +1137,10 @@ export function similarity(s1, s2) {
 }
 
 export function searchResults(target) {
+    searchArr = {}
+    searchArrOG = {}
+    searchArrDetails = []
+
     middleContainer.focus()
     let added = []
     resultsQueue = new PriorityQueue((a, b) => {
