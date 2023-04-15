@@ -28,7 +28,7 @@ export const headerUp = document.getElementById('header-upper')
 export const actionsContainer = document.getElementById('actions-container')
 export const clf = document.getElementById('clf')
 export const langBtn = document.getElementById('slct-lang')
-export const livingroomsBtn = document.getElementById('livingrooms')
+export const WardrobesBtn = document.getElementById('Wardrobes')
 export const homeBtn = document.getElementById('home')
 export const bedroomsBtn = document.getElementById('bedrooms')
 export const abedroomsBtn = document.getElementById('adults-bedrooms')
@@ -40,7 +40,7 @@ export const srch = document.getElementById('srch-in')
 export const ftr = document.getElementById('ftr')
 export const menu = document.getElementById('menu')
 export const homeP = document.getElementById('home-p')
-export const livingroomsP = document.getElementById('livingrooms-p')
+export const WardrobesP = document.getElementById('Wardrobes-p')
 export const abedroomsP = document.getElementById('abedrooms-p')
 export const kbedroomsP = document.getElementById('kbedrooms-p')
 export const receptionsP = document.getElementById('receptions-p')
@@ -85,9 +85,9 @@ sm.appendChild(pn)
 menuImg.classList.add('mobile')
 menu.appendChild(xImg)
 
-export const livingroomsArr = importAll(
+export const WardrobesArr = importAll(
     require.context(
-        '../assets/images/pictures/products/displayed/livingrooms',
+        '../assets/images/pictures/products/displayed/Wardrobes',
         false,
         /\.(png|jpe?g|svg)$/
     )
@@ -128,9 +128,9 @@ export const diningroomsArr = importAll(
     )
 )
 
-export const livingroomsArrOG = importAll(
+export const WardrobesArrOG = importAll(
     require.context(
-        '../assets/images/pictures/products/original/livingrooms',
+        '../assets/images/pictures/products/original/Wardrobes',
         false,
         /\.(png|jpe?g|svg)$/
     )
@@ -173,7 +173,7 @@ export const diningroomsArrOG = importAll(
 
 export const navBtns = [
     homeBtn,
-    livingroomsBtn,
+    WardrobesBtn,
     abedroomsBtn,
     kbedroomsBtn,
     receptionsBtn,
@@ -182,7 +182,7 @@ export const navBtns = [
 ]
 export const navP = [
     homeP,
-    livingroomsP,
+    WardrobesP,
     abedroomsP,
     kbedroomsP,
     receptionsP,
@@ -191,7 +191,7 @@ export const navP = [
 ]
 const navAr = [
     'الرئيسية',
-    'غرف المعيشة',
+    'دريسنج',
     'غرف نوم رئيسية',
     'غرف نوم اطفال',
     'صالونات',
@@ -200,7 +200,7 @@ const navAr = [
 ]
 const navEn = [
     'Home',
-    'Living Rooms',
+    'Dressings',
     'Master Bedrooms',
     'Kids Bedrooms',
     'Receptions',
@@ -209,7 +209,7 @@ const navEn = [
 ]
 const navAr2 = [
     'الرئيسية',
-    'غرف المعيشة',
+    'دريسنج',
     'غرف نوم رئيسية',
     'غرف نوم اطفال',
     'صالونات',
@@ -218,7 +218,7 @@ const navAr2 = [
 ]
 const navEn2 = [
     'Home',
-    'Living Rooms',
+    'Dressings',
     'Master Bedrooms',
     'Kids Bedrooms',
     'Receptions',
@@ -226,7 +226,7 @@ const navEn2 = [
     'Dining Rooms',
 ]
 
-const LivingRoomsDetails = []
+const WardrobesDetails = []
 const KidsBedroomsDetails = []
 const MasterBedroomsDetails = []
 const DiningRoomsDetails = []
@@ -304,14 +304,14 @@ let currItem = []
 
 products.forEach((p) => {
     switch (p.product_type) {
-        case 'Livingrooms':
-            LivingRoomsDetails.push(p.index)
+        case 'Wardrobes':
+            WardrobesDetails.push(p.index)
             if (p.recommended == 1) {
                 let a = p.product_img_path_displayed.split('/')
                 let indx2 = a[a.length - 1]
                 let ex = indx2.split('.')[1]
-                recommendationsArr[`${iii}.${ex}`] = livingroomsArr[indx2]
-                recommendationsArrOG[`${iii}.${ex}`] = livingroomsArrOG[indx2]
+                recommendationsArr[`${iii}.${ex}`] = WardrobesArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = WardrobesArrOG[indx2]
                 iii++
             }
             break
@@ -788,8 +788,8 @@ export function populateOrder() {
             addChange.textContent = 'Add'
             addressDNE.textContent = 'No Address Found.'
         }
-        subtotal.textContent = `Subtotal: ${tp} EGP`
-        shipping.textContent = 'plus shipping fee.'
+        subtotal.textContent = `Subtotal: ${tp}`
+        shipping.textContent = 'We shall be contacting you soon.'
         placeOrder.textContent = 'Place Order'
     } else {
         if (_address.exists) {
@@ -812,8 +812,8 @@ export function populateOrder() {
             addChange.textContent = 'اضافة'
             addressDNE.textContent = 'لم يتم العثور على عنوان.'
         }
-        subtotal.textContent = `الاجمالي: ${tp} ج.م`
-        shipping.textContent = 'زائد مصاريف الشحن.'
+        subtotal.textContent = `الاجمالي: ${tp}`
+        shipping.textContent = 'سنتواصل معكم قريبًا.'
         placeOrder.textContent = `اتمام عملية الشراء`
     }
 
@@ -870,11 +870,11 @@ export function populateViewCart() {
         products.forEach((p) => {
             if (cartIndex == p.index) {
                 switch (p.product_type) {
-                    case 'Livingrooms':
+                    case 'Wardrobes':
                         a = p.product_img_path_displayed.split('/')
                         indx2 = a[a.length - 1]
-                        cartArr[`${iiii}.jpg`] = livingroomsArr[indx2]
-                        cartArrOG[`${iiii}.jpg`] = livingroomsArrOG[indx2]
+                        cartArr[`${iiii}.jpg`] = WardrobesArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = WardrobesArrOG[indx2]
                         iiii++
                         break
                     case 'Kids Bedrooms':
@@ -948,7 +948,7 @@ export function populateViewCart() {
         const totalprice = document.createElement('p')
         const place = document.createElement('button')
 
-        tp = 0
+        tp = 'TBD'
 
         notif.id = 'notif'
 
@@ -978,14 +978,14 @@ export function populateViewCart() {
                 titlei.textContent = `${
                     products[parseInt(cartArrDetails[i])].p_id
                 }, ${products[parseInt(cartArrDetails[i])].product_title_en}`
-                pricei.textContent =
-                    products[parseInt(cartArrDetails[i])].product_price_en
+                pricei.textContent = 'TBD'
+                    // products[parseInt(cartArrDetails[i])].product_price_en
             } else {
                 titlei.textContent = `${
                     products[parseInt(cartArrDetails[i])].p_id
                 }، ${products[parseInt(cartArrDetails[i])].product_title_ar}`
-                pricei.textContent =
-                    products[parseInt(cartArrDetails[i])].product_price_ar
+                pricei.textContent = 'TBD'
+                    // products[parseInt(cartArrDetails[i])].product_price_ar
             }
 
             hlc.classList.add('hlc')
@@ -1018,7 +1018,7 @@ export function populateViewCart() {
             mid.append(temp)
             mid.append(hlc)
 
-            tp += parseInt(products[parseInt(cartArrDetails[i])].product_price)
+            // tp += parseInt(products[parseInt(cartArrDetails[i])].product_price)
         }
         let hlc = document.createElement('hr')
         hlc.classList.add('hlc')
@@ -1210,12 +1210,12 @@ export function populateSearchResults() {
 
     ls.forEach((l) => {
         let p = products[l[0]]
-        if (l[2] == 'Livingrooms') {
+        if (l[2] == 'Wardrobes') {
             let a = p.product_img_path_displayed.split('/')
             let indx2 = a[a.length - 1]
             let ex = indx2.split('.')[1]
-            searchArr[`${indxx}.${ex}`] = livingroomsArr[indx2]
-            searchArrOG[`${indxx}.${ex}`] = livingroomsArrOG[indx2]
+            searchArr[`${indxx}.${ex}`] = WardrobesArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = WardrobesArrOG[indx2]
             indxx++
         } else if (l[2] == 'Kids Bedrooms') {
             let a = p.product_img_path_displayed.split('/')
@@ -1545,7 +1545,7 @@ export function hasTouch() {
 export function chooseMode(n) {
     switch (n) {
         case 1:
-            return livingroomsArr
+            return WardrobesArr
         case 2:
             return abedroomsArr
         case 3:
@@ -1570,7 +1570,7 @@ export function chooseMode(n) {
 export function chooseDetails(n) {
     switch (n) {
         case 1:
-            return LivingRoomsDetails
+            return WardrobesDetails
         case 2:
             return MasterBedroomsDetails
         case 3:
@@ -1690,7 +1690,7 @@ function populateItem(n, i) {
 
     switch (n) {
         case 1:
-            arr = livingroomsArrOG
+            arr = WardrobesArrOG
             break
         case 2:
             arr = abedroomsArrOG
@@ -1826,7 +1826,7 @@ export function populateLang() {
                     case 'home':
                         goHome()
                         break
-                    case 'livingrooms':
+                    case 'Wardrobes':
                         populateGrid(1)
                         break
                     case 'adults-bedrooms':
@@ -1869,7 +1869,7 @@ export function newSelect(button) {
     if (
         [
             homeBtn,
-            livingroomsBtn,
+            WardrobesBtn,
             receptionsBtn,
             tvunitsBtn,
             diningroomsBtn,
@@ -1888,8 +1888,8 @@ export function newSelect(button) {
         case 'home':
             homeP.classList.add('selected-p')
             break
-        case 'livingrooms':
-            livingroomsP.classList.add('selected-p')
+        case 'Wardrobes':
+            WardrobesP.classList.add('selected-p')
             break
         case 'adults-bedrooms':
             abedroomsP.classList.add('selected-p')

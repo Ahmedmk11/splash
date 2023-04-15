@@ -5,12 +5,12 @@ import {
     newSelect,
     populateLang,
     switchLang,
-    livingroomsBtn,
+    WardrobesBtn,
     menuImg,
     xImg,
     menu,
     homeP,
-    livingroomsP,
+    WardrobesP,
     receptionsP,
     clf,
     tvunitsP,
@@ -64,8 +64,8 @@ homeBtn.addEventListener('click', () => {
     goHome()
 })
 
-livingroomsBtn.addEventListener('click', () => {
-    newSelect(livingroomsBtn)
+WardrobesBtn.addEventListener('click', () => {
+    newSelect(WardrobesBtn)
     populateGrid(1)
 })
 
@@ -98,8 +98,8 @@ homeP.addEventListener('click', () => {
     goHome()
 })
 
-livingroomsP.addEventListener('click', () => {
-    newSelect(livingroomsBtn)
+WardrobesP.addEventListener('click', () => {
+    newSelect(WardrobesBtn)
     populateGrid(1)
 })
 
