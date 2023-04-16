@@ -31,8 +31,8 @@ def save_img():
             first = False
         else:
             path = "src/assets/images/pictures/products/original/"
-        if variable.get() == "Wardrobes":
-            path2 = "wardrobes/"
+        if variable.get() == "Dressings":
+            path2 = "dressings/"
         elif variable.get() == "Kids Bedrooms":
             path2 = "bedrooms/kids/"
         elif variable.get() == "Master Bedrooms":
@@ -202,7 +202,7 @@ p8.grid(row = 7, column = 0)
 variable = StringVar(window)
 variable.set("Product Type")
 variable.trace("w", callback)
-e8 = OptionMenu(window, variable, "Wardrobes", "Kids Bedrooms", "Master Bedrooms", "Diningrooms", "Receptions", "TV Units")
+e8 = OptionMenu(window, variable, "Dressings", "Kids Bedrooms", "Master Bedrooms", "Diningrooms", "Receptions", "TV Units")
 e8.grid(row = 7, column = 1)
 
 p9 = Label(window,text = "Import Image", font=('Arial', 18))

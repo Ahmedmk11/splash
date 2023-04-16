@@ -28,7 +28,7 @@ export const headerUp = document.getElementById('header-upper')
 export const actionsContainer = document.getElementById('actions-container')
 export const clf = document.getElementById('clf')
 export const langBtn = document.getElementById('slct-lang')
-export const WardrobesBtn = document.getElementById('Wardrobes')
+export const dressingsBtn = document.getElementById('dressings')
 export const homeBtn = document.getElementById('home')
 export const bedroomsBtn = document.getElementById('bedrooms')
 export const abedroomsBtn = document.getElementById('adults-bedrooms')
@@ -40,7 +40,7 @@ export const srch = document.getElementById('srch-in')
 export const ftr = document.getElementById('ftr')
 export const menu = document.getElementById('menu')
 export const homeP = document.getElementById('home-p')
-export const WardrobesP = document.getElementById('Wardrobes-p')
+export const dressingsP = document.getElementById('dressings-p')
 export const abedroomsP = document.getElementById('abedrooms-p')
 export const kbedroomsP = document.getElementById('kbedrooms-p')
 export const receptionsP = document.getElementById('receptions-p')
@@ -85,9 +85,9 @@ sm.appendChild(pn)
 menuImg.classList.add('mobile')
 menu.appendChild(xImg)
 
-export const WardrobesArr = importAll(
+export const dressingsArr = importAll(
     require.context(
-        '../assets/images/pictures/products/displayed/Wardrobes',
+        '../assets/images/pictures/products/displayed/dressings',
         false,
         /\.(png|jpe?g|svg)$/
     )
@@ -128,9 +128,9 @@ export const diningroomsArr = importAll(
     )
 )
 
-export const WardrobesArrOG = importAll(
+export const dressingsArrOG = importAll(
     require.context(
-        '../assets/images/pictures/products/original/Wardrobes',
+        '../assets/images/pictures/products/original/dressings',
         false,
         /\.(png|jpe?g|svg)$/
     )
@@ -173,7 +173,7 @@ export const diningroomsArrOG = importAll(
 
 export const navBtns = [
     homeBtn,
-    WardrobesBtn,
+    dressingsBtn,
     abedroomsBtn,
     kbedroomsBtn,
     receptionsBtn,
@@ -182,7 +182,7 @@ export const navBtns = [
 ]
 export const navP = [
     homeP,
-    WardrobesP,
+    dressingsP,
     abedroomsP,
     kbedroomsP,
     receptionsP,
@@ -226,7 +226,7 @@ const navEn2 = [
     'Dining Rooms',
 ]
 
-const WardrobesDetails = []
+const dressingsDetails = []
 const KidsBedroomsDetails = []
 const MasterBedroomsDetails = []
 const DiningRoomsDetails = []
@@ -304,14 +304,14 @@ let currItem = []
 
 products.forEach((p) => {
     switch (p.product_type) {
-        case 'Wardrobes':
-            WardrobesDetails.push(p.index)
+        case 'Dressings':
+            dressingsDetails.push(p.index)
             if (p.recommended == 1) {
                 let a = p.product_img_path_displayed.split('/')
                 let indx2 = a[a.length - 1]
                 let ex = indx2.split('.')[1]
-                recommendationsArr[`${iii}.${ex}`] = WardrobesArr[indx2]
-                recommendationsArrOG[`${iii}.${ex}`] = WardrobesArrOG[indx2]
+                recommendationsArr[`${iii}.${ex}`] = dressingsArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = dressingsArrOG[indx2]
                 iii++
             }
             break
@@ -870,11 +870,11 @@ export function populateViewCart() {
         products.forEach((p) => {
             if (cartIndex == p.index) {
                 switch (p.product_type) {
-                    case 'Wardrobes':
+                    case 'Dressings':
                         a = p.product_img_path_displayed.split('/')
                         indx2 = a[a.length - 1]
-                        cartArr[`${iiii}.jpg`] = WardrobesArr[indx2]
-                        cartArrOG[`${iiii}.jpg`] = WardrobesArrOG[indx2]
+                        cartArr[`${iiii}.jpg`] = dressingsArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = dressingsArrOG[indx2]
                         iiii++
                         break
                     case 'Kids Bedrooms':
@@ -1210,12 +1210,12 @@ export function populateSearchResults() {
 
     ls.forEach((l) => {
         let p = products[l[0]]
-        if (l[2] == 'Wardrobes') {
+        if (l[2] == 'dressings') {
             let a = p.product_img_path_displayed.split('/')
             let indx2 = a[a.length - 1]
             let ex = indx2.split('.')[1]
-            searchArr[`${indxx}.${ex}`] = WardrobesArr[indx2]
-            searchArrOG[`${indxx}.${ex}`] = WardrobesArrOG[indx2]
+            searchArr[`${indxx}.${ex}`] = dressingsArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = dressingsArrOG[indx2]
             indxx++
         } else if (l[2] == 'Kids Bedrooms') {
             let a = p.product_img_path_displayed.split('/')
@@ -1545,7 +1545,7 @@ export function hasTouch() {
 export function chooseMode(n) {
     switch (n) {
         case 1:
-            return WardrobesArr
+            return dressingsArr
         case 2:
             return abedroomsArr
         case 3:
@@ -1570,7 +1570,7 @@ export function chooseMode(n) {
 export function chooseDetails(n) {
     switch (n) {
         case 1:
-            return WardrobesDetails
+            return dressingsDetails
         case 2:
             return MasterBedroomsDetails
         case 3:
@@ -1690,7 +1690,7 @@ function populateItem(n, i) {
 
     switch (n) {
         case 1:
-            arr = WardrobesArrOG
+            arr = dressingsArrOG
             break
         case 2:
             arr = abedroomsArrOG
@@ -1826,7 +1826,7 @@ export function populateLang() {
                     case 'home':
                         goHome()
                         break
-                    case 'Wardrobes':
+                    case 'dressings':
                         populateGrid(1)
                         break
                     case 'adults-bedrooms':
@@ -1869,7 +1869,7 @@ export function newSelect(button) {
     if (
         [
             homeBtn,
-            WardrobesBtn,
+            dressingsBtn,
             receptionsBtn,
             tvunitsBtn,
             diningroomsBtn,
@@ -1888,8 +1888,8 @@ export function newSelect(button) {
         case 'home':
             homeP.classList.add('selected-p')
             break
-        case 'Wardrobes':
-            WardrobesP.classList.add('selected-p')
+        case 'dressings':
+            dressingsP.classList.add('selected-p')
             break
         case 'adults-bedrooms':
             abedroomsP.classList.add('selected-p')
