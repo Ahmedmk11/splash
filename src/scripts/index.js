@@ -617,7 +617,6 @@ export async function saveToDB(order) {
         headers: { 'Content-Type': 'application/json' },
         body: objStr,
     })
-
     return response.body
 }
 
@@ -1483,7 +1482,9 @@ export function goHome() {
         aboutusP.textContent = 'About Us'
         contactusP.textContent = 'Contact Us'
         bodyP.textContent =
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum.'
+            `We are a furniture and interior design company that has been providing high-quality furniture since 1990.
+            Whether you are looking for a classic, timeless piece or something more contemporary, we have something for everyone. We take great pride in the craftsmanship and quality of our furniture. Each piece is designed and made with the utmost care, using only the finest materials.
+            We offer a wide range of furniture options, including a custom-furniture option, allowing you to create a truly unique piece that fits your specific needs.`
         locationH.textContent = 'Address: '
         emailP.textContent = 'Email: '
         phoneP.textContent = 'Phone Number: '
@@ -1491,7 +1492,9 @@ export function goHome() {
         aboutusP.textContent = 'معلومات عنا'
         contactusP.textContent = 'إتصل بنا'
         bodyP.textContent =
-            'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديد يونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس أيوتي أريري دولار إن ريبريهينديرأيت فوليوبتاتي فيلايت أيسسي كايلليوم دولار أيو فيجايت نيولا باراياتيور. أيكسسيبتيور ساينت أوككايكات كيوبايداتات نون بروايدينت ,سيونت ان كيولبا كيو أوفيسيا ديسيريونتموليت انيم أيدي ايست لابوريوم.'
+            `نحن شركة أثاث و تصميم داخلي تقدم منتجات عالية الجودة منذ عام 1990.
+            ستجد كل ما يناسب ذوقك سواء تنتقي قطعة كلاسيكية أو شيء أكثر حداثة. نحن نفتخر كثيرًا بحرفية وجودة أثاثنا ولذلك نحرص على تصميم كل قطعة وصنعها بعناية فائقة باستخدام أفضل الخامات.
+            لدينا مجموعة واسعة من الخيارات التي ترضي جميع الأذواق ويمكننا أن نصنع لك التصميم التي تفضله ليتناسب مع احتياجاتك الخاصة.`
         locationH.textContent = 'العنوان: '
         emailP.textContent = 'البريد الالكتروني: '
         phoneP.textContent = 'رقم الهاتف: '
