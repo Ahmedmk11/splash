@@ -396,6 +396,11 @@ export function importAll(r) {
     return images
 }
 
+export function clearScroll(mc) {
+    mc.innerHTML = ''
+    window.scrollTo(0,0)
+}
+
 function popUp(m, i) {
     let popup =
         m == 1
@@ -641,7 +646,7 @@ export function getCount(arr) {
 }
 
 export function orderPlaced(id) {
-    middleContainer.innerHTML = ''
+    clearScroll(middleContainer)
     const main = document.createElement('div')
     const success = document.createElement('h3')
     const success2 = document.createElement('h4')
@@ -717,7 +722,7 @@ export function orderPlaced(id) {
                 goHome()
             })
             main.innerHTML = ''
-            middleContainer.innerHTML = ''
+            clearScroll(middleContainer)
             main.append(success)
             main.append(success2)
             main.append(orderNum)
@@ -741,7 +746,7 @@ export function orderPlaced(id) {
             })
 
             main.innerHTML = ''
-            middleContainer.innerHTML = ''
+            clearScroll(middleContainer)
             main.append(success)
             main.append(success2)
             main.append(btn)
@@ -753,7 +758,8 @@ export function orderPlaced(id) {
 }
 
 export function populateOrder() {
-    middleContainer.innerHTML = ''
+    clearScroll(middleContainer)
+    
     const main = document.createElement('div')
 
     const addressContainer = document.createElement('div')
@@ -863,7 +869,8 @@ export function addToCart(product_index, i) {
 }
 
 export function populateViewCart() {
-    middleContainer.innerHTML = ''
+    clearScroll(middleContainer)
+    
     const main = document.createElement('div')
     cartArrDetails = []
     cartArr = {}
@@ -1205,7 +1212,8 @@ export function searchResults(target) {
 
 export function populateSearchResults() {
     let r = cloneDeep(resultsQueue)
-    middleContainer.innerHTML = ''
+    clearScroll(middleContainer)
+    
     searchArr = {}
     let ls = []
     let indxx = 0
@@ -1324,7 +1332,8 @@ export function populateRecommendations(r) {
 
 export function goHome() {
     newSelect(homeBtn)
-    middleContainer.innerHTML = ''
+    clearScroll(middleContainer)
+    
     const container = document.createElement('div')
     const container2 = document.createElement('div')
     const dots = document.createElement('div')
@@ -1670,7 +1679,8 @@ function createCard(container, n, index) {
 }
 
 function populateItem(n, i) {
-    middleContainer.innerHTML = ''
+    clearScroll(middleContainer)
+    
     currItem.push(n)
     currItem.push(i)
     let p_code_en = ''
@@ -1806,7 +1816,8 @@ function populateItem(n, i) {
 }
 
 export function populateGrid(n) {
-    middleContainer.innerHTML = ''
+    clearScroll(middleContainer)
+    
     let imageArr = chooseMode(n)
     flag = 'page'
     let grid = document.createElement('div')
