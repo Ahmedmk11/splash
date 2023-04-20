@@ -33,6 +33,8 @@ import {
     actionsContainer,
     searchResults,
     populateViewCart,
+    occasion,
+    xImgMsg,
 } from './index.js'
 
 logoImg.id = 'logo-img'
@@ -165,4 +167,8 @@ srch.addEventListener('keydown', function (event) {
 
 cartImg.addEventListener('click', () => {
     populateViewCart()
+})
+
+xImgMsg.addEventListener('click', () => {
+    occasion.remove();    
 })

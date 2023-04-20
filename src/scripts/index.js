@@ -25,6 +25,9 @@ let products = db.Products
 
 export const middleContainer = document.getElementById('middle-container')
 export const headerUp = document.getElementById('header-upper')
+export const occasion = document.getElementById('occasion')
+export const nameA = document.getElementById('name-a')
+export const occasionMsg = document.getElementById('occasion-message')
 export const actionsContainer = document.getElementById('actions-container')
 export const clf = document.getElementById('clf')
 export const langBtn = document.getElementById('slct-lang')
@@ -55,6 +58,7 @@ export const xImg = new Image()
 export const fbImg = new Image()
 export const igImg = new Image()
 export const waImg = new Image()
+export const xImgMsg = new Image()
 
 logoImg.src = logo
 cartImg.src = cartLogo
@@ -63,6 +67,7 @@ xImg.src = xClose
 fbImg.src = fb
 igImg.src = ig
 waImg.src = wa
+xImgMsg.src = xClose
 
 cartImg.setAttribute(
     'style',
@@ -81,6 +86,8 @@ pn.appendChild(waImg)
 sm.appendChild(fbl)
 sm.appendChild(igl)
 sm.appendChild(pn)
+
+occasion.appendChild(xImgMsg)
 
 menuImg.classList.add('mobile')
 menu.appendChild(xImg)
@@ -1929,6 +1936,8 @@ export function switchLang(target) {
         menu.classList.remove('ens')
         menu.classList.add('ars')
         bedroomsBtn.textContent = 'غرف النوم'
+        occasionMsg.textContent = '!عيد مبارك'
+        nameA.textContent = 'المهندس/ أمجد كمال'
         cartImg.setAttribute('title', 'عرض عربة التسوق')
     } else {
         srch.setAttribute('placeholder', 'Search here..')
@@ -1944,6 +1953,8 @@ export function switchLang(target) {
         menu.classList.remove('ars')
         menu.classList.add('ens')
         bedroomsBtn.textContent = 'Bedrooms'
+        occasionMsg.textContent = 'Eid Mubarak!'
+        nameA.textContent = 'Eng/ Amgad Kamal'
         cartImg.setAttribute('title', 'View Cart')
     }
 }

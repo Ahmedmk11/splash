@@ -1,6 +1,7 @@
 body.en {
   --flex-row-direction: row;
   --flex-s-e: flex-start;
+  --flex-e-s: flex-end;
   --pos-icon: 98%;
   --direction: ltr;
   --slide: 100%;
@@ -10,6 +11,7 @@ body.en {
 body.ar {
   --flex-row-direction: row-reverse;
   --flex-s-e: flex-end;
+  --flex-e-s: flex-start;
   --pos-icon: 2%;
   --direction: rtl;
   --slide: -100%;
@@ -996,6 +998,37 @@ select:focus {
   display: none;
 }
 
+#occasion {
+  width: 100%;
+  background-color: #dfe3e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0%;
+  height: fit-content;
+}
+#occasion img {
+  width: 24px;
+  cursor: pointer;
+  position: absolute;
+  left: 15px;
+}
+#occasion #text-c {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#occasion #text-c #occasion-message {
+  color: #000;
+  font-size: 1.4rem;
+  margin: 0rem;
+}
+#occasion #text-c #name-a {
+  margin: 0rem;
+  font-size: 0.9rem;
+}
+
 #bedrooms-icon:hover #bedrooms-drpdn {
   display: flex !important;
   flex-direction: column;
@@ -1365,7 +1398,7 @@ body {
     justify-content: center;
   }
   #header input[type=search] {
-    min-width: 350px;
+    min-width: 80%;
   }
   #header #header-upper {
     flex-direction: column;
@@ -1380,6 +1413,10 @@ body {
   }
   #header #nav-bar {
     display: none;
+  }
+  #logo-img {
+    width: 80%;
+    min-width: 0px;
   }
   .mobile {
     display: block;
@@ -1403,12 +1440,15 @@ body {
     justify-content: space-around;
     align-items: center;
   }
+  #detailsH {
+    font-size: 1rem !important;
+  }
   .item,
 #item-details {
     width: 80vw !important;
     min-width: 0px !important;
     margin: 15px;
-    height: 450px !important;
+    height: 400px !important;
   }
   .item img,
 #item-details img {
@@ -1422,12 +1462,13 @@ body {
     background-color: #fff;
   }
   #container2 #recommendations-container #recommendations .item {
-    max-width: 200px;
+    max-width: 180px;
     height: 250px !important;
     overflow-y: scroll;
   }
   #container2 #recommendations-container #recommendations .item img {
-    max-width: 180px !important;
+    margin-top: 2em;
+    max-width: 150px !important;
     max-height: 120px !important;
   }
   .zoomed-in,
@@ -1461,6 +1502,36 @@ body {
   }
   #success-message {
     width: 85vw;
+  }
+  #occasion img {
+    width: 16px;
+    cursor: default;
+  }
+  #occasion #text-c #occasion-message {
+    font-size: 1rem;
+  }
+  .icon-bar {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 100%;
+    transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+  }
+  .icon-bar a, .icon-bar img {
+    width: 35px;
+  }
+  .icon-bar a:hover {
+    cursor: pointer;
+  }
+  footer {
+    height: fit-content;
   }
 }
 
