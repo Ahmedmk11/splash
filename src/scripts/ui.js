@@ -35,6 +35,8 @@ import {
     populateViewCart,
     occasion,
     xImgMsg,
+    livingroomsBtn,
+    livingroomsP,
 } from './index.js'
 
 logoImg.id = 'logo-img'
@@ -64,6 +66,11 @@ if (hasTouch()) {
 
 homeBtn.addEventListener('click', () => {
     goHome()
+})
+
+livingroomsBtn.addEventListener('click', () => {
+    newSelect(livingroomsBtn)
+    populateGrid(9)
 })
 
 dressingsBtn.addEventListener('click', () => {
@@ -98,6 +105,11 @@ tvunitsBtn.addEventListener('click', () => {
 
 homeP.addEventListener('click', () => {
     goHome()
+})
+
+livingroomsP.addEventListener('click', () => {
+    newSelect(livingroomsP)
+    populateGrid(1)
 })
 
 dressingsP.addEventListener('click', () => {

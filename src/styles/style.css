@@ -1,21 +1,21 @@
 body.en {
   --flex-row-direction: row;
   --flex-s-e: flex-start;
-  --flex-e-s: flex-end;
   --pos-icon: 98%;
   --direction: ltr;
   --slide: 100%;
   --text-align: left;
+  --back-transform: scaleX(1);
 }
 
 body.ar {
   --flex-row-direction: row-reverse;
   --flex-s-e: flex-end;
-  --flex-e-s: flex-start;
   --pos-icon: 2%;
   --direction: rtl;
   --slide: -100%;
   --text-align: right;
+  --back-transform: scaleX(-1);
 }
 
 html,
@@ -104,6 +104,18 @@ img:hover:after {
   margin: 0%;
   padding: 0%;
   color: red;
+}
+
+#back-btn {
+  margin: 0px 20px 0px 20px;
+  align-self: var(--flex-s-e);
+  width: 50px;
+  transform: var(--back-transform);
+  -webkit-transform: var(--back-transform);
+  -moz-transform: var(--back-transform);
+  -ms-transform: var(--back-transform);
+  -o-transform: var(--back-transform);
+  cursor: pointer;
 }
 
 #success-message {
@@ -719,6 +731,7 @@ footer {
   justify-content: center;
   align-items: center;
   height: 60px;
+  padding: 5px;
 }
 footer p {
   margin: 0.4em;
@@ -820,21 +833,20 @@ footer p a:hover {
   }
 }
 .icon-bar {
-  position: fixed;
-  top: 50%;
-  right: 1%;
+  position: static;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  transform: translateY(140%);
-  -webkit-transform: translateY(140%);
-  -moz-transform: translateY(140%);
-  -ms-transform: translateY(140%);
-  -o-transform: translateY(140%);
+  height: fit-content;
+  width: 100%;
+  transform: translateY(0%);
+  -webkit-transform: translateY(0%);
+  -moz-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  -o-transform: translateY(0%);
 }
-.icon-bar a,
-.icon-bar img {
+.icon-bar a, .icon-bar img {
   width: 35px;
 }
 .icon-bar a:hover {
@@ -971,10 +983,10 @@ select:focus {
 #bedrooms-icon #bedrooms-drpdn {
   display: none !important;
   position: absolute !important;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(13, 77, 121, 0.9);
   min-width: 160px;
   max-height: 350px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
   z-index: 1;
   margin: 0%;
 }
@@ -1391,6 +1403,14 @@ select:focus {
     padding: 0.75rem 1.5rem;
   }
 }
+@media (min-width: 601px) and (max-width: 950px) {
+  .mobile {
+    display: block;
+  }
+  #nav-bar {
+    display: none;
+  }
+}
 @media only screen and (min-width: 480px) and (max-width: 750px) {
   #header {
     justify-content: center;
@@ -1421,9 +1441,17 @@ select:focus {
   html,
 body {
     overflow-x: hidden;
+    font-size: 0.86rem !important;
   }
   select {
     font-size: 16px;
+  }
+  #menu div {
+    margin-top: 20%;
+  }
+  #menu div p {
+    font-size: 16px !important;
+    margin: 5px;
   }
   #header {
     justify-content: center;
@@ -1540,26 +1568,6 @@ body {
   }
   #occasion #text-c #occasion-message {
     font-size: 1rem;
-  }
-  .icon-bar {
-    position: static;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    width: 100%;
-    transform: translateY(0%);
-    -webkit-transform: translateY(0%);
-    -moz-transform: translateY(0%);
-    -ms-transform: translateY(0%);
-    -o-transform: translateY(0%);
-  }
-  .icon-bar a, .icon-bar img {
-    width: 35px;
-  }
-  .icon-bar a:hover {
-    cursor: pointer;
   }
   footer {
     height: fit-content;

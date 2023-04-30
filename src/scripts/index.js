@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-unused-vars */
 import logo from '../assets/images/pictures/logo.jpg'
 import cartLogo from '../assets/images/icons/cart.svg'
 import menuLogo from '../assets/images/icons/menu.svg'
@@ -10,6 +12,7 @@ import dotIcn from '../assets/images/icons/dot.svg'
 import sdotIcn from '../assets/images/icons/sdot.svg'
 import x2Icn from '../assets/images/icons/x2.svg'
 import removeIcn from '../assets/images/icons/remove-cart.svg'
+import backIcn from '../assets/images/icons/back.svg'
 import { Storage } from './local-storage'
 
 import fb from '../assets/images/icons/fb.svg'
@@ -31,6 +34,7 @@ export const occasionMsg = document.getElementById('occasion-message')
 export const actionsContainer = document.getElementById('actions-container')
 export const clf = document.getElementById('clf')
 export const langBtn = document.getElementById('slct-lang')
+export const livingroomsBtn = document.getElementById('livingrooms')
 export const dressingsBtn = document.getElementById('dressings')
 export const homeBtn = document.getElementById('home')
 export const bedroomsBtn = document.getElementById('bedrooms')
@@ -43,6 +47,7 @@ export const srch = document.getElementById('srch-in')
 export const ftr = document.getElementById('ftr')
 export const menu = document.getElementById('menu')
 export const homeP = document.getElementById('home-p')
+export const livingroomsP = document.getElementById('livingrooms-p')
 export const dressingsP = document.getElementById('dressings-p')
 export const abedroomsP = document.getElementById('abedrooms-p')
 export const kbedroomsP = document.getElementById('kbedrooms-p')
@@ -92,6 +97,13 @@ occasion.appendChild(xImgMsg)
 menuImg.classList.add('mobile')
 menu.appendChild(xImg)
 
+export const livingroomsArr = importAll(
+    require.context(
+        '../assets/images/pictures/products/displayed/livingrooms',
+        false,
+        /\.(png|jpe?g|svg)$/
+    )
+)
 export const dressingsArr = importAll(
     require.context(
         '../assets/images/pictures/products/displayed/dressings',
@@ -135,6 +147,13 @@ export const diningroomsArr = importAll(
     )
 )
 
+export const livingroomsArrOG = importAll(
+    require.context(
+        '../assets/images/pictures/products/original/livingrooms',
+        false,
+        /\.(png|jpe?g|svg)$/
+    )
+)
 export const dressingsArrOG = importAll(
     require.context(
         '../assets/images/pictures/products/original/dressings',
@@ -180,6 +199,7 @@ export const diningroomsArrOG = importAll(
 
 export const navBtns = [
     homeBtn,
+    livingroomsBtn,
     dressingsBtn,
     abedroomsBtn,
     kbedroomsBtn,
@@ -189,6 +209,7 @@ export const navBtns = [
 ]
 export const navP = [
     homeP,
+    livingroomsP,
     dressingsP,
     abedroomsP,
     kbedroomsP,
@@ -198,6 +219,7 @@ export const navP = [
 ]
 const navAr = [
     'الرئيسية',
+    'غرف المعيشة',
     'دريسنج',
     'غرف نوم رئيسية',
     'غرف نوم اطفال',
@@ -207,6 +229,7 @@ const navAr = [
 ]
 const navEn = [
     'Home',
+    'Living Rooms',
     'Dressings',
     'Master Bedrooms',
     'Kids Bedrooms',
@@ -216,6 +239,7 @@ const navEn = [
 ]
 const navAr2 = [
     'الرئيسية',
+    'غرف المعيشة',
     'دريسنج',
     'غرف نوم رئيسية',
     'غرف نوم اطفال',
@@ -225,6 +249,7 @@ const navAr2 = [
 ]
 const navEn2 = [
     'Home',
+    'Living Rooms',
     'Dressings',
     'Master Bedrooms',
     'Kids Bedrooms',
@@ -233,6 +258,7 @@ const navEn2 = [
     'Dining Rooms',
 ]
 
+const livingroomsDetails = []
 const dressingsDetails = []
 const KidsBedroomsDetails = []
 const MasterBedroomsDetails = []
@@ -308,9 +334,21 @@ let tp = 0
 let flag = 'page'
 let nflag = true
 let currItem = []
+let pageName = 'home'
 
 products.forEach((p) => {
     switch (p.product_type) {
+        case 'Living Rooms':
+            livingroomsDetails.push(p.index)
+            if (p.recommended == 1) {
+                let a = p.product_img_path_displayed.split('/')
+                let indx2 = a[a.length - 1]
+                let ex = indx2.split('.')[1]
+                recommendationsArr[`${iii}.${ex}`] = livingroomsArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = livingroomsArrOG[indx2]
+                iii++
+            }
+            break
         case 'Dressings':
             dressingsDetails.push(p.index)
             if (p.recommended == 1) {
@@ -396,9 +434,17 @@ export function importAll(r) {
     return images
 }
 
-export function clearScroll(mc) {
+export function clearScroll(p) {
+    let mc = document.getElementById('middle-container')
+    const backImg = new Image()
+    backImg.src = backIcn
+    backImg.id = 'back-btn'
+    backImg.addEventListener('click', () => {
+        console.log('back pressed!')
+    })
     mc.innerHTML = ''
     window.scrollTo(0,0)
+    mc.append(backImg)
 }
 
 function popUp(m, i) {
@@ -646,7 +692,8 @@ export function getCount(arr) {
 }
 
 export function orderPlaced(id) {
-    clearScroll(middleContainer)
+    pageName = 'order-placed'
+    clearScroll(pageName)
     const main = document.createElement('div')
     const success = document.createElement('h3')
     const success2 = document.createElement('h4')
@@ -722,7 +769,7 @@ export function orderPlaced(id) {
                 goHome()
             })
             main.innerHTML = ''
-            clearScroll(middleContainer)
+            clearScroll('def')
             main.append(success)
             main.append(success2)
             main.append(orderNum)
@@ -746,7 +793,7 @@ export function orderPlaced(id) {
             })
 
             main.innerHTML = ''
-            clearScroll(middleContainer)
+            clearScroll('def')
             main.append(success)
             main.append(success2)
             main.append(btn)
@@ -758,7 +805,8 @@ export function orderPlaced(id) {
 }
 
 export function populateOrder() {
-    clearScroll(middleContainer)
+    pageName = 'order'
+    clearScroll(pageName)
     
     const main = document.createElement('div')
 
@@ -840,7 +888,8 @@ export function populateOrder() {
     })
 
     placeOrder.addEventListener('click', () => {
-        orderPlaced(nanoid(21))
+        let tmp = nanoid(21)
+        orderPlaced(tmp)
     })
 
     if (_address.exists) {
@@ -869,7 +918,9 @@ export function addToCart(product_index, i) {
 }
 
 export function populateViewCart() {
-    clearScroll(middleContainer)
+    pageName = 'view-cart'
+
+    clearScroll(pageName)
     
     const main = document.createElement('div')
     cartArrDetails = []
@@ -883,6 +934,13 @@ export function populateViewCart() {
         products.forEach((p) => {
             if (cartIndex == p.index) {
                 switch (p.product_type) {
+                    case 'Living Rooms':
+                        a = p.product_img_path_displayed.split('/')
+                        indx2 = a[a.length - 1]
+                        cartArr[`${iiii}.jpg`] = livingroomsArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = livingroomsArrOG[indx2]
+                        iiii++
+                        break
                     case 'Dressings':
                         a = p.product_img_path_displayed.split('/')
                         indx2 = a[a.length - 1]
@@ -1212,7 +1270,8 @@ export function searchResults(target) {
 
 export function populateSearchResults() {
     let r = cloneDeep(resultsQueue)
-    clearScroll(middleContainer)
+    pageName = 'srch-results'
+    clearScroll(pageName)
     
     searchArr = {}
     let ls = []
@@ -1224,7 +1283,14 @@ export function populateSearchResults() {
 
     ls.forEach((l) => {
         let p = products[l[0]]
-        if (l[2] == 'dressings') {
+        if (l[2] == 'Living Rooms') {
+            let a = p.product_img_path_displayed.split('/')
+            let indx2 = a[a.length - 1]
+            let ex = indx2.split('.')[1]
+            searchArr[`${indxx}.${ex}`] = livingroomsArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = livingroomsArrOG[indx2]
+            indxx++
+        } else if (l[2] == 'Dressings') {
             let a = p.product_img_path_displayed.split('/')
             let indx2 = a[a.length - 1]
             let ex = indx2.split('.')[1]
@@ -1332,7 +1398,8 @@ export function populateRecommendations(r) {
 
 export function goHome() {
     newSelect(homeBtn)
-    clearScroll(middleContainer)
+    pageName = 'home'
+    clearScroll(pageName)
     
     const container = document.createElement('div')
     const container2 = document.createElement('div')
@@ -1579,6 +1646,8 @@ export function chooseMode(n) {
             return recommendationsArr
         case 8:
             return cartArr
+        case 9:
+            return livingroomsArr
         case -1:
             return searchArr
         default:
@@ -1604,6 +1673,8 @@ export function chooseDetails(n) {
             return recommendationsArrDetails
         case 8:
             return cartArrDetails
+        case 9:
+            return livingroomsDetails
         case -1:
             return searchArrDetails
         default:
@@ -1679,7 +1750,10 @@ function createCard(container, n, index) {
 }
 
 function populateItem(n, i) {
-    clearScroll(middleContainer)
+    let arrDetails = chooseDetails(n)
+    pageName = `${products[parseInt(arrDetails[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(arrDetails[i])].p_id}`
+
+    clearScroll(pageName)
     
     currItem.push(n)
     currItem.push(i)
@@ -1703,8 +1777,6 @@ function populateItem(n, i) {
     let img = ''
 
     img = createCard(item, n, i)
-
-    let arrDetails = chooseDetails(n)
 
     let arr = []
 
@@ -1732,6 +1804,9 @@ function populateItem(n, i) {
             break
         case 8:
             arr = cartArrOG
+            break
+        case 9:
+            arr = livingroomsArrOG
             break
         case -1:
             arr = searchArrOG
@@ -1816,8 +1891,34 @@ function populateItem(n, i) {
 }
 
 export function populateGrid(n) {
-    clearScroll(middleContainer)
-    
+    switch (n) {
+        case 1:
+            pageName = 'dressings'
+            break
+        case 2:
+            pageName = 'adults-bedrooms'
+            break
+        case 3:
+            pageName = 'kids-bedrooms'
+            break
+        case 4:
+            pageName = 'receptions'
+            break
+        case 5:
+            pageName = 'diningrooms'
+            break
+        case 6:
+            pageName = 'tvunits'
+            break
+        case 9:
+            pageName = 'livingrooms'
+            break
+        default:
+            break
+    }
+
+    clearScroll(pageName)
+
     let imageArr = chooseMode(n)
     flag = 'page'
     let grid = document.createElement('div')
@@ -1846,6 +1947,9 @@ export function populateLang() {
                 switch (btn.id) {
                     case 'home':
                         goHome()
+                        break
+                    case 'livingrooms':
+                        populateGrid(9)
                         break
                     case 'dressings':
                         populateGrid(1)
@@ -1890,6 +1994,7 @@ export function newSelect(button) {
     if (
         [
             homeBtn,
+            livingroomsBtn,
             dressingsBtn,
             receptionsBtn,
             tvunitsBtn,
@@ -1908,6 +2013,9 @@ export function newSelect(button) {
     switch (a) {
         case 'home':
             homeP.classList.add('selected-p')
+            break
+        case 'livingrooms':
+            livingroomsP.classList.add('selected-p')
             break
         case 'dressings':
             dressingsP.classList.add('selected-p')
