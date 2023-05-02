@@ -45,6 +45,8 @@ def save_img():
             path2 = "receptions/"
         elif variable.get() == "TV Units":
             path2 = "tvunits/"
+        elif variable.get() == "Interior Design":
+            path2 = "interiordesign/"
 
         indx = len(os.listdir(f'{path}{path2}'))
         p = f'{path}{path2}{indx-1}.jpg'
@@ -204,7 +206,7 @@ p8.grid(row = 7, column = 0)
 variable = StringVar(window)
 variable.set("Product Type")
 variable.trace("w", callback)
-e8 = OptionMenu(window, variable, "Living Rooms", "Dressings", "Kids Bedrooms", "Master Bedrooms", "Diningrooms", "Receptions", "TV Units")
+e8 = OptionMenu(window, variable, "Living Rooms", "Dressings", "Kids Bedrooms", "Master Bedrooms", "Diningrooms", "Receptions", "TV Units", "Interior Design")
 e8.grid(row = 7, column = 1)
 
 p9 = Label(window,text = "Import Image", font=('Arial', 18))

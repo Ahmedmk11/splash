@@ -107,6 +107,8 @@ img:hover:after {
 }
 
 #back-btn {
+  user-select: none;
+  -webkit-user-drag: none;
   margin: 0px 20px 0px 20px;
   align-self: var(--flex-s-e);
   width: 50px;

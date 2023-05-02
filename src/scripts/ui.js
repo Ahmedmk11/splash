@@ -37,6 +37,8 @@ import {
     xImgMsg,
     livingroomsBtn,
     livingroomsP,
+    interiordesignP,
+    interiordesignBtn,
 } from './index.js'
 
 logoImg.id = 'logo-img'
@@ -103,6 +105,11 @@ tvunitsBtn.addEventListener('click', () => {
     populateGrid(6)
 })
 
+interiordesignBtn.addEventListener('click', () => {
+    newSelect(interiordesignBtn)
+    populateGrid(10)
+})
+
 homeP.addEventListener('click', () => {
     goHome()
 })
@@ -140,6 +147,11 @@ diningroomsP.addEventListener('click', () => {
 tvunitsP.addEventListener('click', () => {
     newSelect(tvunitsBtn)
     populateGrid(6)
+})
+
+interiordesignP.addEventListener('click', () => {
+    newSelect(interiordesignBtn)
+    populateGrid(10)
 })
 
 langBtn.addEventListener('change', () => {

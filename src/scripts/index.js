@@ -42,6 +42,7 @@ export const abedroomsBtn = document.getElementById('adults-bedrooms')
 export const kbedroomsBtn = document.getElementById('kids-bedrooms')
 export const receptionsBtn = document.getElementById('receptions')
 export const tvunitsBtn = document.getElementById('tvunits')
+export const interiordesignBtn = document.getElementById('interiordesign')
 export const diningroomsBtn = document.getElementById('diningrooms')
 export const srch = document.getElementById('srch-in')
 export const ftr = document.getElementById('ftr')
@@ -53,6 +54,7 @@ export const abedroomsP = document.getElementById('abedrooms-p')
 export const kbedroomsP = document.getElementById('kbedrooms-p')
 export const receptionsP = document.getElementById('receptions-p')
 export const tvunitsP = document.getElementById('tvunits-p')
+export const interiordesignP = document.getElementById('interiordesign-p')
 export const diningroomsP = document.getElementById('diningrooms-p')
 export const addressPop = document.getElementById('address-popup')
 
@@ -139,6 +141,13 @@ export const tvunitsArr = importAll(
         /\.(png|jpe?g|svg)$/
     )
 )
+export const interiordesignArr = importAll(
+    require.context(
+        '../assets/images/pictures/products/displayed/interiordesign',
+        false,
+        /\.(png|jpe?g|svg)$/
+    )
+)
 export const diningroomsArr = importAll(
     require.context(
         '../assets/images/pictures/products/displayed/diningrooms',
@@ -189,6 +198,13 @@ export const tvunitsArrOG = importAll(
         /\.(png|jpe?g|svg)$/
     )
 )
+export const interiordesignArrOG = importAll(
+    require.context(
+        '../assets/images/pictures/products/original/interiordesign',
+        false,
+        /\.(png|jpe?g|svg)$/
+    )
+)
 export const diningroomsArrOG = importAll(
     require.context(
         '../assets/images/pictures/products/original/diningrooms',
@@ -205,6 +221,7 @@ export const navBtns = [
     kbedroomsBtn,
     receptionsBtn,
     tvunitsBtn,
+    interiordesignBtn,
     diningroomsBtn,
 ]
 export const navP = [
@@ -215,6 +232,7 @@ export const navP = [
     kbedroomsP,
     receptionsP,
     tvunitsP,
+    interiordesignP,
     diningroomsP,
 ]
 const navAr = [
@@ -225,6 +243,7 @@ const navAr = [
     'غرف نوم اطفال',
     'صالونات',
     'مكتبات',
+    'تصميم داخلي',
     'غرف سفرة',
 ]
 const navEn = [
@@ -235,6 +254,7 @@ const navEn = [
     'Kids Bedrooms',
     'Receptions',
     'TV Units',
+    'Interior Design',
     'Dining Rooms',
 ]
 const navAr2 = [
@@ -245,6 +265,7 @@ const navAr2 = [
     'غرف نوم اطفال',
     'صالونات',
     'مكتبات',
+    'تصميم داخلي',
     'غرف سفرة',
 ]
 const navEn2 = [
@@ -255,6 +276,7 @@ const navEn2 = [
     'Kids Bedrooms',
     'Receptions',
     'TV Units',
+    'Interior Design',
     'Dining Rooms',
 ]
 
@@ -265,6 +287,7 @@ const MasterBedroomsDetails = []
 const DiningRoomsDetails = []
 const ReceptionsDetails = []
 const TVUnitsDetails = []
+const interiordesignDetails = []
 
 const recommendationsArrDetails = []
 const recommendationsArr = {}
@@ -412,6 +435,17 @@ products.forEach((p) => {
                 let ex = indx2.split('.')[1]
                 recommendationsArr[`${iii}.${ex}`] = tvunitsArr[indx2]
                 recommendationsArrOG[`${iii}.${ex}`] = tvunitsArrOG[indx2]
+                iii++
+            }
+            break
+        case 'Interior Design':
+            interiordesignDetails.push(p.index)
+            if (p.recommended == 1) {
+                let a = p.product_img_path_displayed.split('/')
+                let indx2 = a[a.length - 1]
+                let ex = indx2.split('.')[1]
+                recommendationsArr[`${iii}.${ex}`] = interiordesignArr[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] = interiordesignArrOG[indx2]
                 iii++
             }
             break
@@ -983,6 +1017,13 @@ export function populateViewCart() {
                         cartArrOG[`${iiii}.jpg`] = tvunitsArrOG[indx2]
                         iiii++
                         break
+                    case 'Interior Design':
+                        a = p.product_img_path_displayed.split('/')
+                        indx2 = a[a.length - 1]
+                        cartArr[`${iiii}.jpg`] = interiordesignArr[indx2]
+                        cartArrOG[`${iiii}.jpg`] = interiordesignArrOG[indx2]
+                        iiii++
+                        break
                     default:
                         break
                 }
@@ -1140,7 +1181,9 @@ export function populateViewCart() {
 export function showResultsCount(m, a) {
     let resultsFound = document.createElement('h2')
     resultsFound.id = 'results-found'
+    
     let grm = ''
+    let pid = ''
 
     if (document.body.classList.contains('en')) {
         if (Object.keys(a).length == 1) {
@@ -1148,14 +1191,27 @@ export function showResultsCount(m, a) {
         } else {
             grm = 's were'
         }
+        if (interiordesignBtn.classList.contains('selected-page')) {
+            pid = 'Design'
+        } else {
+            pid = 'Product'
+        }
         resultsFound.textContent = `${
             Object.keys(a).length
-        } Product${grm} found.`
+        } ${pid}${grm} found.`
     } else {
-        if (Object.keys(a).length == 1) {
-            grm = 'منتج'
+        if (interiordesignBtn.classList.contains('selected-page')) {
+            if (Object.keys(a).length == 1) {
+                grm = 'تصميم'
+            } else {
+                grm = 'تصميمات'
+            }
         } else {
-            grm = 'منتجات'
+            if (Object.keys(a).length == 1) {
+                grm = 'منتج'
+            } else {
+                grm = 'منتجات'
+            }
         }
         resultsFound.textContent = `تم العثور على ${
             Object.keys(a).length
@@ -1331,6 +1387,13 @@ export function populateSearchResults() {
             let ex = indx2.split('.')[1]
             searchArr[`${indxx}.${ex}`] = tvunitsArr[indx2]
             searchArrOG[`${indxx}.${ex}`] = tvunitsArrOG[indx2]
+            indxx++
+        } else if (l[2] == 'Interior Design') {
+            let a = p.product_img_path_displayed.split('/')
+            let indx2 = a[a.length - 1]
+            let ex = indx2.split('.')[1]
+            searchArr[`${indxx}.${ex}`] = interiordesignArr[indx2]
+            searchArrOG[`${indxx}.${ex}`] = interiordesignArrOG[indx2]
             indxx++
         }
         searchArrDetails.push(l[0])
@@ -1648,6 +1711,8 @@ export function chooseMode(n) {
             return cartArr
         case 9:
             return livingroomsArr
+        case 10:
+            return interiordesignArr
         case -1:
             return searchArr
         default:
@@ -1675,6 +1740,8 @@ export function chooseDetails(n) {
             return cartArrDetails
         case 9:
             return livingroomsDetails
+        case 10:
+            return interiordesignDetails
         case -1:
             return searchArrDetails
         default:
@@ -1808,6 +1875,9 @@ function populateItem(n, i) {
         case 9:
             arr = livingroomsArrOG
             break
+        case 10:
+            arr = interiordesignArrOG
+            break
         case -1:
             arr = searchArrOG
             break
@@ -1913,6 +1983,9 @@ export function populateGrid(n) {
         case 9:
             pageName = 'livingrooms'
             break
+        case 10:
+            pageName = 'interiordesign'
+            break
         default:
             break
     }
@@ -1969,6 +2042,9 @@ export function populateLang() {
                     case 'tvunits':
                         populateGrid(6)
                         break
+                    case 'interiordesign':
+                        populateGrid(10)
+                        break
                     default:
                         break
                 }
@@ -1998,6 +2074,7 @@ export function newSelect(button) {
             dressingsBtn,
             receptionsBtn,
             tvunitsBtn,
+            interiordesignBtn,
             diningroomsBtn,
         ].includes(button)
     ) {
@@ -2034,6 +2111,9 @@ export function newSelect(button) {
             break
         case 'tvunits':
             tvunitsP.classList.add('selected-p')
+            break
+        case 'interiordesign':
+            interiordesignP.classList.add('selected-p')
             break
         default:
             break
