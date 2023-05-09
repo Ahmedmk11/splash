@@ -848,7 +848,8 @@ footer p a:hover {
   -ms-transform: translateY(0%);
   -o-transform: translateY(0%);
 }
-.icon-bar a, .icon-bar img {
+.icon-bar a,
+.icon-bar img {
   width: 35px;
 }
 .icon-bar a:hover {

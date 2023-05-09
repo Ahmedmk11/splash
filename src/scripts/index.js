@@ -441,7 +441,8 @@ products.forEach((p) => {
                 let indx2 = a[a.length - 1]
                 let ex = indx2.split('.')[1]
                 recommendationsArr[`${iii}.${ex}`] = interiordesignArr[indx2]
-                recommendationsArrOG[`${iii}.${ex}`] = interiordesignArrOG[indx2]
+                recommendationsArrOG[`${iii}.${ex}`] =
+                    interiordesignArrOG[indx2]
                 iii++
             }
             break
@@ -466,7 +467,7 @@ export function importAll(r) {
 export function clearScroll() {
     let mc = document.getElementById('middle-container')
     mc.innerHTML = ''
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
 }
 
 function popUp(m, i) {
@@ -789,9 +790,9 @@ export function orderPlaced(id) {
             btn.addEventListener('click', () => {
                 const stateObj = {
                     currentView: 'home',
-                    param: 0
-                };
-                navigateToView('home', stateObj);
+                    param: 0,
+                }
+                navigateToView('home', stateObj)
             })
             main.innerHTML = ''
             clearScroll()
@@ -831,7 +832,7 @@ export function orderPlaced(id) {
 
 export function populateOrder() {
     clearScroll()
-    
+
     const main = document.createElement('div')
 
     const addressContainer = document.createElement('div')
@@ -943,7 +944,7 @@ export function addToCart(product_index, i) {
 
 export function populateViewCart() {
     clearScroll()
-    
+
     const main = document.createElement('div')
     cartArrDetails = []
     cartArr = {}
@@ -1034,9 +1035,9 @@ export function populateViewCart() {
         add.addEventListener('click', () => {
             const stateObj = {
                 currentView: 'home',
-                param: 0
-            };
-            navigateToView('home', stateObj);
+                param: 0,
+            }
+            navigateToView('home', stateObj)
         })
         main.classList.add('empty-cart-main')
         main.append(empty)
@@ -1083,13 +1084,13 @@ export function populateViewCart() {
                     products[parseInt(cartArrDetails[i])].p_id
                 }, ${products[parseInt(cartArrDetails[i])].product_title_en}`
                 pricei.textContent = 'TBD'
-                    // products[parseInt(cartArrDetails[i])].product_price_en
+                // products[parseInt(cartArrDetails[i])].product_price_en
             } else {
                 titlei.textContent = `${
                     products[parseInt(cartArrDetails[i])].p_id
                 }، ${products[parseInt(cartArrDetails[i])].product_title_ar}`
                 pricei.textContent = 'TBD'
-                    // products[parseInt(cartArrDetails[i])].product_price_ar
+                // products[parseInt(cartArrDetails[i])].product_price_ar
             }
 
             hlc.classList.add('hlc')
@@ -1110,9 +1111,9 @@ export function populateViewCart() {
                 nflag = false
                 const stateObj = {
                     currentView: 'cart',
-                    param: 11
-                };
-                navigateToView('cart', stateObj);
+                    param: 11,
+                }
+                navigateToView('cart', stateObj)
             })
 
             temp.classList.add('cart-item')
@@ -1142,9 +1143,9 @@ export function populateViewCart() {
         place.addEventListener('click', () => {
             const stateObj = {
                 currentView: 'order',
-                param: 13
-            };
-            navigateToView('order', stateObj);
+                param: 13,
+            }
+            navigateToView('order', stateObj)
         })
 
         title.classList.add('tit')
@@ -1179,13 +1180,13 @@ export function populateViewCart() {
 }
 
 export function showResultsCount(m, a) {
-    let delel = document.getElementById("results-found");
+    let delel = document.getElementById('results-found')
     if (delel) {
         delel.remove()
     }
     let resultsFound = document.createElement('h2')
     resultsFound.id = 'results-found'
-    
+
     let grm = ''
     let pid = ''
 
@@ -1327,15 +1328,15 @@ export function searchResults(target) {
     srch.value = ''
     const stateObj = {
         currentView: 'search',
-        param: 12
-    };
-    navigateToView('search', stateObj);
+        param: 12,
+    }
+    navigateToView('search', stateObj)
 }
 
 export function populateSearchResults() {
     let r = cloneDeep(resultsQueue)
     clearScroll()
-    
+
     searchArr = {}
     let ls = []
     let indxx = 0
@@ -1468,7 +1469,7 @@ export function populateRecommendations(r) {
 
 export function goHome() {
     clearScroll()
-    
+
     const container = document.createElement('div')
     const container2 = document.createElement('div')
     const dots = document.createElement('div')
@@ -1632,8 +1633,7 @@ export function goHome() {
     if (document.body.classList.contains('en')) {
         aboutusP.textContent = 'About Us'
         contactusP.textContent = 'Contact Us'
-        bodyP.textContent =
-            `We are a furniture and interior design company that has been providing high-quality furniture since 1990.
+        bodyP.textContent = `We are a furniture and interior design company that has been providing high-quality furniture since 1990.
             Whether you are looking for a classic, timeless piece or something more contemporary, we have something for everyone. We take great pride in the craftsmanship and quality of our furniture. Each piece is designed and made with the utmost care, using only the finest materials.
             We offer a wide range of furniture options, including a custom-furniture option, allowing you to create a truly unique piece that fits your specific needs.`
         locationH.textContent = 'Address: '
@@ -1642,8 +1642,7 @@ export function goHome() {
     } else {
         aboutusP.textContent = 'معلومات عنا'
         contactusP.textContent = 'إتصل بنا'
-        bodyP.textContent =
-            `نحن شركة أثاث و تصميم داخلي تقدم منتجات عالية الجودة منذ عام 1990.
+        bodyP.textContent = `نحن شركة أثاث و تصميم داخلي تقدم منتجات عالية الجودة منذ عام 1990.
             ستجد كل ما يناسب ذوقك سواء تنتقي قطعة كلاسيكية أو شيء أكثر حداثة. نحن نفتخر كثيرًا بحرفية وجودة أثاثنا ولذلك نحرص على تصميم كل قطعة وصنعها بعناية فائقة باستخدام أفضل الخامات.
             لدينا مجموعة واسعة من الخيارات التي ترضي جميع الأذواق ويمكننا أن نصنع لك التصميم التي تفضله ليتناسب مع احتياجاتك الخاصة.`
         locationH.textContent = 'العنوان: '
@@ -1825,7 +1824,7 @@ function populateItem(n, i) {
     let arrDetails = chooseDetails(n)
 
     clearScroll()
-    
+
     currItem.push(n)
     currItem.push(i)
     let p_code_en = ''
@@ -1970,11 +1969,11 @@ export function populateGrid(n) {
         let imageArr = chooseMode(n)
         flag = 'page'
         let grid = document.createElement('div')
-    
+
         grid.id = 'grid'
-    
+
         showResultsCount(middleContainer, imageArr)
-    
+
         for (let i = 0; i < Object.keys(imageArr).length; i++) {
             let img = createCard(grid, n, i)
             img.addEventListener('click', () => {
@@ -2006,65 +2005,65 @@ export function populateLang() {
                     case 'home':
                         stateObj = {
                             currentView: 'home',
-                            param: 0
-                        };
-                        navigateToView('home', stateObj);
+                            param: 0,
+                        }
+                        navigateToView('home', stateObj)
                         break
                     case 'livingrooms':
                         stateObj = {
                             currentView: 'livingrooms',
-                            param: 9
-                        };
-                        navigateToView('livingrooms', stateObj);
+                            param: 9,
+                        }
+                        navigateToView('livingrooms', stateObj)
                         break
                     case 'dressings':
                         stateObj = {
                             currentView: 'dressings',
-                            param: 1
-                        };
-                        navigateToView('dressings', stateObj);
+                            param: 1,
+                        }
+                        navigateToView('dressings', stateObj)
                         break
                     case 'adults-bedrooms':
                         stateObj = {
                             currentView: 'master-bedrooms',
-                            param: 2
-                        };
-                        navigateToView('master-bedrooms', stateObj);
+                            param: 2,
+                        }
+                        navigateToView('master-bedrooms', stateObj)
                         break
                     case 'kids-bedrooms':
                         stateObj = {
                             currentView: 'kids-bedrooms',
-                            param: 3
-                        };
-                        navigateToView('kids-bedrooms', stateObj);
+                            param: 3,
+                        }
+                        navigateToView('kids-bedrooms', stateObj)
                         break
                     case 'receptions':
                         stateObj = {
                             currentView: 'receptions',
-                            param: 4
-                        };
-                        navigateToView('receptions', stateObj);
+                            param: 4,
+                        }
+                        navigateToView('receptions', stateObj)
                         break
                     case 'diningrooms':
                         stateObj = {
                             currentView: 'diningrooms',
-                            param: 5
-                        };
-                        navigateToView('diningrooms', stateObj);
+                            param: 5,
+                        }
+                        navigateToView('diningrooms', stateObj)
                         break
                     case 'tv-units':
                         stateObj = {
                             currentView: 'tv-units',
-                            param: 6
-                        };
-                        navigateToView('tv-units', stateObj);
+                            param: 6,
+                        }
+                        navigateToView('tv-units', stateObj)
                         break
                     case 'interior-design':
                         stateObj = {
                             currentView: 'interior-design',
-                            param: 10
-                        };
-                        navigateToView('interior-design', stateObj);
+                            param: 10,
+                        }
+                        navigateToView('interior-design', stateObj)
                         break
                     default:
                         break
@@ -2180,55 +2179,55 @@ export function switchLang(target) {
 }
 
 export function navigateToView(view, stateObj) {
-    const url = new URL(window.location.href);
-    url.pathname = ``;
-    history.pushState(stateObj, '', url.toString());
-    populateGrid(stateObj.param);
+    const url = new URL(window.location.href)
+    url.pathname = ``
+    history.pushState(stateObj, '', url.toString())
+    populateGrid(stateObj.param)
 }
 
 window.addEventListener('popstate', (e) => {
     if (e.state) {
-        const stateObj = e.state;
-        populateGrid(stateObj.param);
+        const stateObj = e.state
+        populateGrid(stateObj.param)
         console.log(stateObj.currentView)
         switch (stateObj.currentView) {
             case 'home':
-                newSelect(homeBtn)                            
+                newSelect(homeBtn)
                 break
             case 'livingrooms':
-                newSelect(livingroomsBtn)                    
+                newSelect(livingroomsBtn)
                 break
             case 'dressings':
-                newSelect(dressingsBtn)                    
+                newSelect(dressingsBtn)
                 break
             case 'adults-bedrooms':
-                newSelect(abedroomsBtn)                    
+                newSelect(abedroomsBtn)
                 break
             case 'kids-bedrooms':
-                newSelect(kbedroomsBtn)                    
+                newSelect(kbedroomsBtn)
                 break
             case 'receptions':
-                newSelect(receptionsBtn)                    
+                newSelect(receptionsBtn)
                 break
             case 'diningrooms':
-                newSelect(diningroomsBtn)                    
+                newSelect(diningroomsBtn)
                 break
             case 'tv-units':
-                newSelect(tvunitsBtn)                    
+                newSelect(tvunitsBtn)
                 break
             case 'interior-design':
-                newSelect(interiordesignBtn)                    
+                newSelect(interiordesignBtn)
                 break
             default:
                 break
         }
     }
-});
+})
 
 export const initialState = {
     currentView: 'home',
-    param: 0
+    param: 0,
 }
 
-history.replaceState(initialState, '', window.location.href);
-populateGrid(initialState.param);
+history.replaceState(initialState, '', window.location.href)
+populateGrid(initialState.param)
