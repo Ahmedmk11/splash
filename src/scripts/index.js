@@ -40,8 +40,8 @@ export const bedroomsBtn = document.getElementById('bedrooms')
 export const abedroomsBtn = document.getElementById('adults-bedrooms')
 export const kbedroomsBtn = document.getElementById('kids-bedrooms')
 export const receptionsBtn = document.getElementById('receptions')
-export const tvunitsBtn = document.getElementById('tvunits')
-export const interiordesignBtn = document.getElementById('interiordesign')
+export const tvunitsBtn = document.getElementById('tv-units')
+export const interiordesignBtn = document.getElementById('interior-design')
 export const diningroomsBtn = document.getElementById('diningrooms')
 export const srch = document.getElementById('srch-in')
 export const ftr = document.getElementById('ftr')
@@ -2052,14 +2052,14 @@ export function populateLang() {
                         };
                         navigateToView('diningrooms', stateObj);
                         break
-                    case 'tvunits':
+                    case 'tv-units':
                         stateObj = {
                             currentView: 'tv-units',
                             param: 6
                         };
                         navigateToView('tv-units', stateObj);
                         break
-                    case 'interiordesign':
+                    case 'interior-design':
                         stateObj = {
                             currentView: 'interior-design',
                             param: 10
@@ -2130,10 +2130,10 @@ export function newSelect(button) {
         case 'diningrooms':
             diningroomsP.classList.add('selected-p')
             break
-        case 'tvunits':
+        case 'tv-units':
             tvunitsP.classList.add('selected-p')
             break
-        case 'interiordesign':
+        case 'interior-design':
             interiordesignP.classList.add('selected-p')
             break
         default:
@@ -2190,6 +2190,7 @@ window.addEventListener('popstate', (e) => {
     if (e.state) {
         const stateObj = e.state;
         populateGrid(stateObj.param);
+        console.log(stateObj.currentView)
         switch (stateObj.currentView) {
             case 'home':
                 newSelect(homeBtn)                            
@@ -2212,10 +2213,10 @@ window.addEventListener('popstate', (e) => {
             case 'diningrooms':
                 newSelect(diningroomsBtn)                    
                 break
-            case 'tvunits':
+            case 'tv-units':
                 newSelect(tvunitsBtn)                    
                 break
-            case 'interiordesign':
+            case 'interior-design':
                 newSelect(interiordesignBtn)                    
                 break
             default:
