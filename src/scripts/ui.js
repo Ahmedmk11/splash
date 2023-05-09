@@ -1,7 +1,6 @@
+/* eslint-disable no-unused-vars */
 import '../styles/style.css'
 import {
-    goHome,
-    populateGrid,
     newSelect,
     populateLang,
     switchLang,
@@ -39,6 +38,7 @@ import {
     livingroomsP,
     interiordesignP,
     interiordesignBtn,
+    navigateToView
 } from './index.js'
 
 logoImg.id = 'logo-img'
@@ -67,91 +67,165 @@ if (hasTouch()) {
 }
 
 homeBtn.addEventListener('click', () => {
-    goHome()
+    newSelect(homeBtn)
+    const stateObj = {
+        currentView: 'home',
+        param: 0
+    };
+    navigateToView('home', stateObj);
 })
 
 livingroomsBtn.addEventListener('click', () => {
     newSelect(livingroomsBtn)
-    populateGrid(9)
+    const stateObj = {
+        currentView: 'livingrooms',
+        param: 9
+    };
+    navigateToView('livingrooms', stateObj);
 })
 
 dressingsBtn.addEventListener('click', () => {
     newSelect(dressingsBtn)
-    populateGrid(1)
+    const stateObj = {
+        currentView: 'dressings',
+        param: 1
+    };
+    navigateToView('dressings', stateObj);
 })
 
 abedroomsBtn.addEventListener('click', () => {
     newSelect(abedroomsBtn)
-    populateGrid(2)
+    const stateObj = {
+        currentView: 'master-bedrooms',
+        param: 2
+    };
+    navigateToView('master-bedrooms', stateObj);
 })
 
 kbedroomsBtn.addEventListener('click', () => {
     newSelect(kbedroomsBtn)
-    populateGrid(3)
+    const stateObj = {
+        currentView: 'kids-bedrooms',
+        param: 3
+    };
+    navigateToView('kids-bedrooms', stateObj);
 })
 
 receptionsBtn.addEventListener('click', () => {
     newSelect(receptionsBtn)
-    populateGrid(4)
+    const stateObj = {
+        currentView: 'receptions',
+        param: 4
+    };
+    navigateToView('receptions', stateObj);
 })
 
 diningroomsBtn.addEventListener('click', () => {
     newSelect(diningroomsBtn)
-    populateGrid(5)
+    const stateObj = {
+        currentView: 'diningrooms',
+        param: 5
+    };
+    navigateToView('diningrooms', stateObj);
 })
 
 tvunitsBtn.addEventListener('click', () => {
     newSelect(tvunitsBtn)
-    populateGrid(6)
+    const stateObj = {
+        currentView: 'tv-units',
+        param: 6
+    };
+    navigateToView('tv-units', stateObj);
 })
 
 interiordesignBtn.addEventListener('click', () => {
     newSelect(interiordesignBtn)
-    populateGrid(10)
+    const stateObj = {
+        currentView: 'interior-design',
+        param: 10
+    };
+    navigateToView('interior-design', stateObj);
 })
 
 homeP.addEventListener('click', () => {
-    goHome()
+    newSelect(homeBtn)
+    const stateObj = {
+        currentView: 'home',
+        param: 0
+    };
+    navigateToView('home', stateObj);
 })
 
 livingroomsP.addEventListener('click', () => {
     newSelect(livingroomsP)
-    populateGrid(1)
+    const stateObj = {
+        currentView: 'livingrooms',
+        param: 9
+    };
+    navigateToView('livingrooms', stateObj);
 })
 
 dressingsP.addEventListener('click', () => {
     newSelect(dressingsBtn)
-    populateGrid(1)
+    const stateObj = {
+        currentView: 'dressings',
+        param: 1
+    };
+    navigateToView('dressings', stateObj);
 })
 
 abedroomsP.addEventListener('click', () => {
     newSelect(abedroomsBtn)
-    populateGrid(2)
+    const stateObj = {
+        currentView: 'master-bedrooms',
+        param: 2
+    };
+    navigateToView('master-bedrooms', stateObj);
 })
 
 kbedroomsP.addEventListener('click', () => {
     newSelect(kbedroomsBtn)
-    populateGrid(3)
+    const stateObj = {
+        currentView: 'kids-bedrooms',
+        param: 3
+    };
+    navigateToView('kids-bedrooms', stateObj);
 })
 
 receptionsP.addEventListener('click', () => {
     newSelect(receptionsBtn)
-    populateGrid(4)
+    const stateObj = {
+        currentView: 'receptions',
+        param: 4
+    };
+    navigateToView('receptions', stateObj);
 })
 
 diningroomsP.addEventListener('click', () => {
     newSelect(diningroomsBtn)
-    populateGrid(5)
+    const stateObj = {
+        currentView: 'diningrooms',
+        param: 5
+    };
+    navigateToView('diningrooms', stateObj);
 })
 
 tvunitsP.addEventListener('click', () => {
     newSelect(tvunitsBtn)
-    populateGrid(6)
+    const stateObj = {
+        currentView: 'tv-units',
+        param: 6
+    };
+    navigateToView('tv-units', stateObj);
 })
 
 interiordesignP.addEventListener('click', () => {
     newSelect(interiordesignBtn)
-    populateGrid(10)
+    const stateObj = {
+        currentView: 'interior-design',
+        param: 10
+    };
+    navigateToView('interior-design', stateObj);
 })
 
 langBtn.addEventListener('change', () => {
@@ -172,7 +246,11 @@ langBtn.addEventListener('change', () => {
 
 logoImg.addEventListener('click', () => {
     newSelect(homeBtn)
-    goHome()
+    const stateObj = {
+        currentView: 'home',
+        param: 0
+    };
+    navigateToView('home', stateObj);
 })
 
 xImg.addEventListener('click', () => {

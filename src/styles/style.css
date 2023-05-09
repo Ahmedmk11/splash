@@ -994,7 +994,6 @@ select:focus {
 }
 #bedrooms-icon #bedrooms-drpdn p {
   padding: 0.8em;
-  font-size: 1.1rem;
   font-weight: 900;
   display: inline-block;
   position: relative;
@@ -1123,8 +1122,12 @@ select:focus {
   display: flex;
   flex-direction: var(--flex-row-direction);
 }
+#nav-bar div {
+  white-space: nowrap;
+  font-size: 12.5%;
+  font-size: 100%;
+}
 #nav-bar .line {
-  font-size: 1.35rem;
   font-weight: 900;
   display: inline-block;
   position: relative;

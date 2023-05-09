@@ -1010,7 +1010,6 @@ select:focus {
 
         p {
             padding: 0.8em;
-            font-size: 1.1rem;
             font-weight: 900;
             display: inline-block;
             position: relative;
@@ -1143,8 +1142,12 @@ select:focus {
     padding: 10px 0px 10px 0px;
     display: flex;
     flex-direction: var(--flex-row-direction);
+    div {
+        white-space: nowrap;
+        font-size: 12.5%;
+        font-size: 100%;
+    }
     .line {
-        font-size: 1.35rem;
         font-weight: 900;
         display: inline-block;
         position: relative;

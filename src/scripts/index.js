@@ -12,7 +12,6 @@ import dotIcn from '../assets/images/icons/dot.svg'
 import sdotIcn from '../assets/images/icons/sdot.svg'
 import x2Icn from '../assets/images/icons/x2.svg'
 import removeIcn from '../assets/images/icons/remove-cart.svg'
-import backIcn from '../assets/images/icons/back.svg'
 import { Storage } from './local-storage'
 
 import fb from '../assets/images/icons/fb.svg'
@@ -155,7 +154,6 @@ export const diningroomsArr = importAll(
         /\.(png|jpe?g|svg)$/
     )
 )
-
 export const livingroomsArrOG = importAll(
     require.context(
         '../assets/images/pictures/products/original/livingrooms',
@@ -212,7 +210,6 @@ export const diningroomsArrOG = importAll(
         /\.(png|jpe?g|svg)$/
     )
 )
-
 export const navBtns = [
     homeBtn,
     livingroomsBtn,
@@ -357,7 +354,6 @@ let tp = 0
 let flag = 'page'
 let nflag = true
 let currItem = []
-let pageName = 'home'
 
 products.forEach((p) => {
     switch (p.product_type) {
@@ -457,7 +453,6 @@ products.forEach((p) => {
     }
 })
 
-goHome()
 switchLang('en')
 
 export function importAll(r) {
@@ -468,17 +463,10 @@ export function importAll(r) {
     return images
 }
 
-export function clearScroll(p) {
+export function clearScroll() {
     let mc = document.getElementById('middle-container')
-    const backImg = new Image()
-    backImg.src = backIcn
-    backImg.id = 'back-btn'
-    backImg.addEventListener('click', () => {
-        console.log('back pressed!')
-    })
     mc.innerHTML = ''
     window.scrollTo(0,0)
-    mc.append(backImg)
 }
 
 function popUp(m, i) {
@@ -726,8 +714,7 @@ export function getCount(arr) {
 }
 
 export function orderPlaced(id) {
-    pageName = 'order-placed'
-    clearScroll(pageName)
+    clearScroll()
     const main = document.createElement('div')
     const success = document.createElement('h3')
     const success2 = document.createElement('h4')
@@ -800,10 +787,10 @@ export function orderPlaced(id) {
             Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
 
             btn.addEventListener('click', () => {
-                goHome()
+                navigateToView('home');
             })
             main.innerHTML = ''
-            clearScroll('def')
+            clearScroll()
             main.append(success)
             main.append(success2)
             main.append(orderNum)
@@ -827,7 +814,7 @@ export function orderPlaced(id) {
             })
 
             main.innerHTML = ''
-            clearScroll('def')
+            clearScroll()
             main.append(success)
             main.append(success2)
             main.append(btn)
@@ -839,8 +826,7 @@ export function orderPlaced(id) {
 }
 
 export function populateOrder() {
-    pageName = 'order'
-    clearScroll(pageName)
+    clearScroll()
     
     const main = document.createElement('div')
 
@@ -952,9 +938,7 @@ export function addToCart(product_index, i) {
 }
 
 export function populateViewCart() {
-    pageName = 'view-cart'
-
-    clearScroll(pageName)
+    clearScroll()
     
     const main = document.createElement('div')
     cartArrDetails = []
@@ -1044,7 +1028,7 @@ export function populateViewCart() {
             add.textContent = 'أضف منتجات'
         }
         add.addEventListener('click', () => {
-            goHome()
+            navigateToView('home');
         })
         main.classList.add('empty-cart-main')
         main.append(empty)
@@ -1326,8 +1310,7 @@ export function searchResults(target) {
 
 export function populateSearchResults() {
     let r = cloneDeep(resultsQueue)
-    pageName = 'srch-results'
-    clearScroll(pageName)
+    clearScroll()
     
     searchArr = {}
     let ls = []
@@ -1460,9 +1443,7 @@ export function populateRecommendations(r) {
 }
 
 export function goHome() {
-    newSelect(homeBtn)
-    pageName = 'home'
-    clearScroll(pageName)
+    clearScroll()
     
     const container = document.createElement('div')
     const container2 = document.createElement('div')
@@ -1818,9 +1799,8 @@ function createCard(container, n, index) {
 
 function populateItem(n, i) {
     let arrDetails = chooseDetails(n)
-    pageName = `${products[parseInt(arrDetails[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(arrDetails[i])].p_id}`
 
-    clearScroll(pageName)
+    clearScroll()
     
     currItem.push(n)
     currItem.push(i)
@@ -1961,53 +1941,28 @@ function populateItem(n, i) {
 }
 
 export function populateGrid(n) {
-    switch (n) {
-        case 1:
-            pageName = 'dressings'
-            break
-        case 2:
-            pageName = 'adults-bedrooms'
-            break
-        case 3:
-            pageName = 'kids-bedrooms'
-            break
-        case 4:
-            pageName = 'receptions'
-            break
-        case 5:
-            pageName = 'diningrooms'
-            break
-        case 6:
-            pageName = 'tvunits'
-            break
-        case 9:
-            pageName = 'livingrooms'
-            break
-        case 10:
-            pageName = 'interiordesign'
-            break
-        default:
-            break
+    console.log('History stack length:', history.length);
+    if (n > 0 && n <= 10) {
+        clearScroll()
+        let imageArr = chooseMode(n)
+        flag = 'page'
+        let grid = document.createElement('div')
+    
+        grid.id = 'grid'
+    
+        showResultsCount(middleContainer, imageArr)
+    
+        for (let i = 0; i < Object.keys(imageArr).length; i++) {
+            let img = createCard(grid, n, i)
+            img.addEventListener('click', () => {
+                populateItem(n, i)
+            })
+        }
+        hideMenu()
+        middleContainer.append(grid)
+    } else if (n == 0) {
+        goHome()
     }
-
-    clearScroll(pageName)
-
-    let imageArr = chooseMode(n)
-    flag = 'page'
-    let grid = document.createElement('div')
-
-    grid.id = 'grid'
-
-    showResultsCount(middleContainer, imageArr)
-
-    for (let i = 0; i < Object.keys(imageArr).length; i++) {
-        let img = createCard(grid, n, i)
-        img.addEventListener('click', () => {
-            populateItem(n, i)
-        })
-    }
-    hideMenu()
-    middleContainer.append(grid)
 }
 
 export function populateLang() {
@@ -2019,31 +1974,31 @@ export function populateLang() {
             ) {
                 switch (btn.id) {
                     case 'home':
-                        goHome()
+                        navigateToView('home');
                         break
                     case 'livingrooms':
-                        populateGrid(9)
+                        navigateToView('livingrooms');
                         break
                     case 'dressings':
-                        populateGrid(1)
+                        navigateToView('dressings');
                         break
                     case 'adults-bedrooms':
-                        populateGrid(2)
+                        navigateToView('masterbedrooms');
                         break
                     case 'kids-bedrooms':
-                        populateGrid(3)
+                        navigateToView('kidsbedrooms');
                         break
                     case 'receptions':
-                        populateGrid(4)
+                        navigateToView('receptions');
                         break
                     case 'diningrooms':
-                        populateGrid(5)
+                        navigateToView('diningrooms');
                         break
                     case 'tvunits':
-                        populateGrid(6)
+                        navigateToView('tvunits');
                         break
                     case 'interiordesign':
-                        populateGrid(10)
+                        navigateToView('interiordesign');
                         break
                     default:
                         break
@@ -2157,3 +2112,57 @@ export function switchLang(target) {
         cartImg.setAttribute('title', 'View Cart')
     }
 }
+
+export function navigateToView(view, stateObj) {
+    const url = new URL(window.location.href);
+    url.pathname = `/${view}`;
+    history.pushState(stateObj, '', url.toString());
+    populateGrid(stateObj.param);
+}
+
+window.addEventListener('popstate', (e) => {
+    if (e.state) {
+        const stateObj = e.state;
+        populateGrid(stateObj.param);
+        console.log(stateObj)
+        switch (stateObj.currentView) {
+            case 'home':
+                newSelect(homeBtn)                            
+                break
+            case 'livingrooms':
+                newSelect(livingroomsBtn)                    
+                break
+            case 'dressings':
+                newSelect(dressingsBtn)                    
+                break
+            case 'adults-bedrooms':
+                newSelect(abedroomsBtn)                    
+                break
+            case 'kids-bedrooms':
+                newSelect(kbedroomsBtn)                    
+                break
+            case 'receptions':
+                newSelect(receptionsBtn)                    
+                break
+            case 'diningrooms':
+                newSelect(diningroomsBtn)                    
+                break
+            case 'tvunits':
+                newSelect(tvunitsBtn)                    
+                break
+            case 'interiordesign':
+                newSelect(interiordesignBtn)                    
+                break
+            default:
+                break
+        }
+    }
+});
+
+export const initialState = {
+    currentView: 'home',
+    param: 0
+}
+
+history.replaceState(initialState, '', window.location.href);
+populateGrid(initialState.param);
