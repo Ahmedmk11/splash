@@ -31,7 +31,6 @@ import {
     headerUp,
     actionsContainer,
     searchResults,
-    populateViewCart,
     occasion,
     xImgMsg,
     livingroomsBtn,
@@ -268,7 +267,11 @@ srch.addEventListener('keydown', function (event) {
 })
 
 cartImg.addEventListener('click', () => {
-    populateViewCart()
+    const stateObj = {
+        currentView: 'cart',
+        param: 11
+    };
+    navigateToView('cart', stateObj);
 })
 
 xImgMsg.addEventListener('click', () => {

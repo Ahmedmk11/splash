@@ -545,7 +545,7 @@ export function submitAddress() {
         con.setAttribute('style', 'display: none;')
         document.getElementById('zio').remove()
 
-        populateOrder()
+        populateOrder(13)
     }
 }
 
@@ -787,7 +787,11 @@ export function orderPlaced(id) {
             Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
 
             btn.addEventListener('click', () => {
-                navigateToView('home');
+                const stateObj = {
+                    currentView: 'home',
+                    param: 0
+                };
+                navigateToView('home', stateObj);
             })
             main.innerHTML = ''
             clearScroll()
@@ -1028,7 +1032,11 @@ export function populateViewCart() {
             add.textContent = 'أضف منتجات'
         }
         add.addEventListener('click', () => {
-            navigateToView('home');
+            const stateObj = {
+                currentView: 'home',
+                param: 0
+            };
+            navigateToView('home', stateObj);
         })
         main.classList.add('empty-cart-main')
         main.append(empty)
@@ -1100,7 +1108,11 @@ export function populateViewCart() {
                 delete cartArrOG[`${i}.jpg`]
                 cartIndexes.splice(i, 1)
                 nflag = false
-                populateViewCart()
+                const stateObj = {
+                    currentView: 'cart',
+                    param: 11
+                };
+                navigateToView('cart', stateObj);
             })
 
             temp.classList.add('cart-item')
@@ -1128,7 +1140,11 @@ export function populateViewCart() {
         }
 
         place.addEventListener('click', () => {
-            populateOrder()
+            const stateObj = {
+                currentView: 'order',
+                param: 13
+            };
+            navigateToView('order', stateObj);
         })
 
         title.classList.add('tit')
@@ -1163,6 +1179,10 @@ export function populateViewCart() {
 }
 
 export function showResultsCount(m, a) {
+    let delel = document.getElementById("results-found");
+    if (delel) {
+        delel.remove()
+    }
     let resultsFound = document.createElement('h2')
     resultsFound.id = 'results-found'
     
@@ -1201,7 +1221,7 @@ export function showResultsCount(m, a) {
             Object.keys(a).length
         } ${grm}.`
     }
-    m.append(resultsFound)
+    m.prepend(resultsFound)
 }
 
 export function editDistance(s1, s2) {
@@ -1305,7 +1325,11 @@ export function searchResults(target) {
         }
     }
     srch.value = ''
-    populateSearchResults()
+    const stateObj = {
+        currentView: 'search',
+        param: 12
+    };
+    navigateToView('search', stateObj);
 }
 
 export function populateSearchResults() {
@@ -1941,7 +1965,6 @@ function populateItem(n, i) {
 }
 
 export function populateGrid(n) {
-    console.log('History stack length:', history.length);
     if (n > 0 && n <= 10) {
         clearScroll()
         let imageArr = chooseMode(n)
@@ -1962,6 +1985,12 @@ export function populateGrid(n) {
         middleContainer.append(grid)
     } else if (n == 0) {
         goHome()
+    } else if (n == 11) {
+        populateViewCart()
+    } else if (n == 12) {
+        populateSearchResults()
+    } else if (n == 13) {
+        populateOrder()
     }
 }
 
@@ -1972,33 +2001,70 @@ export function populateLang() {
                 btn.classList.contains('selected-page') ||
                 btn.classList.contains('selected-page-dd')
             ) {
+                let stateObj = {}
                 switch (btn.id) {
                     case 'home':
-                        navigateToView('home');
+                        stateObj = {
+                            currentView: 'home',
+                            param: 0
+                        };
+                        navigateToView('home', stateObj);
                         break
                     case 'livingrooms':
-                        navigateToView('livingrooms');
+                        stateObj = {
+                            currentView: 'livingrooms',
+                            param: 9
+                        };
+                        navigateToView('livingrooms', stateObj);
                         break
                     case 'dressings':
-                        navigateToView('dressings');
+                        stateObj = {
+                            currentView: 'dressings',
+                            param: 1
+                        };
+                        navigateToView('dressings', stateObj);
                         break
                     case 'adults-bedrooms':
-                        navigateToView('masterbedrooms');
+                        stateObj = {
+                            currentView: 'master-bedrooms',
+                            param: 2
+                        };
+                        navigateToView('master-bedrooms', stateObj);
                         break
                     case 'kids-bedrooms':
-                        navigateToView('kidsbedrooms');
+                        stateObj = {
+                            currentView: 'kids-bedrooms',
+                            param: 3
+                        };
+                        navigateToView('kids-bedrooms', stateObj);
                         break
                     case 'receptions':
-                        navigateToView('receptions');
+                        stateObj = {
+                            currentView: 'receptions',
+                            param: 4
+                        };
+                        navigateToView('receptions', stateObj);
                         break
                     case 'diningrooms':
-                        navigateToView('diningrooms');
+                        stateObj = {
+                            currentView: 'diningrooms',
+                            param: 5
+                        };
+                        navigateToView('diningrooms', stateObj);
                         break
                     case 'tvunits':
-                        navigateToView('tvunits');
+                        stateObj = {
+                            currentView: 'tv-units',
+                            param: 6
+                        };
+                        navigateToView('tv-units', stateObj);
                         break
                     case 'interiordesign':
-                        navigateToView('interiordesign');
+                        stateObj = {
+                            currentView: 'interior-design',
+                            param: 10
+                        };
+                        navigateToView('interior-design', stateObj);
                         break
                     default:
                         break
@@ -2007,11 +2073,11 @@ export function populateLang() {
         } else if (flag == 'item') {
             populateItem(currItem[0], currItem[1])
         } else if (flag == 'cart') {
-            populateViewCart()
+            populateGrid(11)
         } else if (flag == 'search') {
-            populateSearchResults()
+            populateGrid(12)
         } else if (flag == 'order') {
-            populateOrder()
+            populateGrid(13)
         }
     })
 }
@@ -2115,7 +2181,7 @@ export function switchLang(target) {
 
 export function navigateToView(view, stateObj) {
     const url = new URL(window.location.href);
-    url.pathname = `/${view}`;
+    url.pathname = ``;
     history.pushState(stateObj, '', url.toString());
     populateGrid(stateObj.param);
 }
@@ -2124,7 +2190,6 @@ window.addEventListener('popstate', (e) => {
     if (e.state) {
         const stateObj = e.state;
         populateGrid(stateObj.param);
-        console.log(stateObj)
         switch (stateObj.currentView) {
             case 'home':
                 newSelect(homeBtn)                            
