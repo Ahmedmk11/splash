@@ -1614,6 +1614,8 @@ export function goHome() {
     const map = document.createElement('div')
     const emaila = document.createElement('a')
     const phonen = document.createElement('a')
+    const mapt = document.createElement('p')
+    const mapDiv = document.createElement('div')
     emaila.href = 'amgadkamalsplash@gmail.com'
     phonen.href = 'tel:+201221045135'
 
@@ -1625,12 +1627,14 @@ export function goHome() {
 
     em.classList.add('empn')
     pn.classList.add('empn')
+    mapDiv.classList.add('mapdiv')
     bottominfo.id = 'bottominfo'
     aboutus.id = 'aboutus'
     contactinfo.id = 'contactinfo'
     locationdiv.id = 'map-cont'
 
     if (document.body.classList.contains('en')) {
+        mapt.textContent = 'Tawfik Ahmed El-Bakry, Al Manteqah as Sadesah, Nasr City, Cairo Governorate 4450473'
         aboutusP.textContent = 'About Us'
         contactusP.textContent = 'Contact Us'
         bodyP.textContent = `We are a furniture and interior design company that has been providing high-quality furniture since 1990.
@@ -1640,6 +1644,7 @@ export function goHome() {
         emailP.textContent = 'Email: '
         phoneP.textContent = 'Phone Number: '
     } else {
+        mapt.textContent = 'توفيق أحمد البكري, المنطقة السادسة، مدينة نصر، محافظة القاهرة 4450473'
         aboutusP.textContent = 'معلومات عنا'
         contactusP.textContent = 'إتصل بنا'
         bodyP.textContent = `نحن شركة أثاث و تصميم داخلي تقدم منتجات عالية الجودة منذ عام 1990.
@@ -1662,7 +1667,9 @@ export function goHome() {
     em.append(emaila)
     pn.append(phoneP)
     pn.append(phonen)
-    locationdiv.appendChild(locationH)
+    mapDiv.appendChild(locationH)
+    mapDiv.appendChild(mapt)
+    locationdiv.appendChild(mapDiv)
     locationdiv.appendChild(map)
     contactinfo.append(contactusP)
     contactinfo.append(em)

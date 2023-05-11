@@ -1087,7 +1087,7 @@ select:focus {
     h2 {
         font-weight: 900;
         text-decoration: underline;
-        text-align: var(--text-align);
+        text-align: center;
     }
     #aboutus {
         padding: 15px;
@@ -1112,6 +1112,10 @@ select:focus {
         -moz-border-radius: 15px;
         -ms-border-radius: 15px;
         -o-border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
         a {
             color: #000;
             font-weight: 900;
@@ -1125,10 +1129,22 @@ select:focus {
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
-            p {
-                align-self: flex-start;
-            }
         }
+    }
+}
+
+.mapdiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+        margin: 2px;
+    }
+    p:nth-child(2) {
+        text-decoration: underline;
+        margin-bottom: 18px;
+        text-align: center;
     }
 }
 
