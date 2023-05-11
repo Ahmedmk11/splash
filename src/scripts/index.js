@@ -1985,6 +1985,11 @@ export function populateGrid(n) {
             let img = createCard(grid, n, i)
             img.addEventListener('click', () => {
                 populateItem(n, i)
+                let stateObj = {
+                    currentView: 'item',
+                    param: -2,
+                }
+                navigateToView('home', stateObj, -1)
             })
         }
         hideMenu()
@@ -2185,18 +2190,20 @@ export function switchLang(target) {
     }
 }
 
-export function navigateToView(view, stateObj) {
+export function navigateToView(view, stateObj, i = 0) {
     const url = new URL(window.location.href)
     url.pathname = ``
     history.pushState(stateObj, '', url.toString())
-    populateGrid(stateObj.param)
+    console.log(stateObj)
+    if (i == 0) {
+        populateGrid(stateObj.param)
+    }
 }
 
 window.addEventListener('popstate', (e) => {
     if (e.state) {
         const stateObj = e.state
         populateGrid(stateObj.param)
-        console.log(stateObj.currentView)
         switch (stateObj.currentView) {
             case 'home':
                 newSelect(homeBtn)
