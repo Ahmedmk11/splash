@@ -261,6 +261,23 @@ img:hover:after {
   color: gray;
 }
 
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+#lblCartCount {
+  font-size: 12px;
+  background: #D3502A;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin: 0px 0px 45px -20px;
+}
+
 form {
   background-color: var(--light-color);
   width: 60vw;

@@ -28,6 +28,7 @@ import {
     srch,
     logoImg,
     cartImg,
+    cartSpan,
     headerUp,
     actionsContainer,
     searchResults,
@@ -43,6 +44,7 @@ import {
 logoImg.id = 'logo-img'
 headerUp.prepend(logoImg)
 clf.append(cartImg)
+clf.append(cartSpan)
 clf.append(menuImg)
 actionsContainer.append(clf)
 

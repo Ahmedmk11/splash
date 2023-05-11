@@ -56,6 +56,7 @@ export const tvunitsP = document.getElementById('tvunits-p')
 export const interiordesignP = document.getElementById('interiordesign-p')
 export const diningroomsP = document.getElementById('diningrooms-p')
 export const addressPop = document.getElementById('address-popup')
+export const cartSpan = document.createElement('span')
 
 export const logoImg = new Image()
 export const cartImg = new Image()
@@ -97,6 +98,10 @@ occasion.appendChild(xImgMsg)
 
 menuImg.classList.add('mobile')
 menu.appendChild(xImg)
+
+cartSpan.classList.add('badge')
+cartSpan.classList.add('badge-warning')
+cartSpan.id = 'lblCartCount'
 
 export const livingroomsArr = importAll(
     require.context(
@@ -339,6 +344,8 @@ if (f4) {
 if (f5) {
     _address = JSON.parse(f5)
 }
+
+cartSpan.textContent = cartArrDetails.length
 
 let resultsQueue = new PriorityQueue((a, b) => {
     if (a[1] > b[1]) {
@@ -786,6 +793,7 @@ export function orderPlaced(id) {
             cartIndexes = []
             tp = 0
             Storage.saveCart(cartArrDetails, cartArr, cartArrOG, cartIndexes)
+            cartSpan.textContent = cartArrDetails.length
 
             btn.addEventListener('click', () => {
                 const stateObj = {
@@ -939,6 +947,7 @@ export function populateOrder() {
 
 export function addToCart(product_index, i) {
     cartIndexes.push(product_index)
+    cartSpan.textContent = cartIndexes.length
     popUp(1, i)
 }
 
@@ -1105,6 +1114,7 @@ export function populateViewCart() {
 
             removeImg.addEventListener('click', () => {
                 cartArrDetails.splice(i, 1)
+                cartSpan.textContent = cartArrDetails.length
                 delete cartArr[`${i}.jpg`]
                 delete cartArrOG[`${i}.jpg`]
                 cartIndexes.splice(i, 1)
@@ -1810,9 +1820,11 @@ function createCard(container, n, index) {
         span.textContent = 'تمت الإضافة إلى عربة التسوق!'
     }
 
+    
     cart.addEventListener('click', () => {
         addToCart(products[parseInt(arrDetails[index])].index, index)
     })
+    
 
     cart.append(span)
     infoL.append(nameP)
@@ -1827,7 +1839,9 @@ function createCard(container, n, index) {
     return img
 }
 
+
 function populateItem(n, i) {
+    console.log(cartArrDetails)
     let arrDetails = chooseDetails(n)
 
     clearScroll()
