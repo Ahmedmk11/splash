@@ -97,10 +97,10 @@ dressingsBtn.addEventListener('click', () => {
 abedroomsBtn.addEventListener('click', () => {
     newSelect(abedroomsBtn)
     const stateObj = {
-        currentView: 'master-bedrooms',
+        currentView: 'adults-bedrooms',
         param: 2,
     }
-    navigateToView('master-bedrooms', stateObj)
+    navigateToView('adults-bedrooms', stateObj)
 })
 
 kbedroomsBtn.addEventListener('click', () => {
@@ -178,10 +178,10 @@ dressingsP.addEventListener('click', () => {
 abedroomsP.addEventListener('click', () => {
     newSelect(abedroomsBtn)
     const stateObj = {
-        currentView: 'master-bedrooms',
+        currentView: 'adults-bedrooms',
         param: 2,
     }
-    navigateToView('master-bedrooms', stateObj)
+    navigateToView('adults-bedrooms', stateObj)
 })
 
 kbedroomsP.addEventListener('click', () => {

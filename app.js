@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
+
 var express = require('express')
 const fs = require('fs')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 var nodemailer = require('nodemailer')
+const path = require('path');
 var app = express()
 let port = process.env.PORT
 
@@ -137,6 +140,10 @@ app.post('/', (req, res) => {
         }
     })
 })
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'index.html'));
+});
 
 app.listen(port, (err) => {
     if (err) throw err

@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable no-unused-vars */
+
 import logo from '../assets/images/pictures/logo.jpg'
 import cartLogo from '../assets/images/icons/cart.svg'
 import menuLogo from '../assets/images/icons/menu.svg'
@@ -474,7 +475,8 @@ export function importAll(r) {
 export function clearScroll() {
     let mc = document.getElementById('middle-container')
     mc.innerHTML = ''
-    window.scrollTo(0, 0)
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
 }
 
 function popUp(m, i) {
@@ -1110,6 +1112,13 @@ export function populateViewCart() {
             img.classList.add('cart-item-img')
             img.addEventListener('click', () => {
                 populateItem(8, i)
+                let ar = chooseDetails(8)
+                let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
+                let stateObj = {
+                    currentView: pageName,
+                    param: 100,
+                }
+                navigateToView(pageName, stateObj, 100)
             })
 
             removeImg.addEventListener('click', () => {
@@ -1335,12 +1344,13 @@ export function searchResults(target) {
             })
         }
     }
-    srch.value = ''
-    const stateObj = {
-        currentView: 'search',
+    let pageName = `search=${srch.value}`
+    let stateObj = {
+        currentView: pageName,
         param: 12,
     }
-    navigateToView('search', stateObj)
+    navigateToView(pageName, stateObj)
+    srch.value = ''
 }
 
 export function populateSearchResults() {
@@ -1427,6 +1437,13 @@ export function populateSearchResults() {
         let img = createCard(grid, -1, i)
         img.addEventListener('click', () => {
             populateItem(-1, i)
+            let ar = chooseDetails(-1)
+            let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
+            let stateObj = {
+                currentView: pageName,
+                param: 100,
+            }
+            navigateToView(pageName, stateObj, 100)
         })
     }
     middleContainer.append(grid)
@@ -1464,6 +1481,13 @@ export function populateRecommendations(r) {
                 let img = createCard(c, 7, i)
                 img.addEventListener('click', () => {
                     populateItem(7, i)
+                    let ar = chooseDetails(7)
+                    let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
+                    let stateObj = {
+                        currentView: pageName,
+                        param: 100,
+                    }
+                    navigateToView(pageName, stateObj, 100)
                 })
                 ar.push(c)
             }
@@ -1841,9 +1865,7 @@ function createCard(container, n, index) {
 
 
 function populateItem(n, i) {
-    console.log(cartArrDetails)
     let arrDetails = chooseDetails(n)
-
     clearScroll()
 
     currItem.push(n)
@@ -1999,11 +2021,13 @@ export function populateGrid(n) {
             let img = createCard(grid, n, i)
             img.addEventListener('click', () => {
                 populateItem(n, i)
+                let ar = chooseDetails(n)
+                let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
                 let stateObj = {
-                    currentView: 'item',
-                    param: -2,
+                    currentView: pageName,
+                    param: 100,
                 }
-                navigateToView('home', stateObj, -1)
+                navigateToView(pageName, stateObj, 100)
             })
         }
         hideMenu()
@@ -2051,10 +2075,10 @@ export function populateLang() {
                         break
                     case 'adults-bedrooms':
                         stateObj = {
-                            currentView: 'master-bedrooms',
+                            currentView: 'adults-bedrooms',
                             param: 2,
                         }
-                        navigateToView('master-bedrooms', stateObj)
+                        navigateToView('adults-bedrooms', stateObj)
                         break
                     case 'kids-bedrooms':
                         stateObj = {
@@ -2204,58 +2228,225 @@ export function switchLang(target) {
     }
 }
 
-export function navigateToView(view, stateObj, i = 0) {
-    const url = new URL(window.location.href)
-    url.pathname = ``
-    history.pushState(stateObj, '', url.toString())
-    console.log(stateObj)
-    if (i == 0) {
-        populateGrid(stateObj.param)
-    }
+// export function navigateToView(view, stateObj, i = 0) {
+//     const url = new URL(window.location.href)
+//     url.pathname = `/${view}`
+//     history.pushState(stateObj, ``, url.toString())
+//     if (i == 100) {
+//         populateItem(currItem[0],currItem[1])
+//     } else {
+//         populateGrid(stateObj.param)
+//     }
+// }
+
+// const handlePopstate = () => {
+//     const url = new URL(window.location.href);
+//     const stateName = url.pathname.slice(1);
+//     const stateObj = history.state;
+  
+//     switch (stateName) {
+//         case 'home':
+//             populateGrid(0);
+//             break;
+//         case 'livingrooms':
+//             populateGrid(1);
+//             break;
+//         case 'dressings':
+//             populateGrid(2);
+//             break;
+//         case 'adults-bedrooms':
+//             populateGrid(3);
+//             break;
+//         case 'kids-bedrooms':
+//             populateGrid(4);
+//             break;
+//         // Add more cases for other states
+//         default:
+//             if (stateObj && stateObj.currentView) {
+//                 const { currentView, param } = stateObj;
+//                 if (param === 100) {
+//                     populateItem(currentView);
+//                 } else {
+//                     // Handle other cases here
+//                 }
+//             } else {
+//                 // Handle invalid states here
+//             }
+//             break;
+//     }
+// };
+  
+
+// window.addEventListener('popstate', (e) => {
+//     if (e.state) {
+//         const stateObj = e.state
+//         if (stateObj.param == 100) {
+//             populateItem(currItem[0], currItem[1])
+//         } else {
+//             populateGrid(stateObj.param)
+//         }
+//         switch (stateObj.currentView) {
+//             case 'home':
+//                 newSelect(homeBtn)
+//                 break
+//             case 'livingrooms':
+//                 newSelect(livingroomsBtn)
+//                 break
+//             case 'dressings':
+//                 newSelect(dressingsBtn)
+//                 break
+//             case 'adults-bedrooms':
+//                 newSelect(abedroomsBtn)
+//                 break
+//             case 'kids-bedrooms':
+//                 newSelect(kbedroomsBtn)
+//                 break
+//             case 'receptions':
+//                 newSelect(receptionsBtn)
+//                 break
+//             case 'diningrooms':
+//                 newSelect(diningroomsBtn)
+//                 break
+//             case 'tv-units':
+//                 newSelect(tvunitsBtn)
+//                 break
+//             case 'interior-design':
+//                 newSelect(interiordesignBtn)
+//                 break
+//             default:
+//                 break
+//         }
+//     }
+// })
+
+// export const initialState = {
+//     currentView: 'home',
+//     param: 0,
+// }
+
+// navigateToView('home', initialState)
+
+function decodeString(str) {
+    return decodeURIComponent(str).replace(/%20/g, ' ');
 }
 
-window.addEventListener('popstate', (e) => {
-    if (e.state) {
-        const stateObj = e.state
-        populateGrid(stateObj.param)
-        switch (stateObj.currentView) {
+export const navigateToView = (view, stateObj, i = 0) => {
+    const url = new URL(window.location.href);
+    url.pathname = `/${view}`
+    history.pushState(stateObj, '', url.toString());
+    if (i === 100) {
+        populateItem(currItem[0], currItem[1]);
+    } else {
+        populateGrid(stateObj.param);
+    }
+};
+
+const handlePopstate = () => {
+    const stateObj = history.state;
+    const stateName = window.location.pathname.slice(1);
+
+    if (stateObj) {
+        const { currentView, param } = stateObj;
+
+        switch (currentView) {
             case 'home':
-                newSelect(homeBtn)
-                break
+                populateGrid(0);
+                newSelect(homeBtn);
+                break;
             case 'livingrooms':
-                newSelect(livingroomsBtn)
-                break
+                populateGrid(1);
+                newSelect(livingroomsBtn);
+                break;
             case 'dressings':
-                newSelect(dressingsBtn)
-                break
+                populateGrid(2);
+                newSelect(dressingsBtn);
+                break;
             case 'adults-bedrooms':
-                newSelect(abedroomsBtn)
-                break
+                populateGrid(3);
+                newSelect(abedroomsBtn);
+                break;
             case 'kids-bedrooms':
-                newSelect(kbedroomsBtn)
-                break
+                populateGrid(4);
+                newSelect(kbedroomsBtn);
+                break;
             case 'receptions':
-                newSelect(receptionsBtn)
-                break
+                populateGrid(5);
+                newSelect(receptionsBtn);
+                break;
             case 'diningrooms':
-                newSelect(diningroomsBtn)
-                break
+                populateGrid(6);
+                newSelect(diningroomsBtn);
+                break;
             case 'tv-units':
-                newSelect(tvunitsBtn)
-                break
+                populateGrid(7);
+                newSelect(tvunitsBtn);
+                break;
             case 'interior-design':
-                newSelect(interiordesignBtn)
-                break
+                populateGrid(8);
+                newSelect(interiordesignBtn);
+                break;
             default:
-                break
+                if (param === 100) {
+                    populateItem(currItem[0], currItem[1]);
+                } else if (param in [11,12,13]) {
+                    populateGrid(param)
+                }
+                break;
         }
+    } else if (stateName) {
+        switch (stateName) {
+            case 'home':
+                populateGrid(0);
+                newSelect(homeBtn);
+                break;
+            case 'livingrooms':
+                populateGrid(1);
+                newSelect(livingroomsBtn);
+                break;
+            case 'dressings':
+                populateGrid(2);
+                newSelect(dressingsBtn);
+                break;
+            case 'adults-bedrooms':
+                populateGrid(3);
+                newSelect(abedroomsBtn);
+                break;
+            case 'kids-bedrooms':
+                populateGrid(4);
+                newSelect(kbedroomsBtn);
+                break;
+            case 'receptions':
+                populateGrid(5);
+                newSelect(receptionsBtn);
+                break;
+            case 'diningrooms':
+                populateGrid(6);
+                newSelect(diningroomsBtn);
+                break;
+            case 'tv-units':
+                populateGrid(7);
+                newSelect(tvunitsBtn);
+                break;
+            case 'interior-design':
+                populateGrid(8);
+                newSelect(interiordesignBtn);
+                break;
+            default:
+                if (/[\d]/.test(stateName)) {
+                    // populateItem(currItem[0], currItem[1]);
+                } else if (stateName === 'cart') {
+                    populateGrid(11)
+                } else if (stateName.includes('search')) {
+                    searchResults(decodeString(stateName.split("=")[1]))
+                } else if (stateName === 'order') {
+                    populateGrid(13)
+                }
+                break;
+        }
+    } else {
+        navigateToView('home', { currentView: 'home', param: 0 });
     }
-})
+};
 
-export const initialState = {
-    currentView: 'home',
-    param: 0,
-}
-
-history.replaceState(initialState, '', window.location.href)
-populateGrid(initialState.param)
+window.addEventListener('popstate', handlePopstate);
+navigateToView('home', { currentView: 'home', param: 0 });
