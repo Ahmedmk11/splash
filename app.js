@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 var nodemailer = require('nodemailer')
 const path = require('path');
 var app = express()
-let port = process.env.PORT
+let port = process.env.PORT || 8080
 
 app.use(
     cors({
@@ -140,6 +140,14 @@ app.post('/', (req, res) => {
         }
     })
 })
+
+app.use((req, res, next) => {
+    if (req.method === 'GET' && req.accepts('html') && !req.is('json') && !req.path.includes('.')) {
+      res.sendFile(path.join(__dirname, 'src', 'index.html'));
+    } else {
+      next();
+    }
+});
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'index.html'));
