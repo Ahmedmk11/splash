@@ -2228,225 +2228,226 @@ export function switchLang(target) {
     }
 }
 
-// export function navigateToView(view, stateObj, i = 0) {
-//     const url = new URL(window.location.href)
-//     url.pathname = `/${view}`
-//     history.pushState(stateObj, ``, url.toString())
-//     if (i == 100) {
-//         populateItem(currItem[0],currItem[1])
-//     } else {
-//         populateGrid(stateObj.param)
-//     }
-// }
-
-// const handlePopstate = () => {
-//     const url = new URL(window.location.href);
-//     const stateName = url.pathname.slice(1);
-//     const stateObj = history.state;
-  
-//     switch (stateName) {
-//         case 'home':
-//             populateGrid(0);
-//             break;
-//         case 'livingrooms':
-//             populateGrid(1);
-//             break;
-//         case 'dressings':
-//             populateGrid(2);
-//             break;
-//         case 'adults-bedrooms':
-//             populateGrid(3);
-//             break;
-//         case 'kids-bedrooms':
-//             populateGrid(4);
-//             break;
-//         // Add more cases for other states
-//         default:
-//             if (stateObj && stateObj.currentView) {
-//                 const { currentView, param } = stateObj;
-//                 if (param === 100) {
-//                     populateItem(currentView);
-//                 } else {
-//                     // Handle other cases here
-//                 }
-//             } else {
-//                 // Handle invalid states here
-//             }
-//             break;
-//     }
-// };
-  
-
-// window.addEventListener('popstate', (e) => {
-//     if (e.state) {
-//         const stateObj = e.state
-//         if (stateObj.param == 100) {
-//             populateItem(currItem[0], currItem[1])
-//         } else {
-//             populateGrid(stateObj.param)
-//         }
-//         switch (stateObj.currentView) {
-//             case 'home':
-//                 newSelect(homeBtn)
-//                 break
-//             case 'livingrooms':
-//                 newSelect(livingroomsBtn)
-//                 break
-//             case 'dressings':
-//                 newSelect(dressingsBtn)
-//                 break
-//             case 'adults-bedrooms':
-//                 newSelect(abedroomsBtn)
-//                 break
-//             case 'kids-bedrooms':
-//                 newSelect(kbedroomsBtn)
-//                 break
-//             case 'receptions':
-//                 newSelect(receptionsBtn)
-//                 break
-//             case 'diningrooms':
-//                 newSelect(diningroomsBtn)
-//                 break
-//             case 'tv-units':
-//                 newSelect(tvunitsBtn)
-//                 break
-//             case 'interior-design':
-//                 newSelect(interiordesignBtn)
-//                 break
-//             default:
-//                 break
-//         }
-//     }
-// })
-
-// export const initialState = {
-//     currentView: 'home',
-//     param: 0,
-// }
-
-// navigateToView('home', initialState)
-
-function decodeString(str) {
-    return decodeURIComponent(str).replace(/%20/g, ' ');
+export function navigateToView(view, stateObj, i = 0) {
+    const url = new URL(window.location.href)
+    url.pathname = `/`
+    // url.pathname = `/${view}`
+    history.pushState(stateObj, ``, url.toString())
+    if (i == 100) {
+        populateItem(currItem[0],currItem[1])
+    } else {
+        populateGrid(stateObj.param)
+    }
 }
 
-export const navigateToView = (view, stateObj, i = 0) => {
-    const url = new URL(window.location.href);
-    url.pathname = `/${view}`
-    history.pushState(stateObj, '', url.toString());
-    if (i === 100) {
-        populateItem(currItem[0], currItem[1]);
-    } else {
-        populateGrid(stateObj.param);
-    }
-};
-
 const handlePopstate = () => {
+    const url = new URL(window.location.href);
+    const stateName = url.pathname.slice(1);
     const stateObj = history.state;
-    const stateName = window.location.pathname.slice(1);
-
-    if (stateObj) {
-        const { currentView, param } = stateObj;
-
-        switch (currentView) {
-            case 'home':
-                populateGrid(0);
-                newSelect(homeBtn);
-                break;
-            case 'livingrooms':
-                populateGrid(1);
-                newSelect(livingroomsBtn);
-                break;
-            case 'dressings':
-                populateGrid(2);
-                newSelect(dressingsBtn);
-                break;
-            case 'adults-bedrooms':
-                populateGrid(3);
-                newSelect(abedroomsBtn);
-                break;
-            case 'kids-bedrooms':
-                populateGrid(4);
-                newSelect(kbedroomsBtn);
-                break;
-            case 'receptions':
-                populateGrid(5);
-                newSelect(receptionsBtn);
-                break;
-            case 'diningrooms':
-                populateGrid(6);
-                newSelect(diningroomsBtn);
-                break;
-            case 'tv-units':
-                populateGrid(7);
-                newSelect(tvunitsBtn);
-                break;
-            case 'interior-design':
-                populateGrid(8);
-                newSelect(interiordesignBtn);
-                break;
-            default:
+  
+    switch (stateName) {
+        case 'home':
+            populateGrid(0);
+            break;
+        case 'livingrooms':
+            populateGrid(1);
+            break;
+        case 'dressings':
+            populateGrid(2);
+            break;
+        case 'adults-bedrooms':
+            populateGrid(3);
+            break;
+        case 'kids-bedrooms':
+            populateGrid(4);
+            break;
+        // Add more cases for other states
+        default:
+            if (stateObj && stateObj.currentView) {
+                const { currentView, param } = stateObj;
                 if (param === 100) {
-                    populateItem(currItem[0], currItem[1]);
-                } else if (param in [11,12,13]) {
-                    populateGrid(param)
+                    populateItem(currentView);
+                } else {
+                    // Handle other cases here
                 }
-                break;
-        }
-    } else if (stateName) {
-        switch (stateName) {
-            case 'home':
-                populateGrid(0);
-                newSelect(homeBtn);
-                break;
-            case 'livingrooms':
-                populateGrid(1);
-                newSelect(livingroomsBtn);
-                break;
-            case 'dressings':
-                populateGrid(2);
-                newSelect(dressingsBtn);
-                break;
-            case 'adults-bedrooms':
-                populateGrid(3);
-                newSelect(abedroomsBtn);
-                break;
-            case 'kids-bedrooms':
-                populateGrid(4);
-                newSelect(kbedroomsBtn);
-                break;
-            case 'receptions':
-                populateGrid(5);
-                newSelect(receptionsBtn);
-                break;
-            case 'diningrooms':
-                populateGrid(6);
-                newSelect(diningroomsBtn);
-                break;
-            case 'tv-units':
-                populateGrid(7);
-                newSelect(tvunitsBtn);
-                break;
-            case 'interior-design':
-                populateGrid(8);
-                newSelect(interiordesignBtn);
-                break;
-            default:
-                if (/[\d]/.test(stateName)) {
-                    // populateItem(currItem[0], currItem[1]);
-                } else if (stateName === 'cart') {
-                    populateGrid(11)
-                } else if (stateName.includes('search')) {
-                    searchResults(decodeString(stateName.split("=")[1]))
-                } else if (stateName === 'order') {
-                    populateGrid(13)
-                }
-                break;
-        }
-    } else {
-        navigateToView('home', { currentView: 'home', param: 0 });
+            } else {
+                // Handle invalid states here
+            }
+            break;
     }
 };
+  
 
-window.addEventListener('popstate', handlePopstate);
-navigateToView('home', { currentView: 'home', param: 0 });
+window.addEventListener('popstate', (e) => {
+    if (e.state) {
+        const stateObj = e.state
+        if (stateObj.param == 100) {
+            populateItem(currItem[0], currItem[1])
+        } else {
+            populateGrid(stateObj.param)
+        }
+        switch (stateObj.currentView) {
+            case 'home':
+                newSelect(homeBtn)
+                break
+            case 'livingrooms':
+                newSelect(livingroomsBtn)
+                break
+            case 'dressings':
+                newSelect(dressingsBtn)
+                break
+            case 'adults-bedrooms':
+                newSelect(abedroomsBtn)
+                break
+            case 'kids-bedrooms':
+                newSelect(kbedroomsBtn)
+                break
+            case 'receptions':
+                newSelect(receptionsBtn)
+                break
+            case 'diningrooms':
+                newSelect(diningroomsBtn)
+                break
+            case 'tv-units':
+                newSelect(tvunitsBtn)
+                break
+            case 'interior-design':
+                newSelect(interiordesignBtn)
+                break
+            default:
+                break
+        }
+    }
+})
+
+export const initialState = {
+    currentView: 'home',
+    param: 0,
+}
+
+navigateToView('home', initialState)
+
+// function decodeString(str) {
+//     return decodeURIComponent(str).replace(/%20/g, ' ');
+// }
+
+// export const navigateToView = (view, stateObj, i = 0) => {
+//     const url = new URL(window.location.href);
+//     url.pathname = `/${view}`
+//     history.pushState(stateObj, '', url.toString());
+//     if (i === 100) {
+//         populateItem(currItem[0], currItem[1]);
+//     } else {
+//         populateGrid(stateObj.param);
+//     }
+// };
+
+// const handlePopstate = () => {
+//     const stateObj = history.state;
+//     const stateName = window.location.pathname.slice(1);
+
+//     if (stateObj) {
+//         const { currentView, param } = stateObj;
+
+//         switch (currentView) {
+//             case 'home':
+//                 populateGrid(0);
+//                 newSelect(homeBtn);
+//                 break;
+//             case 'livingrooms':
+//                 populateGrid(1);
+//                 newSelect(livingroomsBtn);
+//                 break;
+//             case 'dressings':
+//                 populateGrid(2);
+//                 newSelect(dressingsBtn);
+//                 break;
+//             case 'adults-bedrooms':
+//                 populateGrid(3);
+//                 newSelect(abedroomsBtn);
+//                 break;
+//             case 'kids-bedrooms':
+//                 populateGrid(4);
+//                 newSelect(kbedroomsBtn);
+//                 break;
+//             case 'receptions':
+//                 populateGrid(5);
+//                 newSelect(receptionsBtn);
+//                 break;
+//             case 'diningrooms':
+//                 populateGrid(6);
+//                 newSelect(diningroomsBtn);
+//                 break;
+//             case 'tv-units':
+//                 populateGrid(7);
+//                 newSelect(tvunitsBtn);
+//                 break;
+//             case 'interior-design':
+//                 populateGrid(8);
+//                 newSelect(interiordesignBtn);
+//                 break;
+//             default:
+//                 if (param === 100) {
+//                     populateItem(currItem[0], currItem[1]);
+//                 } else if (param in [11,12,13]) {
+//                     populateGrid(param)
+//                 }
+//                 break;
+//         }
+//     } else if (stateName) {
+//         switch (stateName) {
+//             case 'home':
+//                 populateGrid(0);
+//                 newSelect(homeBtn);
+//                 break;
+//             case 'livingrooms':
+//                 populateGrid(1);
+//                 newSelect(livingroomsBtn);
+//                 break;
+//             case 'dressings':
+//                 populateGrid(2);
+//                 newSelect(dressingsBtn);
+//                 break;
+//             case 'adults-bedrooms':
+//                 populateGrid(3);
+//                 newSelect(abedroomsBtn);
+//                 break;
+//             case 'kids-bedrooms':
+//                 populateGrid(4);
+//                 newSelect(kbedroomsBtn);
+//                 break;
+//             case 'receptions':
+//                 populateGrid(5);
+//                 newSelect(receptionsBtn);
+//                 break;
+//             case 'diningrooms':
+//                 populateGrid(6);
+//                 newSelect(diningroomsBtn);
+//                 break;
+//             case 'tv-units':
+//                 populateGrid(7);
+//                 newSelect(tvunitsBtn);
+//                 break;
+//             case 'interior-design':
+//                 populateGrid(8);
+//                 newSelect(interiordesignBtn);
+//                 break;
+//             default:
+//                 if (/[\d]/.test(stateName)) {
+//                     // populateItem(currItem[0], currItem[1]);
+//                 } else if (stateName === 'cart') {
+//                     populateGrid(11)
+//                 } else if (stateName.includes('search')) {
+//                     searchResults(decodeString(stateName.split("=")[1]))
+//                 } else if (stateName === 'order') {
+//                     populateGrid(13)
+//                 }
+//                 break;
+//         }
+//     } else {
+//         navigateToView('home', { currentView: 'home', param: 0 });
+//     }
+// };
+
+// window.addEventListener('popstate', handlePopstate);
+// navigateToView('home', { currentView: 'home', param: 0 });

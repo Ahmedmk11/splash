@@ -141,17 +141,17 @@ app.post('/', (req, res) => {
     })
 })
 
-app.use((req, res, next) => {
-    if (req.method === 'GET' && req.accepts('html') && !req.is('json') && !req.path.includes('.')) {
-      res.sendFile(path.join(__dirname, 'src', 'index.html'));
-    } else {
-      next();
-    }
-});
+// app.use((req, res, next) => {
+//     if (req.method === 'GET' && req.accepts('html') && !req.is('json') && !req.path.includes('.')) {
+//       res.sendFile(path.join(__dirname, 'src', 'index.html'));
+//     } else {
+//       next();
+//     }
+// });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'src', 'index.html'));
+// });
 
 app.listen(port, (err) => {
     if (err) throw err
