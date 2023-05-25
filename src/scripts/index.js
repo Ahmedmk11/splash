@@ -97,6 +97,8 @@ sm.appendChild(pn)
 
 occasion.appendChild(xImgMsg)
 
+occasion.remove()
+
 menuImg.classList.add('mobile')
 menu.appendChild(xImg)
 
@@ -1867,6 +1869,7 @@ function createCard(container, n, index) {
 function populateItem(n, i) {
     let arrDetails = chooseDetails(n)
     clearScroll()
+    currItem = []
 
     currItem.push(n)
     currItem.push(i)
