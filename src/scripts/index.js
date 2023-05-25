@@ -1962,6 +1962,7 @@ function populateItem(n, i) {
             x2.setAttribute('style', 'width: 40px;height: 40px;')
             zoomedIn.classList.add('zoomed-in')
             x2.classList.add('x2')
+            x2.id = 'close-zoom'
             zoomedCont.classList.add('zoomed-container')
             zoomedCont.appendChild(zoomedIn)
             zoomedCont.appendChild(x2)
@@ -2282,6 +2283,9 @@ const handlePopstate = () => {
   
 
 window.addEventListener('popstate', (e) => {
+    if (document.getElementById('close-zoom')) {
+        document.getElementById('close-zoom').click()
+    }
     if (e.state) {
         const stateObj = e.state
         if (stateObj.param == 100) {
