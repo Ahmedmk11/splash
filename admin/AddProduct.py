@@ -217,7 +217,7 @@ e9.grid(row=8, column=1)
 p10 = Label(window,text = "Import Image", font=('Arial', 18))
 p10.grid(row = 9, column = 0)
 e10 = Button(window, text='Upload Original', width=20,command = lambda:upload_file(1,e10), state=DISABLED)
-e10.grid(row= 9, column=1) 
+e10.grid(row= 9, column=1)
 
 btn = Button(window, text = "Add Product", fg = "black", command= added, width=8, height=2)
 btn.grid(row = 10, column = 0)

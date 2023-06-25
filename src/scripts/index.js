@@ -1803,66 +1803,76 @@ function createCard(container, n, index) {
     let p_title_ar = ''
     let p_price_en = ''
     let p_price_ar = ''
+    let design = (arr == interiordesignArr) ? true : false
+    if (!design) {
+        const tmp = document.createElement('div')
+        const info = document.createElement('div')
+        const infoL = document.createElement('div')
+        const cart = document.createElement('button')
+        const tmpL = document.createElement('div')
+        const nameP = document.createElement('p')
+        const priceP = document.createElement('p')
+        const hr = document.createElement('hr')
+        let span = document.createElement('span')
+        span.classList.add('popuptext')
+        span.id = `myPopup-${index}`
+        cart.classList.add('ttpopup')
+        tmp.classList.add('item')
+        info.classList.add('info')
+        infoL.classList.add('info-left')
+        let img = new Image()
+        img.src = arr[`${index}.jpg`]
+        p_title_en = document.createElement('p').textContent =
+            products[parseInt(arrDetails[index])].product_title_en
+        p_title_ar = document.createElement('p').textContent =
+            products[parseInt(arrDetails[index])].product_title_ar
+        p_price_en = document.createElement('p').textContent =
+            products[parseInt(arrDetails[index])].product_price_en
+        p_price_ar = document.createElement('p').textContent =
+            products[parseInt(arrDetails[index])].product_price_ar
+        if (n == 7) {
+            infoL.classList.add('recommendation-info-L')
+            info.classList.add('recommendation-info')
+        }
+        img.setAttribute('data-scale', '1.2')
+        if (langBtn.value == 'english') {
+            nameP.textContent = p_title_en
+            cart.textContent = 'Add to Cart'
+            priceP.textContent = p_price_en
+            span.textContent = 'Item Added to Cart!'
+        } else {
+            nameP.textContent = p_title_ar
+            cart.textContent = 'اضافة الي عربة التسوق'
+            priceP.textContent = p_price_ar
+            span.textContent = 'تمت الإضافة إلى عربة التسوق!'
+        }
 
-    const tmp = document.createElement('div')
-    const info = document.createElement('div')
-    const infoL = document.createElement('div')
-    const cart = document.createElement('button')
-    const tmpL = document.createElement('div')
-    const nameP = document.createElement('p')
-    const priceP = document.createElement('p')
-    const hr = document.createElement('hr')
-    let span = document.createElement('span')
-    span.classList.add('popuptext')
-    span.id = `myPopup-${index}`
-    cart.classList.add('ttpopup')
-    tmp.classList.add('item')
-    info.classList.add('info')
-    infoL.classList.add('info-left')
-    const img = new Image()
-    img.src = arr[`${index}.jpg`]
-    p_title_en = document.createElement('p').textContent =
-        products[parseInt(arrDetails[index])].product_title_en
-    p_title_ar = document.createElement('p').textContent =
-        products[parseInt(arrDetails[index])].product_title_ar
-    p_price_en = document.createElement('p').textContent =
-        products[parseInt(arrDetails[index])].product_price_en
-    p_price_ar = document.createElement('p').textContent =
-        products[parseInt(arrDetails[index])].product_price_ar
-    if (n == 7) {
-        infoL.classList.add('recommendation-info-L')
-        info.classList.add('recommendation-info')
-    }
-    img.setAttribute('data-scale', '1.2')
-    if (langBtn.value == 'english') {
-        nameP.textContent = p_title_en
-        cart.textContent = 'Add to Cart'
-        priceP.textContent = p_price_en
-        span.textContent = 'Item Added to Cart!'
+        
+        cart.addEventListener('click', () => {
+            addToCart(products[parseInt(arrDetails[index])].index, index)
+        })
+        
+
+        cart.append(span)
+        infoL.append(nameP)
+        infoL.append(priceP)
+        info.append(infoL)
+        tmpL.append(hr)
+        tmpL.append(info)
+        tmp.append(img)
+        tmp.append(tmpL)
+        tmp.append(cart)
+        container.append(tmp)
+        return img
     } else {
-        nameP.textContent = p_title_ar
-        cart.textContent = 'اضافة الي عربة التسوق'
-        priceP.textContent = p_price_ar
-        span.textContent = 'تمت الإضافة إلى عربة التسوق!'
+        let img = new Image()
+        let div = document.createElement('div')
+        img.src = arr[`${index}.jpg`]
+        div.classList.add('design-img')
+        div.append(img)
+        container.append(div)
+        return img
     }
-
-    
-    cart.addEventListener('click', () => {
-        addToCart(products[parseInt(arrDetails[index])].index, index)
-    })
-    
-
-    cart.append(span)
-    infoL.append(nameP)
-    infoL.append(priceP)
-    info.append(infoL)
-    tmpL.append(hr)
-    tmpL.append(info)
-    tmp.append(img)
-    tmp.append(tmpL)
-    tmp.append(cart)
-    container.append(tmp)
-    return img
 }
 
 
@@ -1947,6 +1957,7 @@ function populateItem(n, i) {
     p_desc_ar = document.createElement('p').textContent =
         products[parseInt(arrDetails[i])].product_description_ar
 
+
     img.addEventListener('click', () => {
         if (!fl) {
             const zoomedCont = document.createElement('div')
@@ -2016,7 +2027,7 @@ export function populateGrid(n) {
         let imageArr = chooseMode(n)
         flag = 'page'
         let grid = document.createElement('div')
-
+        let fl = false
         grid.id = 'grid'
 
         showResultsCount(middleContainer, imageArr)
@@ -2024,14 +2035,50 @@ export function populateGrid(n) {
         for (let i = 0; i < Object.keys(imageArr).length; i++) {
             let img = createCard(grid, n, i)
             img.addEventListener('click', () => {
-                populateItem(n, i)
-                let ar = chooseDetails(n)
-                let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
-                let stateObj = {
-                    currentView: pageName,
-                    param: 100,
+                if (n != 10) {
+                    populateItem(n, i)
+                    let ar = chooseDetails(n)
+                    let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
+                    let stateObj = {
+                        currentView: pageName,
+                        param: 100,
+                    }
+                    navigateToView(pageName, stateObj, 100)
+                } else {
+                    if (!fl) {
+                        const zoomedCont = document.createElement('div')
+                        const blurred = document.body.children
+                        for (let k = 0; k < blurred.length; k++) {
+                            blurred[k].classList.add('popup')
+                        }
+                        fl = true
+                        let zoomedIn = new Image()
+                        let x2 = new Image()
+                        zoomedIn.src = imageArr[`${i}.jpg`]
+                        x2.src = x2Icn
+                        x2.setAttribute('style', 'width: 40px;height: 40px;')
+                        zoomedIn.classList.add('zoomed-in')
+                        x2.classList.add('x2')
+                        x2.id = 'close-zoom'
+                        zoomedCont.classList.add('zoomed-container')
+                        zoomedCont.appendChild(zoomedIn)
+                        zoomedCont.appendChild(x2)
+                        document.body.appendChild(zoomedCont)
+                        x2.addEventListener('click', () => {
+                            fl = false
+                            const elements = document.getElementsByClassName('zoomed-in')
+                            const el = document.getElementsByClassName('x2')
+                            const con = document.getElementsByClassName('zoomed-container')
+                            elements[0].parentNode.removeChild(elements[0])
+                            el[0].parentNode.removeChild(el[0])
+                            const blurred = document.body.children
+                            for (let k = 0; k < blurred.length; k++) {
+                                blurred[k].classList.remove('popup')
+                            }
+                            con[0].parentNode.removeChild(con[0])
+                        })
+                    }
                 }
-                navigateToView(pageName, stateObj, 100)
             })
         }
         hideMenu()

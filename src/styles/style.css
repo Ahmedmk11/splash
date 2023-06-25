@@ -1207,11 +1207,28 @@ select:focus {
   width: 90%;
   min-height: fit-content;
   display: grid;
-  gap: 40px;
+  gap: 10px;
   grid-template-columns: repeat(auto-fill, 400px);
   grid-template-rows: repeat(auto-fill, 500px);
   justify-content: center;
   direction: var(--direction);
+}
+#middle-container #grid .design-img {
+  position: relative;
+  overflow: hidden;
+  height: auto;
+}
+#middle-container #grid .design-img img {
+  cursor: pointer;
+}
+#middle-container #grid .design-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-out;
+}
+#middle-container #grid .design-img:hover img {
+  transform: scale(1.1);
 }
 
 #results-found {
