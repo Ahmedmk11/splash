@@ -1649,14 +1649,20 @@ export function goHome() {
     const locationH = document.createElement('p')
     const map = document.createElement('div')
     const emaila = document.createElement('a')
-    const phonen = document.createElement('a')
+    const phonen1 = document.createElement('a')
+    const phonen2 = document.createElement('a')
+    const phonen3 = document.createElement('a')
     const mapt = document.createElement('p')
     const mapDiv = document.createElement('div')
     emaila.href = 'amgadkamalsplash@gmail.com'
-    phonen.href = 'tel:+201221045135'
+    phonen1.href = 'tel:+201221045135'
+    phonen2.href = 'tel:+201061499915'
+    phonen3.href = 'tel:0223519255'
 
     emaila.textContent = 'amgadkamalsplash@gmail.com'
-    phonen.textContent = '\u200e+201221045135'
+    phonen1.textContent = '\u200e+201221045135, '
+    phonen2.textContent = '\u200e+201061499915, '
+    phonen3.textContent = '\u200e0223519255'
 
     const em = document.createElement('div')
     const pn = document.createElement('div')
@@ -1678,7 +1684,7 @@ export function goHome() {
             We offer a wide range of furniture options, including a custom-furniture option, allowing you to create a truly unique piece that fits your specific needs.`
         locationH.textContent = 'Address: '
         emailP.textContent = 'Email: '
-        phoneP.textContent = 'Phone Number: '
+        phoneP.textContent = 'Phone Numbers: '
     } else {
         mapt.textContent = 'توفيق أحمد البكري, المنطقة السادسة، مدينة نصر، محافظة القاهرة 4450473'
         aboutusP.textContent = 'معلومات عنا'
@@ -1688,7 +1694,7 @@ export function goHome() {
             لدينا مجموعة واسعة من الخيارات التي ترضي جميع الأذواق ويمكننا أن نصنع لك التصميم التي تفضله ليتناسب مع احتياجاتك الخاصة.`
         locationH.textContent = 'العنوان: '
         emailP.textContent = 'البريد الالكتروني: '
-        phoneP.textContent = 'رقم الهاتف: '
+        phoneP.textContent = 'ارقام الهاتف: '
     }
 
     map.innerHTML =
@@ -1702,7 +1708,9 @@ export function goHome() {
     em.append(emailP)
     em.append(emaila)
     pn.append(phoneP)
-    pn.append(phonen)
+    pn.append(phonen1)
+    pn.append(phonen2)
+    pn.append(phonen3) //here
     mapDiv.appendChild(locationH)
     mapDiv.appendChild(mapt)
     locationdiv.appendChild(mapDiv)

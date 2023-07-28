@@ -1246,8 +1246,7 @@ select:focus {
             height: auto;
             transition: transform 0.3s ease-out;
         }
-          
-        .design-img:hover img {
+        img:hover {
             transform: scale(1.1);
         }
     }

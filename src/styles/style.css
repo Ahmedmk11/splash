@@ -1227,7 +1227,7 @@ select:focus {
   height: auto;
   transition: transform 0.3s ease-out;
 }
-#middle-container #grid .design-img:hover img {
+#middle-container #grid img:hover {
   transform: scale(1.1);
 }
 
