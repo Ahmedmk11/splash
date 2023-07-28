@@ -1316,36 +1316,36 @@ export function searchResults(target) {
                 breakk = true
             }
         }
-    }
-    if (!breakk) {
-        for (let i = 0; i < products.length; i++) {
-            let pool = []
-            const product = products[i]
-            pool.push(
-                product.product_description_ar,
-                product.product_description_en,
-                product.product_title_ar,
-                product.product_title_en,
-                product.product_type
-            )
-            pool.forEach((el) => {
-                if (el.length > 1) {
-                    el = el.toUpperCase()
-                    let sim = similarity(el, target)
-                    if (
-                        sim > 0.65 ||
-                        (target.length > 1 &&
-                            (el.includes(target) || target.includes(el)))
-                    ) {
-                        if (!added.includes(product.p_id)) {
-                            resultsQueue.enqueue([i, sim, product.product_type])
-                            added.push(product.p_id)
-                        }
-                    }
-                }
-            })
-        }
-    }
+    } // uncomment when adding more product info
+    // if (!breakk) {
+    //     for (let i = 0; i < products.length; i++) {
+    //         let pool = []
+    //         const product = products[i]
+    //         pool.push(
+    //             product.product_description_ar,
+    //             product.product_description_en,
+    //             product.product_title_ar,
+    //             product.product_title_en,
+    //             product.product_type
+    //         )
+    //         pool.forEach((el) => {
+    //             if (el.length > 1) {
+    //                 el = el.toUpperCase()
+    //                 let sim = similarity(el, target)
+    //                 if (
+    //                     sim > 0.65 ||
+    //                     (target.length > 1 &&
+    //                         (el.includes(target) || target.includes(el)))
+    //                 ) {
+    //                     if (!added.includes(product.p_id)) {
+    //                         resultsQueue.enqueue([i, sim, product.product_type])
+    //                         added.push(product.p_id)
+    //                     }
+    //                 }
+    //             }
+    //         })
+    //     }
+    // }
     let pageName = `search=${srch.value}`
     let stateObj = {
         currentView: pageName,
