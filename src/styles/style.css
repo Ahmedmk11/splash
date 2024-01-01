@@ -271,7 +271,7 @@ img:hover:after {
 
 #lblCartCount {
   font-size: 12px;
-  background: #D3502A;
+  background: #d3502a;
   color: #fff;
   padding: 0 5px;
   vertical-align: top;
@@ -1226,9 +1226,6 @@ select:focus {
   width: 100%;
   height: auto;
   transition: transform 0.3s ease-out;
-}
-#middle-container #grid img:hover {
-  transform: scale(1.1);
 }
 
 #results-found {

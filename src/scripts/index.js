@@ -1856,7 +1856,6 @@ function createCard(container, n, index) {
             infoL.classList.add('recommendation-info-L')
             info.classList.add('recommendation-info')
         }
-        img.setAttribute('data-scale', '1.2')
         if (langBtn.value == 'english') {
             nameP.textContent = p_title_en
             cart.textContent = 'Add to Cart'
