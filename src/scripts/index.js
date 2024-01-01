@@ -1115,7 +1115,11 @@ export function populateViewCart() {
             img.addEventListener('click', () => {
                 populateItem(8, i)
                 let ar = chooseDetails(8)
-                let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
+                let pageName = `${products[parseInt(ar[i])].product_type
+                    .toLowerCase()
+                    .replace(/ /g, '-')}/${products[
+                    parseInt(ar[i])
+                ].p_id.toLowerCase()}`
                 let stateObj = {
                     currentView: pageName,
                     param: 100,
@@ -1440,7 +1444,11 @@ export function populateSearchResults() {
         img.addEventListener('click', () => {
             populateItem(-1, i)
             let ar = chooseDetails(-1)
-            let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
+            let pageName = `${products[parseInt(ar[i])].product_type
+                .toLowerCase()
+                .replace(/ /g, '-')}/${products[
+                parseInt(ar[i])
+            ].p_id.toLowerCase()}`
             let stateObj = {
                 currentView: pageName,
                 param: 100,
@@ -1484,7 +1492,11 @@ export function populateRecommendations(r) {
                 img.addEventListener('click', () => {
                     populateItem(7, i)
                     let ar = chooseDetails(7)
-                    let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
+                    let pageName = `${products[parseInt(ar[i])].product_type
+                        .toLowerCase()
+                        .replace(/ /g, '-')}/${products[
+                        parseInt(ar[i])
+                    ].p_id.toLowerCase()}`
                     let stateObj = {
                         currentView: pageName,
                         param: 100,
@@ -1655,12 +1667,12 @@ export function goHome() {
     const mapt = document.createElement('p')
     const mapDiv = document.createElement('div')
     emaila.href = 'amgadkamalsplash@gmail.com'
-    phonen1.href = 'tel:+201221045135'
+    phonen1.href = 'tel:+201023223921'
     phonen2.href = 'tel:+201061499915'
     phonen3.href = 'tel:0223519255'
 
     emaila.textContent = 'amgadkamalsplash@gmail.com'
-    phonen1.textContent = '\u200e+201221045135, '
+    phonen1.textContent = '\u200e+201023223921, '
     phonen2.textContent = '\u200e+201061499915, '
     phonen3.textContent = '\u200e0223519255'
 
@@ -1676,7 +1688,8 @@ export function goHome() {
     locationdiv.id = 'map-cont'
 
     if (document.body.classList.contains('en')) {
-        mapt.textContent = 'Tawfik Ahmed El-Bakry, Al Manteqah as Sadesah, Nasr City, Cairo Governorate 4450473'
+        mapt.textContent =
+            'Tawfik Ahmed El-Bakry, Al Manteqah as Sadesah, Nasr City, Cairo Governorate 4450473'
         aboutusP.textContent = 'About Us'
         contactusP.textContent = 'Contact Us'
         bodyP.textContent = `We are a furniture and interior design company that has been providing high-quality furniture since 1990.
@@ -1686,7 +1699,8 @@ export function goHome() {
         emailP.textContent = 'Email: '
         phoneP.textContent = 'Phone Numbers: '
     } else {
-        mapt.textContent = 'توفيق أحمد البكري, المنطقة السادسة، مدينة نصر، محافظة القاهرة 4450473'
+        mapt.textContent =
+            'توفيق أحمد البكري, المنطقة السادسة، مدينة نصر، محافظة القاهرة 4450473'
         aboutusP.textContent = 'معلومات عنا'
         contactusP.textContent = 'إتصل بنا'
         bodyP.textContent = `نحن شركة أثاث و تصميم داخلي تقدم منتجات عالية الجودة منذ عام 1990.
@@ -1811,7 +1825,7 @@ function createCard(container, n, index) {
     let p_title_ar = ''
     let p_price_en = ''
     let p_price_ar = ''
-    let design = (arr == interiordesignArr) ? true : false
+    let design = arr == interiordesignArr ? true : false
     if (!design) {
         const tmp = document.createElement('div')
         const info = document.createElement('div')
@@ -1855,11 +1869,9 @@ function createCard(container, n, index) {
             span.textContent = 'تمت الإضافة إلى عربة التسوق!'
         }
 
-        
         cart.addEventListener('click', () => {
             addToCart(products[parseInt(arrDetails[index])].index, index)
         })
-        
 
         cart.append(span)
         infoL.append(nameP)
@@ -1882,7 +1894,6 @@ function createCard(container, n, index) {
         return img
     }
 }
-
 
 function populateItem(n, i) {
     let arrDetails = chooseDetails(n)
@@ -1965,7 +1976,6 @@ function populateItem(n, i) {
     p_desc_ar = document.createElement('p').textContent =
         products[parseInt(arrDetails[i])].product_description_ar
 
-
     img.addEventListener('click', () => {
         if (!fl) {
             const zoomedCont = document.createElement('div')
@@ -2046,7 +2056,11 @@ export function populateGrid(n) {
                 if (n != 10) {
                     populateItem(n, i)
                     let ar = chooseDetails(n)
-                    let pageName = `${products[parseInt(ar[i])].product_type.toLowerCase().replace(/ /g, "-")}/${products[parseInt(ar[i])].p_id.toLowerCase()}`
+                    let pageName = `${products[parseInt(ar[i])].product_type
+                        .toLowerCase()
+                        .replace(/ /g, '-')}/${products[
+                        parseInt(ar[i])
+                    ].p_id.toLowerCase()}`
                     let stateObj = {
                         currentView: pageName,
                         param: 100,
@@ -2074,9 +2088,13 @@ export function populateGrid(n) {
                         document.body.appendChild(zoomedCont)
                         x2.addEventListener('click', () => {
                             fl = false
-                            const elements = document.getElementsByClassName('zoomed-in')
+                            const elements =
+                                document.getElementsByClassName('zoomed-in')
                             const el = document.getElementsByClassName('x2')
-                            const con = document.getElementsByClassName('zoomed-container')
+                            const con =
+                                document.getElementsByClassName(
+                                    'zoomed-container'
+                                )
                             elements[0].parentNode.removeChild(elements[0])
                             el[0].parentNode.removeChild(el[0])
                             const blurred = document.body.children
@@ -2251,7 +2269,7 @@ export function newSelect(button) {
 
 export function switchLang(target) {
     if (target == 'ar') {
-        srch.setAttribute('placeholder', 'ابحث هنا..')
+        srch.setAttribute('placeholder', 'ابحث عن كود..')
         ftr.textContent = 'جميع الحقوق محفوظة'
         for (let i = 0; i < navBtns.length; i++) {
             const btn = navBtns[i]
@@ -2268,7 +2286,7 @@ export function switchLang(target) {
         nameA.textContent = 'المهندس/ أمجد كمال'
         cartImg.setAttribute('title', 'عرض عربة التسوق')
     } else {
-        srch.setAttribute('placeholder', 'Search here..')
+        srch.setAttribute('placeholder', 'Search for a code..')
         ftr.textContent = 'All Rights Reserved.'
         for (let i = 0; i < navBtns.length; i++) {
             const btn = navBtns[i]
@@ -2293,49 +2311,48 @@ export function navigateToView(view, stateObj, i = 0) {
     // url.pathname = `/${view}`
     history.pushState(stateObj, ``, url.toString())
     if (i == 100) {
-        populateItem(currItem[0],currItem[1])
+        populateItem(currItem[0], currItem[1])
     } else {
         populateGrid(stateObj.param)
     }
 }
 
 const handlePopstate = () => {
-    const url = new URL(window.location.href);
-    const stateName = url.pathname.slice(1);
-    const stateObj = history.state;
-  
+    const url = new URL(window.location.href)
+    const stateName = url.pathname.slice(1)
+    const stateObj = history.state
+
     switch (stateName) {
         case 'home':
-            populateGrid(0);
-            break;
+            populateGrid(0)
+            break
         case 'livingrooms':
-            populateGrid(1);
-            break;
+            populateGrid(1)
+            break
         case 'dressings':
-            populateGrid(2);
-            break;
+            populateGrid(2)
+            break
         case 'adults-bedrooms':
-            populateGrid(3);
-            break;
+            populateGrid(3)
+            break
         case 'kids-bedrooms':
-            populateGrid(4);
-            break;
+            populateGrid(4)
+            break
         // Add more cases for other states
         default:
             if (stateObj && stateObj.currentView) {
-                const { currentView, param } = stateObj;
+                const { currentView, param } = stateObj
                 if (param === 100) {
-                    populateItem(currentView);
+                    populateItem(currentView)
                 } else {
                     // Handle other cases here
                 }
             } else {
                 // Handle invalid states here
             }
-            break;
+            break
     }
-};
-  
+}
 
 window.addEventListener('popstate', (e) => {
     if (document.getElementById('close-zoom')) {
