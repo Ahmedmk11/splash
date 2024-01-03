@@ -1653,7 +1653,7 @@ export function goHome() {
     const aboutus = document.createElement('div')
     const aboutusP = document.createElement('h2')
     const contactusP = document.createElement('h2')
-    const bodyP = document.createElement('p')
+    const bodyP = document.createElement('h2')
     const contactinfo = document.createElement('div')
     let emailP = document.createElement('p')
     let phoneP = document.createElement('p')
@@ -1686,6 +1686,7 @@ export function goHome() {
     aboutus.id = 'aboutus'
     contactinfo.id = 'contactinfo'
     locationdiv.id = 'map-cont'
+    bodyP.id = 'bodyp'
 
     if (document.body.classList.contains('en')) {
         mapt.textContent =

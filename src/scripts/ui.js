@@ -42,6 +42,7 @@ import {
 } from './index.js'
 
 logoImg.id = 'logo-img'
+logoImg.alt = 'Splash Logo'
 headerUp.prepend(logoImg)
 clf.append(cartImg)
 clf.append(cartSpan)

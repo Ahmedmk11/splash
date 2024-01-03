@@ -1106,6 +1106,11 @@ select:focus {
         text-decoration: underline;
         text-align: center;
     }
+    #bodyp {
+        text-decoration: none;
+        color: #000;
+        font-size: 1rem;
+    }
     #aboutus {
         padding: 15px;
         background-color: var(--light-color);
