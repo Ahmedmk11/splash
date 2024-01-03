@@ -4,11 +4,14 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
-    watch: true,
-    mode: 'development',
+    watch: false,
+    mode: 'production',
     entry: {
         index: './src/scripts/index.js',
         ui: './src/scripts/ui.js',
+    },
+    performance: {
+        hints: false,
     },
     devtool: 'inline-source-map',
     devServer: {
